@@ -3,7 +3,7 @@
 Forked from https://gitee.com/chaos-chou/gouyan
 
 #### 介绍
-基于SpringBoot + Vue 的电影后台管理系统
+基于SpringBoot + Vue 的电影售票系统和影院后台管理系统
 
 # 程序运行环境说明
 
