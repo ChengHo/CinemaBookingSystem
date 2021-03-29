@@ -1,0 +1,40 @@
+### 添加请求
+POST http://localhost:8181/sysBill
+Content-Type: application/json
+
+{
+  "sysBill":{
+  "billState": true,
+  "userId": 1,
+  "sessionId": 6,
+  "seats": "[\"3排4号\",\"2排5号\"]"
+  },
+  "sessionSeats": "{\"1\": [0, 0, 0, 0, 0], \"2\": [0, 0, 0, 0, 1], \"3\": [0, 0, 0, 1, 0]}"
+}
+
+
+
+
+### 查询所有
+GET http://localhost:8181/sysBill?billDate=2020-12-1
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8181/sysBill/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysBill
+Content-Type: application/json
+
+{
+  "billId": 1,
+  "billState":  true,
+  "seats": "[\"1排4号\",\"1排1号\"]"
+}
+
+### 删除
+DELETE http://localhost:8181/sysBill/3,4
+
+### 返回今日票房
+GET http://localhost:8181/todayBoxOffice

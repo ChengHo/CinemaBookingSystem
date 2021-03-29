@@ -1,0 +1,35 @@
+/*全局样式*/
+
+html, body, #app{
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+}
+
+.el-breadcrumb{
+    margin: 15px 0 10px 15px;
+    /*margin-bottom: 15px;*/
+    font-size: 10px;
+}
+
+.el-card{
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15) !important;
+    border-top: gray solid 0;
+    border-radius: 0px !important;
+}
+
+.board{
+    margin-top: 0px;
+    border-bottom: gray solid 0;
+    background-color: white;
+    padding: 5px 5px;
+}
+
+.el-table{
+    margin-top: 15px;
+    font-size: 40px;
+}
+
+.el-pagination {
+    margin-top: 15px;
+}

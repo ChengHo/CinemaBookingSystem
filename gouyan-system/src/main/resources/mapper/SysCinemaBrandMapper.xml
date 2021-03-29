@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysCinemaBrandMapper">
+
+    <select id="findAll" resultType="SysCinemaBrand">
+        select * from sys_cinema_brand
+    </select>
+
+    <select id="findById" resultType="SysCinemaBrand" parameterType="long">
+        select * from sys_cinema_brand where cinema_brand_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysCinemaBrand">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="cinemaBrandId" keyColumn="cinema_brand_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into sys_cinema_brand(cinema_brand_name) values(#{cinemaBrandName})
+    </update>
+
+    <update id="update" parameterType="SysCinemaBrand">
+        update sys_cinema_brand set cinema_brand_name = #{cinemaBrandName} where cinema_brand_id = #{cinemaBrandId}
+    </update>
+
+    <update id="delete" parameterType="Long">
+        delete from sys_cinema_brand where cinema_brand_id = #{id}
+    </update>
+
+</mapper>

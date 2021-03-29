@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysMovieRuntimeMapper">
+    <select id="findAll" resultType="SysMovieRuntime">
+        select * from sys_movie_runtime
+    </select>
+
+    <select id="findById" resultType="SysMovieRuntime" parameterType="long">
+        select * from sys_movie_runtime where movie_runtime_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysMovieRuntime">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="movieRuntimeId" keyColumn="movie_runtime_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into sys_movie_runtime(movie_runtime_name, begin_time, end_time) values(#{movieRuntimeName}, #{beginTime}, #{endTime})
+    </update>
+
+    <update id="update" parameterType="SysMovieRuntime">
+        update sys_movie_runtime set movie_runtime_name = #{movieRuntimeName}, begin_time = #{beginTime}, end_time = #{endTime} where movie_runtime_id = #{movieRuntimeId}
+    </update>
+
+    <update id="delete" parameterType="Long">
+        delete from sys_movie_runtime where movie_runtime_id = #{movieRuntimeId}
+    </update>
+</mapper>

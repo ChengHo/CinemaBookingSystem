@@ -1,0 +1,22 @@
+### 添加请求
+POST http://localhost:8181/sysUserHobby
+Content-Type: application/json
+
+{"userHobbyName":"test0"}
+
+### 查询所有
+GET http://localhost:8181/sysUserHobby?pageSize=20&orderByColumn=userHobbyName&isAsc=desc
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8181/sysUserHobby/3
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysUserHobby
+Content-Type: application/json
+
+{"userHobbyId":3,"userHobbyName":"修改0测试"}
+
+### 删除
+DELETE http://localhost:8181/sysUserHobby/6,7,8

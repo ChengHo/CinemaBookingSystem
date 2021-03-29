@@ -1,0 +1,38 @@
+### 添加请求
+POST http://localhost:8181/sysResource
+Content-Type: application/json
+
+{
+  "id": 15,
+  "name": "瞎管理",
+  "path": "/xiajb",
+  "parentId": 1
+}
+
+### 查询所有
+GET http://localhost:8181/sysResource
+Accept: application/json
+
+### 查询所有资源包含其子菜单
+GET http://localhost:8181/sysResource/children
+
+### 按层级查询所有权限
+GET http://localhost:8181/sysResource/tree
+
+### 查询一个
+GET http://localhost:8181/sysResource/11
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysResource
+Content-Type: application/json
+
+{
+  "id": 15,
+  "name": "修改0测试",
+  "path": "测试path",
+  "parentId": 2
+}
+
+### 删除
+DELETE http://localhost:8181/sysResource/15

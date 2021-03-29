@@ -1,0 +1,22 @@
+### 添加请求
+POST http://localhost:8181/sysCinemaArea
+Content-Type: application/json
+
+{"province":"辽宁省","city":"大连市","cinemaAreaName":"甘井子区"}
+
+### 查询所有
+GET http://localhost:8181/sysCinemaArea?pageSize=6&orderByColumn=cinemaAreaName
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8181/sysCinemaArea/3
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysCinemaArea
+Content-Type: application/json
+
+{"cinemaAreaId":3,"cinemaAreaName":"旅顺区", "province": "辽宁省", "city": "大连市"}
+
+### 删除
+DELETE http://localhost:8181/sysCinemaArea/6

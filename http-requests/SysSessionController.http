@@ -1,0 +1,49 @@
+### 添加请求
+POST http://localhost:8181/sysSession
+Content-Type: application/json
+
+{
+  "cinemaId": 1,
+  "hallId": 3,
+  "languageVersion": "国语3D",
+  "movieId": 1,
+  "movieRuntimeId": 3,
+  "sessionDate": "2020-11-26",
+  "sessionState": true,
+  "sessionPrice": 45.0,
+  "sessionTips": "观影请佩戴口罩",
+  "sessionSeats": "{\"A\": [0,0,0,0,0],\"B\": [0,0,0,0,0],\"C\": [0,0,0,1,0]}"
+}
+
+
+
+
+### 查询所有
+GET http://localhost:8181/sysSession?cinemaId=1&hallId=1
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8181/sysSession/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysSession
+Content-Type: application/json
+
+{
+  "sessionId": 2,
+  "cinemaId": 1,
+  "hallId": 1,
+  "languageVersion": "国语3D",
+  "movieId": 1,
+  "movieRuntimeId": 1,
+  "sessionDate": "2020-11-26",
+  "sessionState": true,
+  "sessionPrice": 34.0,
+  "sessionTips": null,
+  "sessionSeats": "{\"A\": [0,0,0,0,0],\"B\": [0,0,0,0,0],\"C\": [0,0,0,1,0]}"
+}
+
+### 删除
+DELETE http://localhost:8181/sysSession/9
+

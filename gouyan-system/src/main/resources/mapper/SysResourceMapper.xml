@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysResourceMapper">
+
+    <resultMap id="findAllMap" type="SysResource">
+        <id property="id" column="resource_id"></id>
+        <result property="name" column="resource_name"></result>
+        <result property="path" column="path"></result>
+        <result property="level" column="level"></result>
+        <result property="parentId" column="parent_id"></result>
+        <association property="parent" column="parent_id">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+            <result property="path" column="cpath"></result>
+            <result property="level" column="level"></result>
+            <result property="parentId" column="cparent_id"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="findWithChildrenMap" type="SysResource">
+        <id property="id" column="resource_id"></id>
+        <result property="name" column="resource_name"></result>
+        <result property="path" column="path"></result>
+        <result property="level" column="level"></result>
+        <result property="parentId" column="parent_id"></result>
+        <collection property="children" column="resource_id" ofType="SysResource">
+            <id property="id" column="cid"></id>
+            <result property="name" column="cname"></result>
+            <result property="path" column="cpath"></result>
+            <result property="level" column="level"></result>
+            <result property="parentId" column="cparent_id"></result>
+        </collection>
+    </resultMap>
+
+    <resultMap id="allChildrenMap" type="SysResource">
+        <id property="id" column="resource_id"></id>
+        <result property="name" column="resource_name"></result>
+        <result property="path" column="path"></result>
+        <result property="level" column="level"></result>
+        <result property="parentId" column="parent_id"></result>
+        <collection property="children" column="resource_id" ofType="SysResource">
+            <id property="id" column="sid"></id>
+            <result property="name" column="sname"></result>
+            <result property="path" column="spath"></result>
+            <result property="level" column="slevel"></result>
+            <result property="parentId" column="sparent_id"></result>
+            <collection property="children" column="resource_id" ofType="SysResource">
+                <id property="id" column="gsid"></id>
+                <result property="name" column="gsname"></result>
+                <result property="path" column="gspath"></result>
+                <result property="level" column="gslevel"></result>
+                <result property="parentId" column="gsparent_id"></result>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="findAllMap">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.parent_id cparent_id
+        from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id
+    </select>
+
+    <select id="findWithChildren" resultMap="findWithChildrenMap">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.level clevel, sr1.path cpath, sr1.parent_id cparent_id
+        from sys_resource sr join sys_resource sr1 on sr.resource_id = sr1.parent_id where sr.level = 1
+    </select>
+
+    <select id="findByParentId" resultType="SysResource">
+        select * from sys_resource where parent_id = #{id}
+    </select>
+
+    <select id="findAllWithAllChildren" resultMap="allChildrenMap">
+        select sr.*, sr1.resource_id sid, sr1.resource_name sname, sr1.path spath, sr1.level slevel, sr1.parent_id sparent_id,
+        sr2.resource_id gsid, sr2.resource_name gsname, sr2.path gspath, sr2.level gslevel, sr2.parent_id gsparent_id from sys_resource sr
+        left join sys_resource sr1 on sr1.parent_id = sr.resource_id
+        left join sys_resource sr2 on sr2.parent_id = sr1.resource_id
+        where sr.level = 1
+    </select>
+
+    <select id="findById" resultMap="findAllMap" parameterType="long">
+        select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.level clevel, sr1.parent_id cparent_id
+        from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id where sr.resource_id = #{id}
+    </select>
+
+    <update id="add" parameterType="SysResource">
+        insert into sys_resource(
+        <if test="id != null and id != 0">resource_id, </if>
+        resource_name, path, level, parent_id)
+        values(
+        <if test="id != null and id != 0">#{id}, </if>
+        #{name}, #{path}, #{level}, #{parentId})
+    </update>
+
+    <update id="update" parameterType="SysResource">
+        update sys_resource set resource_name = #{name}, path = #{path}, level = #{level}, parent_id = #{parentId} where resource_id = #{id}
+    </update>
+
+    <update id="delete" parameterType="Long">
+        delete from sys_resource where resource_id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,22 @@
+### 查询所有
+GET http://localhost:8181/sysCinemaBrand?pageNum=1&pageSize=5
+Accept: application/json
+
+### 查询一个
+GET http://localhost:8181/sysCinemaBrand/2
+Accept: application/json
+
+### 修改
+PUT http://localhost:8181/sysCinemaBrand
+Content-Type: application/json
+
+{"cinemaBrandId":19,"cinemaBrandName":"修改测试"}
+
+### 删除
+DELETE http://localhost:8181/sysCinemaBrand/19,20
+
+### 添加请求
+POST http://localhost:8181/sysCinemaBrand
+Content-Type: application/json
+
+{"cinemaBrandName":"历史"}

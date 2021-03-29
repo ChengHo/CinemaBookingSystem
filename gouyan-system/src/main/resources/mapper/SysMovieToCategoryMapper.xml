@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysMovieToCategoryMapper">
+
+    <select id="findAll" parameterType="SysMovieToCategory" resultType="SysMovieToCategory">
+        select * from sys_movie_to_category
+        <where>
+            <if test="movieId != null and movieId != 0">and movie_id = #{movieId} </if>
+            <if test="movieCategoryId != null and movieCategoryId != 0">and movie_category_id = #{movieCategoryId} </if>
+        </where>
+    </select>
+
+    <update id="add" parameterType="SysMovieToCategory">
+        insert into sys_movie_to_category values(#{movieId}, #{movieCategoryId})
+    </update>
+
+    <update id="delete" parameterType="SysMovieToCategory">
+        delete from sys_movie_to_category where movie_id = #{movieId} and movie_category_id = #{movieCategoryId}
+    </update>
+
+</mapper>
