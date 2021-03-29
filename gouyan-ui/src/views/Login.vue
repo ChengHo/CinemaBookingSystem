@@ -6,7 +6,7 @@
 <!--        <img src="../assets/loginLogo.jpg">-->
 <!--      </div>-->
       <div class="title_box">
-        <p>影院后台管理系统</p>
+        <p>影院管理系统</p>
       </div>
       <!-- 登录表单区域 -->
       <el-form class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
@@ -87,14 +87,14 @@ export default {
         if(!valid) return;
         axios.defaults.headers.post['Content-Type'] = 'application/json'
         const { data: res} = await axios.post('sysUser/login', JSON.stringify(this.loginForm));
-        if(res.code != 200) return this.$message.error(res.msg);
+          if(res.code != 200) return this.$message.error(res.msg);
         //控制登录权限
         if(res.data.sysUser.sysRole.children === null || res.data.sysUser.sysRole.children[0] === null){
           this.$message.error("抱歉，您没有权限登录，请联系管理员获取权限")
           return
         }
         this.$message.success("登录成功");
-        console.log(res.data);
+        // console.log(res.data);
         //保存token
         window.sessionStorage.setItem("token", res.data.token);
         window.sessionStorage.setItem("loginUser", JSON.stringify({sysUser : res.data.sysUser, cinemaId : res.data.cinemaId, cinemaName : res.data.cinemaName}));
