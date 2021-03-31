@@ -2,8 +2,11 @@
   <div class="login_container">
     <div class="login_box">
       <!-- 头像区域 -->
-      <div class="avatar_box">
-        <img src="../assets/logo.jpg">
+<!--      <div class="avatar_box">-->
+<!--        <img src="../assets/logo.jpg">-->
+<!--      </div>-->
+      <div class="title_box">
+        <p>用户登录</p>
       </div>
       <!-- 登录表单区域 -->
       <el-form class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
@@ -133,6 +136,11 @@ export default {
   height: 100%;
   border-radius: 50%;
   background-color: #eee;
+}
+
+.title_box{
+  text-align: center;
+  font-size: 200%;
 }
 
 .login_form{
