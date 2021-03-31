@@ -102,7 +102,7 @@ export default {
 
 <style scoped>
 .login_container{
-  background: url("../assets/login-background3.jpg");
+  background: url("../assets/login-background.jpg");
   background-size: cover;
   height: 100%;
 }
