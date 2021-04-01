@@ -27,6 +27,7 @@ import UserInfo from "@/views/user/UserInfo";
 import ResourceInfo from "@/views/role/ResourceInfo";
 import RoleInfo from "@/views/role/RoleInfo";
 import Error404 from "@/views/Error404";
+import LogInfo from "@/views/log/LogInfo";
 
 Vue.use(VueRouter)
 
@@ -64,7 +65,8 @@ const routes = [
       { path: '/bill', component: BillInfo, meta: { btnPermission: 'admin' }},
       { path: '/hobby', component: UserHobby, meta: { btnPermission: 'admin' }},
       { path: '/role', component: RoleInfo, meta: { btnPermission: 'admin' }},
-      { path: '/resource', component: ResourceInfo, meta: { btnPermission: 'admin' }}
+      { path: '/resource', component: ResourceInfo, meta: { btnPermission: 'admin' }},
+      { path: '/log', component: LogInfo, meta: { btnPermission: 'admin' }}
     ]
   },
   {

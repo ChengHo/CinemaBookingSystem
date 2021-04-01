@@ -63,7 +63,8 @@ export default {
         '4': 'el-icon-message-solid',
         '5': 'el-icon-s-custom',
         '6': 'el-icon-user-solid',
-        '7': 'el-icon-warning'
+        '7': 'el-icon-warning',
+        '8': 'el-icon-edit'
       },
       isCollapsed: false
     }

@@ -20,8 +20,8 @@
         </el-form-item>
         <!-- 按扭区域 -->
         <el-form-item class="btns">
-          <el-button size="medium" :round="true" type="primary" @click="useVerify">点击登录</el-button>
-<!--          <el-button size="medium" :round="true" type="primary" @click="login">点击登录</el-button>-->
+<!--          <el-button size="medium" :round="true" type="primary" @click="useVerify">点击登录</el-button>-->
+          <el-button size="medium" :round="true" type="primary" @click="login">点击登录</el-button>
           <el-button size="medium" :round="true" type="info" @click="resetLoginForm">恢复默认</el-button>
         </el-form-item>
       </el-form>

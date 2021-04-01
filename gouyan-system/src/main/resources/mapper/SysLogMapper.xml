@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gouyan.system.mapper.SysLogMapper">
+
+
+    <select id="findAll" resultType="SysLog">
+        select * from sys_log
+    </select>
+
+<!--    <resultMap id="loginUserMap" type="LoginUser">-->
+<!--        <id property="sysUser.userId" column="user_id"></id>-->
+<!--        <result property="sysUser.userName" column="user_name"></result>-->
+<!--        <result property="sysUser.password" column="password"></result>-->
+<!--        <result property="sysUser.salt" column="salt"></result>-->
+<!--        <result property="sysUser.email" column="email"></result>-->
+<!--        <result property="sysUser.phoneNumber" column="phone_number"></result>-->
+<!--        <result property="sysUser.sex" column="sex"></result>-->
+<!--        <result property="sysUser.userPicture" column="user_picture"></result>-->
+<!--        <result property="sysUser.information" column="information"></result>-->
+<!--        <result property="sysUser.roleId" column="role_id"></result>-->
+<!--        <result property="cinemaId" column="cinema_id"></result>-->
+<!--        <result property="cinemaName" column="cinema_name"></result>-->
+<!--        <association property="sysUser.sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>-->
+<!--        <association property="sysUser.sysRole.children" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findByRoleId"></association>-->
+<!--    </resultMap>-->
+
+</mapper>
