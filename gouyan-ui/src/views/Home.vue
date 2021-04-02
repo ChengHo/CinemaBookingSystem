@@ -75,6 +75,7 @@ export default {
   },
   methods:{
     logout(){
+      axios.get('sysUser/logout');
       //清空sessionStorage
       window.sessionStorage.clear();
       this.$router.push('/login')

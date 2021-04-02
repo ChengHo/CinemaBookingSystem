@@ -1,0 +1,160 @@
+19:21:33.618 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 19820 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+19:21:33.623 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+19:21:33.633 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+19:21:35.659 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+19:21:36.095 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+19:21:38.371 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+19:21:38.373 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+19:21:38.374 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+19:21:38.607 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+19:21:38.829 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+19:21:38.835 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+19:21:38.841 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+19:21:38.984 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+19:21:38.984 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+19:21:38.985 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+19:21:39.000 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:21:40.444 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+19:21:40.484 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 8.284 seconds (JVM running for 11.48)
+19:24:39.009 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:27:39.011 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:30:39.011 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:31:28.038 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+19:31:28.070 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed
+19:31:39.639 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 23344 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+19:31:39.644 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+19:31:39.649 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+19:31:41.703 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+19:31:42.147 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+19:31:44.560 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+19:31:44.562 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+19:31:44.565 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+19:31:44.840 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+19:31:45.091 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+19:31:45.095 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+19:31:45.106 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+19:31:45.335 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+19:31:45.336 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+19:31:45.337 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+19:31:45.353 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:31:46.919 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+19:31:46.969 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 8.497 seconds (JVM running for 12.308)
+19:32:14.806 [http-nio-8181-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:34:45.353 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:36:18.805 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+19:36:18.816 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed
+19:36:32.956 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 8568 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+19:36:32.963 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+19:36:32.967 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+19:36:34.953 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+19:36:35.408 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+19:36:37.771 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+19:36:37.772 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+19:36:37.772 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+19:36:37.977 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+19:36:38.292 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+19:36:38.298 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+19:36:38.321 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+19:36:38.435 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+19:36:38.435 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+19:36:38.436 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+19:36:38.439 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:36:39.776 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+19:36:39.818 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 7.841 seconds (JVM running for 11.202)
+19:36:58.380 [http-nio-8181-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:40:54.932 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:44:01.313 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:48:16.802 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:51:16.811 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:54:16.820 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:56:41.063 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+19:56:41.066 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed
+19:56:51.314 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 26600 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+19:56:51.320 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+19:56:51.328 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+19:56:53.747 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+19:56:54.191 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+19:56:56.889 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+19:56:56.890 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+19:56:56.890 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+19:56:57.136 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+19:56:57.288 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+19:56:57.293 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+19:56:57.299 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+19:56:57.401 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+19:56:57.401 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+19:56:57.402 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+19:56:57.404 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+19:56:58.824 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+19:56:58.865 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 8.759 seconds (JVM running for 12.543)
+19:57:16.343 [http-nio-8181-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:59:57.407 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:02:57.413 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:05:57.414 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:08:57.428 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:11:57.443 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:14:57.448 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:14:57.650 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+20:14:57.653 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed
+20:15:07.077 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 6788 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+20:15:07.082 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+20:15:07.091 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+20:15:09.325 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+20:15:09.761 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+20:15:12.016 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+20:15:12.017 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:15:12.018 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+20:15:12.174 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:15:12.341 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+20:15:12.346 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+20:15:12.352 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+20:15:12.450 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+20:15:12.450 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+20:15:12.450 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+20:15:12.453 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:15:14.416 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+20:15:14.469 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 8.846 seconds (JVM running for 11.655)
+20:15:25.629 [http-nio-8181-exec-10] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:16:05.612 [http-nio-8181-exec-9] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:16:09.644 [http-nio-8181-exec-7] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:16:12.386 [http-nio-8181-exec-3] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:17:07.638 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+20:17:07.648 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed
+20:35:23.270 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarting,55] - Starting GouyanAdminApplication using Java 1.8.0_201 on dell with PID 8780 (D:\__study\web\Film\gouyan-200210118\gouyan\gouyan-admin\target\classes started by dell in D:\__study\web\Film\gouyan-200210118\gouyan)
+20:35:23.274 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStartupProfileInfo,664] - The following profiles are active: druid
+20:35:23.310 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 6.1.6.Final
+20:35:25.795 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,56] - Init DruidDataSource
+20:35:26.227 [restartedMain] INFO  c.a.d.p.DruidDataSource - [init,985] - {dataSource-1} inited
+20:35:29.145 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8181"]
+20:35:29.147 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:35:29.148 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.39]
+20:35:29.352 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:35:29.552 [restartedMain] INFO  c.a.c.c.AjCaptchaServiceAutoConfiguration - [captchaService,33] - 自定义配置项：AjCaptchaProperties{type=DEFAULT, jigsaw='', picClick='', waterMark='', waterFont='宋体', fontType='宋体', slipOffset='5', aesStatus=true, interferenceOptions='0', cacheNumber='1000', timingClear='180', cacheType=local}
+20:35:29.557 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,42] - supported-captchaCache-service:[local]
+20:35:29.565 [restartedMain] INFO  c.a.c.s.i.CaptchaServiceFactory - [<clinit>,48] - supported-captchaTypes-service:[clickWord, default, blockPuzzle]
+20:35:29.686 [restartedMain] INFO  c.a.c.u.ImageUtils - [cacheImage,47] - 初始化底图:{"SLIDING_BLOCK":["1.png","3.png","5.png","2.png","4.png","6.png"],"ORIGINAL":["1.png","3.png","5.png","2.png","4.png","6.png"],"PIC_CLICK":["1.png","3.png","5.png","2.png","4.png","6.png"]}
+20:35:29.686 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,72] - --->>>初始化验证码底图<<<---
+20:35:29.687 [restartedMain] INFO  c.a.c.s.i.AbstractCaptchaService - [init,81] - 初始化local缓存...
+20:35:29.691 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:35:31.224 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8181"]
+20:35:31.263 [restartedMain] INFO  c.g.GouyanAdminApplication - [logStarted,61] - Started GouyanAdminApplication in 9.447 seconds (JVM running for 13.665)
+20:35:48.383 [http-nio-8181-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:35:53.372 [http-nio-8181-exec-5] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:27.251 [http-nio-8181-exec-7] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:30.683 [http-nio-8181-exec-8] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.348 [http-nio-8181-exec-1] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.361 [http-nio-8181-exec-5] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.377 [http-nio-8181-exec-2] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.409 [http-nio-8181-exec-6] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.425 [http-nio-8181-exec-8] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:36:37.429 [http-nio-8181-exec-7] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:37:44.375 [http-nio-8181-exec-7] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:03.649 [http-nio-8181-exec-1] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:10.464 [http-nio-8181-exec-9] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:18.329 [http-nio-8181-exec-5] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:19.218 [http-nio-8181-exec-2] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:19.840 [http-nio-8181-exec-7] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:38:29.693 [Timer-0] INFO  c.a.c.util.CacheUtil - [refresh,50] - local缓存刷新,清除过期数据
+20:38:48.173 [http-nio-8181-exec-1] INFO  c.g.c.utils.JwtUtil - [verify,38] - 登录验证成功!
+20:39:31.062 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2032] - {dataSource-1} closing ...
+20:39:31.067 [SpringContextShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2104] - {dataSource-1} closed

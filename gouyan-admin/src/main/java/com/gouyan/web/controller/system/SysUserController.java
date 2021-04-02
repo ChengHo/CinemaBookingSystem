@@ -8,12 +8,15 @@ import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.domin.vo.SysUserVo;
 import com.gouyan.system.service.impl.SysUserServiceImpl;
 import com.gouyan.web.controller.BaseController;
+import com.gouyan.web.controller.annotation.Log;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +27,15 @@ import java.util.List;
  * @author lxd
  * @create 2020-11-22 21:52
  */
+
 @RestController
 public class SysUserController extends BaseController {
     @Autowired
     private SysUserServiceImpl sysUserService;
+
+    Logger logger = LoggerFactory.getLogger(SysUserController.class);
+
+    @RequestMapping("/login")
 
     @GetMapping("/sysUser")
     public ResponseResult findAll(SysUser sysUser){
@@ -62,8 +70,14 @@ public class SysUserController extends BaseController {
     }
 
     //用户登录
+    @Log(value = "用户登录")
     @RequestMapping("/sysUser/login")
     public ResponseResult login(@RequestBody SysUserVo sysUserVo){
         return getResult(sysUserService.login(sysUserVo));
+    }
+    @Log(value = "退出登录")
+    @RequestMapping("/sysUser/logout")
+    public void logout(){
+        logger.debug("用户退出系统");
     }
 }

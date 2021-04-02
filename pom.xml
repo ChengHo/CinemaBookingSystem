@@ -14,7 +14,7 @@
 	<packaging>pom</packaging>
 
 	<name>gouyan</name>
-	<description>狗眼电影在线售票系统</description>
+	<description>电影售票系统</description>
 
 	<!--加入子模块-->
 	<modules>
@@ -40,6 +40,7 @@
 		<java-jwt.version>3.4.0</java-jwt.version>
 		<captcha.verions>1.2.4</captcha.verions>
 		<fastjson.version>1.2.74</fastjson.version>
+		<aop.version>2.4.0</aop.version>
 	</properties>
 
 	<!-- 只统一管理版本，实际依赖在各个模块自身中实现 -->
@@ -79,6 +80,13 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>${servlet.version}</version>
+			</dependency>
+
+			<!-- Spring AOP -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-aop</artifactId>
+				<version>${aop.version}</version>
 			</dependency>
 
 			<dependency>

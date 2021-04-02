@@ -9,6 +9,15 @@
         select * from sys_log
     </select>
 
+    <insert id="insert" parameterType="SysLog">
+        <!-- 将添加后的主键id传回原对象 -->
+        insert into sys_log (
+        description,user_name,start_time,spend_time,base_path,req_uri,method,user_agent,ip,result
+        ) values (
+        #{description},#{userName},#{startTime},#{spendTime},#{basePath},#{reqUrl},#{method},#{userAgent},#{ip},#{result}
+        )
+    </insert>
+
 <!--    <resultMap id="loginUserMap" type="LoginUser">-->
 <!--        <id property="sysUser.userId" column="user_id"></id>-->
 <!--        <result property="sysUser.userName" column="user_name"></result>-->

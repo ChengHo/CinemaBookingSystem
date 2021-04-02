@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface SysLogService {
     List<SysLog> findAll();
+
+    void insert(SysLog sysLog);
 }

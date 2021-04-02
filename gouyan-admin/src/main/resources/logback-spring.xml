@@ -5,8 +5,8 @@
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
     <conversionRule conversionWord="wEx"
                     converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
-    <!-- 日志存放路径 -->
-    <property name="log.path" value="/IdeaProjects/gouyan/logs" />
+    <!--日志存放路径 勿在 LogBack 的配置中使用相对路径-->
+    <property name="log.path" value="D:/__study/web/Film/gouyan-200210118/gouyan/logs" />
     <!-- 日志输出格式 -->
     <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
 

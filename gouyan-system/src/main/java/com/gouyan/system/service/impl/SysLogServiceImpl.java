@@ -22,4 +22,9 @@ public class SysLogServiceImpl implements SysLogService {
     public List<SysLog> findAll() {
         return sysLogMapper.findAll();
     }
+
+    @Override
+    public void insert(SysLog sysLog) {
+        sysLogMapper.insert(sysLog);
+    }
 }
