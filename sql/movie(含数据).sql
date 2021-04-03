@@ -1,33 +1,109 @@
-﻿/*
+/*
  Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
+ Source Server         : mysql
  Source Server Type    : MySQL
- Source Server Version : 80020
+ Source Server Version : 50722
  Source Host           : localhost:3306
  Source Schema         : movie
 
  Target Server Type    : MySQL
- Target Server Version : 80020
+ Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 31/12/2020 12:43:23
+ Date: 04/04/2021 01:15:12
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for logging_event
+-- ----------------------------
+DROP TABLE IF EXISTS `logging_event`;
+CREATE TABLE `logging_event`  (
+  `timestmp` bigint(20) NOT NULL,
+  `formatted_message` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `logger_name` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `level_string` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `thread_name` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `reference_flag` smallint(6) NULL DEFAULT NULL,
+  `arg0` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `arg1` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `arg2` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `arg3` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `caller_filename` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `caller_class` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `caller_method` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `caller_line` char(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `event_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`event_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of logging_event
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for logging_event_exception
+-- ----------------------------
+DROP TABLE IF EXISTS `logging_event_exception`;
+CREATE TABLE `logging_event_exception`  (
+  `event_id` bigint(20) NOT NULL,
+  `i` smallint(6) NOT NULL,
+  `trace_line` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`event_id`, `i`) USING BTREE,
+  CONSTRAINT `logging_event_exception_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `logging_event` (`event_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of logging_event_exception
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for logging_event_property
+-- ----------------------------
+DROP TABLE IF EXISTS `logging_event_property`;
+CREATE TABLE `logging_event_property`  (
+  `event_id` bigint(20) NOT NULL,
+  `mapped_key` varchar(254) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `mapped_value` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  PRIMARY KEY (`event_id`, `mapped_key`) USING BTREE,
+  CONSTRAINT `logging_event_property_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `logging_event` (`event_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of logging_event_property
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for operating_record_log
+-- ----------------------------
+DROP TABLE IF EXISTS `operating_record_log`;
+CREATE TABLE `operating_record_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '请求token',
+  `member_id` int(11) NOT NULL DEFAULT 0 COMMENT '用户id',
+  `api_uri` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '接口路径',
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '请求方法',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of operating_record_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_actor
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_actor`;
 CREATE TABLE `sys_actor`  (
-  `actor_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '演员id',
+  `actor_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '演员id',
   `actor_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '演员名字',
   `actor_photo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '演员照片',
   `actor_height` decimal(10, 2) UNSIGNED NULL DEFAULT NULL COMMENT '演员身高',
-  `actor_age` tinyint(0) UNSIGNED NULL DEFAULT NULL COMMENT '演员年龄',
-  `actor_gender` tinyint(0) UNSIGNED NOT NULL COMMENT '演员性别,1为男，0为女',
+  `actor_age` tinyint(3) UNSIGNED NULL DEFAULT NULL COMMENT '演员年龄',
+  `actor_gender` tinyint(3) UNSIGNED NOT NULL COMMENT '演员性别,1为男，0为女',
   `actor_school` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '毕业院校',
   `actor_nation` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '演员民族',
   `actor_blood_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '演员血型',
@@ -35,7 +111,7 @@ CREATE TABLE `sys_actor`  (
   `actor_nationality` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '演员国籍',
   `actor_information` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '演员详细信息',
   PRIMARY KEY (`actor_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_actor
@@ -71,11 +147,11 @@ INSERT INTO `sys_actor` VALUES (25, '王钢', '[\"/images/actor/2020/12/15/3397f
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_actor_movie`;
 CREATE TABLE `sys_actor_movie`  (
-  `movie_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影id',
-  `actor_id` bigint(0) UNSIGNED NOT NULL COMMENT '演员id',
-  `actor_role_Id` bigint(0) UNSIGNED NOT NULL COMMENT '参演角色id',
+  `movie_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影id',
+  `actor_id` bigint(20) UNSIGNED NOT NULL COMMENT '演员id',
+  `actor_role_Id` bigint(20) UNSIGNED NOT NULL COMMENT '参演角色id',
   PRIMARY KEY (`movie_id`, `actor_id`, `actor_role_Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_actor_movie
@@ -171,10 +247,10 @@ INSERT INTO `sys_actor_movie` VALUES (20, 18, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_actor_role`;
 CREATE TABLE `sys_actor_role`  (
-  `actor_role_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '参演角色id',
+  `actor_role_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '参演角色id',
   `actor_role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '参演角色名称',
   PRIMARY KEY (`actor_role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_actor_role
@@ -199,14 +275,14 @@ INSERT INTO `sys_actor_role` VALUES (15, '其他');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_bill`;
 CREATE TABLE `sys_bill`  (
-  `bill_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单id',
-  `bill_state` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单状态，1表示已完成，0表示未支付',
-  `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
-  `session_id` bigint(0) UNSIGNED NOT NULL COMMENT '场次id',
+  `bill_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `bill_state` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单状态，1表示已完成，0表示未支付',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
+  `session_id` bigint(20) UNSIGNED NOT NULL COMMENT '场次id',
   `seats` json NOT NULL COMMENT '购买的座位号，可能为多个，使用json传输',
   `bill_date` datetime(0) NOT NULL COMMENT '订单日期',
   PRIMARY KEY (`bill_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_bill
@@ -222,18 +298,18 @@ INSERT INTO `sys_bill` VALUES (6, 1, 1, 19, '[\"3排4号\", \"2排5号\"]', '202
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_cinema`;
 CREATE TABLE `sys_cinema`  (
-  `cinema_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影院id',
+  `cinema_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影院id',
   `cinema_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '影院名',
-  `cinema_brand_id` bigint(0) UNSIGNED NOT NULL COMMENT '影院品牌id',
+  `cinema_brand_id` bigint(20) UNSIGNED NOT NULL COMMENT '影院品牌id',
   `cinema_picture` json NULL COMMENT '影院图片，json类型存储多张图片',
-  `is_ticket_changed` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '能否改签，1表示可以，0表示不能',
-  `is_refunded` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '能否退款，1表示可以，0表示不能',
-  `cinema_area_id` bigint(0) UNSIGNED NOT NULL COMMENT '所属区域id',
+  `is_ticket_changed` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '能否改签，1表示可以，0表示不能',
+  `is_refunded` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '能否退款，1表示可以，0表示不能',
+  `cinema_area_id` bigint(20) UNSIGNED NOT NULL COMMENT '所属区域id',
   `cinema_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细地址',
-  `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '联系人(负责人)id',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '联系人(负责人)id',
   `entry_date` date NULL DEFAULT NULL COMMENT '影院入驻日期',
   PRIMARY KEY (`cinema_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_cinema
@@ -255,12 +331,12 @@ INSERT INTO `sys_cinema` VALUES (11, '佳兆业国际影城（佳兆业店）', 
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_cinema_area`;
 CREATE TABLE `sys_cinema_area`  (
-  `cinema_area_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键区域id',
+  `cinema_area_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键区域id',
   `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '区域所属省份',
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '区域所属市',
   `cinema_area_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '区域名称',
   PRIMARY KEY (`cinema_area_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_cinema_area
@@ -282,10 +358,10 @@ INSERT INTO `sys_cinema_area` VALUES (11, '辽宁省', '大连市', '金石滩')
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_cinema_brand`;
 CREATE TABLE `sys_cinema_brand`  (
-  `cinema_brand_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影院品牌id',
+  `cinema_brand_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影院品牌id',
   `cinema_brand_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '影院品牌名称',
   PRIMARY KEY (`cinema_brand_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_cinema_brand
@@ -314,18 +390,18 @@ INSERT INTO `sys_cinema_brand` VALUES (18, '其他');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_hall`;
 CREATE TABLE `sys_hall`  (
-  `cinema_id` bigint(0) UNSIGNED NOT NULL COMMENT '影院id',
-  `hall_id` bigint(0) UNSIGNED NOT NULL COMMENT '影厅id',
+  `cinema_id` bigint(20) UNSIGNED NOT NULL COMMENT '影院id',
+  `hall_id` bigint(20) UNSIGNED NOT NULL COMMENT '影厅id',
   `hall_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '影厅名称',
-  `hall_category_id` bigint(0) UNSIGNED NOT NULL COMMENT '影厅类别id',
+  `hall_category_id` bigint(20) UNSIGNED NOT NULL COMMENT '影厅类别id',
   `row_start` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '排开始编号，如1排/A排，默认1排',
-  `row_nums` smallint(0) UNSIGNED NULL DEFAULT 10 COMMENT '排数，默认10',
-  `seat_nums_row` smallint(0) UNSIGNED NULL DEFAULT 18 COMMENT '每排的座位数，默认18',
-  `seat_nums` smallint(0) UNSIGNED NULL DEFAULT 180 COMMENT '总可用座位数，用于判断影厅是否做满，默认180',
+  `row_nums` smallint(5) UNSIGNED NULL DEFAULT 10 COMMENT '排数，默认10',
+  `seat_nums_row` smallint(5) UNSIGNED NULL DEFAULT 18 COMMENT '每排的座位数，默认18',
+  `seat_nums` smallint(5) UNSIGNED NULL DEFAULT 180 COMMENT '总可用座位数，用于判断影厅是否做满，默认180',
   `seat_state` json NULL COMMENT '所有座位的状态，0表示可用，1表示禁用，2表示售出，在场次表中体现',
-  `hall_state` tinyint(0) NULL DEFAULT NULL COMMENT '影厅状态，1表示启用，0表示未启用',
+  `hall_state` tinyint(4) NULL DEFAULT NULL COMMENT '影厅状态，1表示启用，0表示未启用',
   PRIMARY KEY (`cinema_id`, `hall_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_hall
@@ -351,10 +427,10 @@ INSERT INTO `sys_hall` VALUES (5, 2, '2号60帧厅', 13, '1', 10, 10, 100, '{\"1
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_hall_category`;
 CREATE TABLE `sys_hall_category`  (
-  `hall_category_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影厅类别ID',
+  `hall_category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '影厅类别ID',
   `hall_category_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '影厅类别名称',
   PRIMARY KEY (`hall_category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_hall_category
@@ -376,25 +452,50 @@ INSERT INTO `sys_hall_category` VALUES (14, '巨幕厅');
 INSERT INTO `sys_hall_category` VALUES (15, 'MX4D厅');
 
 -- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log`  (
+  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户',
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作描述',
+  `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数',
+  `start_time` timestamp(0) NULL DEFAULT NULL COMMENT '操作时间',
+  `spend_time` int(11) NULL DEFAULT NULL COMMENT '执行时间（ms）',
+  `base_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '根路径',
+  `req_uri` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求路径',
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求方法',
+  `req_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '请求类型',
+  `user_agent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户标识',
+  `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
+  `result` tinyint(255) NULL DEFAULT NULL COMMENT '结果',
+  PRIMARY KEY (`log_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 176 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_movie
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie`;
 CREATE TABLE `sys_movie`  (
-  `movie_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键电影id',
+  `movie_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键电影id',
   `movie_name_cn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '电影中文名',
   `movie_name_en` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '电影英文名',
-  `movie_length` int(0) NULL DEFAULT NULL COMMENT '电影时长(单位: 分钟)',
+  `movie_length` int(11) NULL DEFAULT NULL COMMENT '电影时长(单位: 分钟)',
   `movie_poster` varchar(10000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电影海报',
-  `movie_area_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影区域id',
-  `movie_age_id` bigint(0) UNSIGNED NOT NULL COMMENT '影片年代id',
+  `movie_area_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影区域id',
+  `movie_age_id` bigint(20) UNSIGNED NOT NULL COMMENT '影片年代id',
   `release_date` datetime(0) NULL DEFAULT NULL COMMENT '上映时间',
-  `movie_score` decimal(3, 1) UNSIGNED NOT NULL COMMENT '电影评分',
-  `movie_box_office` decimal(20, 2) UNSIGNED NOT NULL COMMENT '电影总票房',
-  `movie_rate_num` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '评分人数',
+  `movie_score` decimal(3, 1) UNSIGNED NOT NULL DEFAULT 0.0 COMMENT '电影评分',
+  `movie_box_office` decimal(20, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '电影总票房',
+  `movie_rate_num` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '评分人数',
   `movie_introduction` varchar(10000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电影简介',
   `movie_pictures` json NULL COMMENT '电影图集',
   PRIMARY KEY (`movie_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie
@@ -425,10 +526,10 @@ INSERT INTO `sys_movie` VALUES (20, '疯狂动物城', 'Zootopia', 109, '[\"/ima
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_age`;
 CREATE TABLE `sys_movie_age`  (
-  `movie_age_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `movie_age_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `movie_age_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年代名称',
   PRIMARY KEY (`movie_age_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_age
@@ -454,10 +555,10 @@ INSERT INTO `sys_movie_age` VALUES (15, '更早');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_area`;
 CREATE TABLE `sys_movie_area`  (
-  `movie_area_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '电影区域id',
+  `movie_area_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '电影区域id',
   `movie_area_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '电影区域名称',
   PRIMARY KEY (`movie_area_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_area
@@ -486,10 +587,10 @@ INSERT INTO `sys_movie_area` VALUES (18, '其他');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_category`;
 CREATE TABLE `sys_movie_category`  (
-  `movie_category_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键电影类别id',
+  `movie_category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键电影类别id',
   `movie_category_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电影类别名称',
   PRIMARY KEY (`movie_category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_category
@@ -525,13 +626,13 @@ INSERT INTO `sys_movie_category` VALUES (25, '其他');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_comment`;
 CREATE TABLE `sys_movie_comment`  (
-  `movie_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影id',
-  `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
+  `movie_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影id',
+  `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
   `comment_time` datetime(0) NOT NULL COMMENT '评论时间',
   `content` varchar(10000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
   `score` decimal(10, 0) NOT NULL COMMENT '评分',
   PRIMARY KEY (`movie_id`, `user_id`, `comment_time`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_comment
@@ -578,12 +679,12 @@ INSERT INTO `sys_movie_comment` VALUES (20, 1, '2020-12-22 11:13:23', '孩子很
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_runtime`;
 CREATE TABLE `sys_movie_runtime`  (
-  `movie_runtime_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '播放时段id',
+  `movie_runtime_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '播放时段id',
   `movie_runtime_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '播放时段名',
   `begin_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '开始时间',
   `end_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '结束时间',
   PRIMARY KEY (`movie_runtime_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_runtime
@@ -619,10 +720,10 @@ INSERT INTO `sys_movie_runtime` VALUES (25, '晚上10点场', '22:00', '00:05+1'
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_movie_to_category`;
 CREATE TABLE `sys_movie_to_category`  (
-  `movie_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影id',
-  `movie_category_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影类别id',
+  `movie_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影id',
+  `movie_category_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影类别id',
   PRIMARY KEY (`movie_id`, `movie_category_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_movie_to_category
@@ -686,13 +787,13 @@ INSERT INTO `sys_movie_to_category` VALUES (20, 10);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_resource`;
 CREATE TABLE `sys_resource`  (
-  `resource_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '资源id',
+  `resource_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '资源id',
   `resource_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
   `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '菜单路径，用于保存页面地址',
-  `level` int(0) UNSIGNED NOT NULL DEFAULT 1 COMMENT '资源权限等级,1表示该资源为最高级权限',
-  `parent_id` bigint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '当前菜单父菜单id',
+  `level` int(10) UNSIGNED NOT NULL DEFAULT 1 COMMENT '资源权限等级,1表示该资源为最高级权限',
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '当前菜单父菜单id',
   PRIMARY KEY (`resource_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 725 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 812 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_resource
@@ -704,6 +805,7 @@ INSERT INTO `sys_resource` VALUES (4, '场次管理', '', 1, 0);
 INSERT INTO `sys_resource` VALUES (5, '演员管理', '', 1, 0);
 INSERT INTO `sys_resource` VALUES (6, '用户管理', '', 1, 0);
 INSERT INTO `sys_resource` VALUES (7, '权限管理', '', 1, 0);
+INSERT INTO `sys_resource` VALUES (8, '日志管理', '', 1, 0);
 INSERT INTO `sys_resource` VALUES (11, '影院信息管理', 'cinema', 2, 1);
 INSERT INTO `sys_resource` VALUES (12, '影院区域管理', 'cinemaArea', 2, 1);
 INSERT INTO `sys_resource` VALUES (13, '影院品牌管理', 'cinemaBrand', 2, 1);
@@ -723,6 +825,7 @@ INSERT INTO `sys_resource` VALUES (62, '订单信息管理', 'bill', 2, 6);
 INSERT INTO `sys_resource` VALUES (63, '用户爱好管理', 'hobby', 2, 6);
 INSERT INTO `sys_resource` VALUES (71, '角色信息管理', 'role', 2, 7);
 INSERT INTO `sys_resource` VALUES (72, '资源信息管理', 'resource', 2, 7);
+INSERT INTO `sys_resource` VALUES (81, '查看日志', 'log', 2, 8);
 INSERT INTO `sys_resource` VALUES (111, '查询影院信息权限', '', 3, 11);
 INSERT INTO `sys_resource` VALUES (112, '修改影院信息权限', '', 3, 11);
 INSERT INTO `sys_resource` VALUES (121, '查询影院区域权限', '', 3, 12);
@@ -761,17 +864,18 @@ INSERT INTO `sys_resource` VALUES (711, '查询角色信息权限', '', 3, 71);
 INSERT INTO `sys_resource` VALUES (712, '修改角色信息权限', '', 3, 71);
 INSERT INTO `sys_resource` VALUES (721, '查询资源信息权限', '', 3, 72);
 INSERT INTO `sys_resource` VALUES (722, '修改资源信息权限', '', 3, 72);
+INSERT INTO `sys_resource` VALUES (811, '查询日志权限', '', 3, 81);
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
-  `role_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名称',
   `role_desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色描述',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -785,10 +889,10 @@ INSERT INTO `sys_role` VALUES (3, '用户', '用户，仅能使用前台浏览�
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_resource`;
 CREATE TABLE `sys_role_resource`  (
-  `role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
-  `resource_id` bigint(0) UNSIGNED NOT NULL COMMENT '资源id，只以3级权限作为权限判断的依据',
+  `role_id` bigint(20) UNSIGNED NOT NULL COMMENT '角色id',
+  `resource_id` bigint(20) UNSIGNED NOT NULL COMMENT '资源id，只以3级权限作为权限判断的依据',
   PRIMARY KEY (`role_id`, `resource_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_resource
@@ -831,6 +935,7 @@ INSERT INTO `sys_role_resource` VALUES (1, 711);
 INSERT INTO `sys_role_resource` VALUES (1, 712);
 INSERT INTO `sys_role_resource` VALUES (1, 721);
 INSERT INTO `sys_role_resource` VALUES (1, 722);
+INSERT INTO `sys_role_resource` VALUES (1, 811);
 INSERT INTO `sys_role_resource` VALUES (2, 211);
 INSERT INTO `sys_role_resource` VALUES (2, 221);
 INSERT INTO `sys_role_resource` VALUES (2, 231);
@@ -850,20 +955,20 @@ INSERT INTO `sys_role_resource` VALUES (2, 621);
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_session`;
 CREATE TABLE `sys_session`  (
-  `session_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键场次id',
-  `cinema_id` bigint(0) UNSIGNED NOT NULL COMMENT '影院id',
-  `hall_id` bigint(0) UNSIGNED NOT NULL COMMENT '影厅id',
+  `session_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键场次id',
+  `cinema_id` bigint(20) UNSIGNED NOT NULL COMMENT '影院id',
+  `hall_id` bigint(20) UNSIGNED NOT NULL COMMENT '影厅id',
   `language_version` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '该场次语言版本',
-  `movie_id` bigint(0) UNSIGNED NOT NULL COMMENT '电影id',
-  `movie_runtime_id` bigint(0) UNSIGNED NOT NULL COMMENT '放映时段id',
+  `movie_id` bigint(20) UNSIGNED NOT NULL COMMENT '电影id',
+  `movie_runtime_id` bigint(20) UNSIGNED NOT NULL COMMENT '放映时段id',
   `session_date` date NOT NULL COMMENT '场次日期',
-  `session_state` tinyint(0) UNSIGNED NOT NULL COMMENT '场次状态，1表示上映中，0表示已下架',
+  `session_state` tinyint(3) UNSIGNED NOT NULL COMMENT '场次状态，1表示上映中，0表示已下架',
   `session_price` decimal(10, 2) NOT NULL COMMENT '票价',
   `session_tips` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '影厅提示(如是否需要戴口罩，有什么福利，显示在选座购票位置的影厅后边，格式类似：6号Barco厅-（戴口罩勿饮食）凭票领券免费停车3小时)',
   `session_seats` json NOT NULL COMMENT '场次对应座位信息，采用{key: [], key: []}存储每一个座位的状态，其中key表示排，数组(下标+1)表示几号座，存储的值为0表示可选，1表示空(无座位)，值为2表示已选择，值为3表示已售出，',
-  `seat_nums` smallint(0) UNSIGNED NULL DEFAULT 0 COMMENT '该场次售出的座位的个数，用于判断电影票是否售罄',
+  `seat_nums` smallint(5) UNSIGNED NULL DEFAULT 0 COMMENT '该场次售出的座位的个数，用于判断电影票是否售罄',
   PRIMARY KEY (`session_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_session
@@ -887,18 +992,18 @@ INSERT INTO `sys_session` VALUES (28, 1, 1, '国语2D', 8, 4, '2020-12-26', 1, 4
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `user_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名称(用于登录，添加时验证唯一性)',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户登录时所用的密码(密文存储)',
   `salt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '盐',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户邮箱，记录个人信息和发送通知',
   `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户电话号码，用于注册和发送通知',
-  `sex` tinyint(0) UNSIGNED NOT NULL COMMENT '用户性别，1为男性0为女性',
+  `sex` tinyint(3) UNSIGNED NOT NULL COMMENT '用户性别，1为男性0为女性',
   `user_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户头像',
-  `role_id` bigint(0) UNSIGNED NOT NULL DEFAULT 3 COMMENT '用户对应的角色id',
+  `role_id` bigint(20) UNSIGNED NOT NULL DEFAULT 3 COMMENT '用户对应的角色id',
   `information` json NULL COMMENT '存储用户的基本信息，如生日、生活状态(生活状态用字符串表示)、兴趣(兴趣用id数组表示)、个性签名',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
@@ -926,10 +1031,10 @@ INSERT INTO `sys_user` VALUES (22, '用户名', '0d6d63480b1ffd8269b746e7bb959ae
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_hobby`;
 CREATE TABLE `sys_user_hobby`  (
-  `user_hobby_id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '个人爱好id',
+  `user_hobby_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '个人爱好id',
   `user_hobby_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '爱好名称',
   PRIMARY KEY (`user_hobby_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_hobby
@@ -951,5 +1056,3 @@ INSERT INTO `sys_user_hobby` VALUES (14, '时尚');
 INSERT INTO `sys_user_hobby` VALUES (15, '宠物');
 
 SET FOREIGN_KEY_CHECKS = 1;
-alter table sys_movie alter column movie_score set default 0;
-alter table sys_movie alter column movie_box_office set default 0;

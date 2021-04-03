@@ -12,9 +12,9 @@
     <insert id="insert" parameterType="SysLog">
         <!-- 将添加后的主键id传回原对象 -->
         insert into sys_log (
-        description,user_name,start_time,spend_time,base_path,req_uri,method,user_agent,ip,result
+        description,user_name,start_time,spend_time,base_path,req_uri,method,user_agent,ip,result,req_type,params
         ) values (
-        #{description},#{userName},#{startTime},#{spendTime},#{basePath},#{reqUrl},#{method},#{userAgent},#{ip},#{result}
+        #{description},#{userName},#{startTime},#{spendTime},#{basePath},#{reqUri},#{method},#{userAgent},#{ip},#{result},#{reqType},#{params}
         )
     </insert>
 

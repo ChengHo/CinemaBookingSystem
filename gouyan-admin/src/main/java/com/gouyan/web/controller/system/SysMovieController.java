@@ -6,6 +6,7 @@ import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.vo.SysMovieVo;
 import com.gouyan.system.service.impl.SysMovieServiceImpl;
 import com.gouyan.web.controller.BaseController;
+import com.gouyan.web.controller.annotation.SysLogAnnotaion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class SysMovieController extends BaseController {
     @Autowired
     private SysMovieServiceImpl sysMovieService;
 
+    @SysLogAnnotaion(value = "查看所有电影信息")
     @GetMapping("/sysMovie")
     public ResponseResult findAll(SysMovieVo sysMovieVo){
         startPage();

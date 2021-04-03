@@ -24,17 +24,16 @@
       </el-row>
 
       <el-table :data="loglist" style="width: 100%" border stripe >
-        <el-table-column prop="logId" label="日志编号"></el-table-column>
-        <el-table-column prop="description" label="用户操作"></el-table-column>
-        <el-table-column prop="userName" label="用户名"></el-table-column>
-        <el-table-column prop="permission" label="待定"></el-table-column>
+        <el-table-column prop="userName" label="操作人"></el-table-column>
+        <el-table-column prop="description" label="操作描述"></el-table-column>
+        <el-table-column prop="params" label="参数"></el-table-column>
         <el-table-column prop="startTime" label="操作时间"></el-table-column>
         <el-table-column prop="spendTime" label="执行耗时（ms）"></el-table-column>
-        <el-table-column prop="basePath" label="请求服务器"></el-table-column>
-        <el-table-column prop="reqUrl" label="请求路径"></el-table-column>
-        <el-table-column prop="reqUrl" label="请求路径"></el-table-column>
+        <el-table-column prop="basePath" label="根路径"></el-table-column>
+        <el-table-column prop="reqUri" label="请求路径"></el-table-column>
         <el-table-column prop="method" label="请求方法"></el-table-column>
-        <el-table-column prop="userAgent" label="待定"></el-table-column>
+        <el-table-column prop="reqType" label="请求类型"></el-table-column>
+        <el-table-column prop="userAgent" label="用户标识"></el-table-column>
         <el-table-column prop="ip" label="服务器ip"></el-table-column>
         <el-table-column prop="result" label="是否成功"></el-table-column>
       </el-table>

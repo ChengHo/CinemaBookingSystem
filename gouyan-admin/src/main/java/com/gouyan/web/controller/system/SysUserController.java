@@ -1,27 +1,18 @@
 package com.gouyan.web.controller.system;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gouyan.common.response.ResponseResult;
-import com.gouyan.common.utils.StringUtil;
-import com.gouyan.system.domin.LoginUser;
 import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.domin.vo.SysUserVo;
 import com.gouyan.system.service.impl.SysUserServiceImpl;
 import com.gouyan.web.controller.BaseController;
-import com.gouyan.web.controller.annotation.Log;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.gouyan.web.controller.annotation.SysLogAnnotaion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lxd
@@ -32,10 +23,6 @@ import java.util.List;
 public class SysUserController extends BaseController {
     @Autowired
     private SysUserServiceImpl sysUserService;
-
-    Logger logger = LoggerFactory.getLogger(SysUserController.class);
-
-    @RequestMapping("/login")
 
     @GetMapping("/sysUser")
     public ResponseResult findAll(SysUser sysUser){
@@ -70,14 +57,18 @@ public class SysUserController extends BaseController {
     }
 
     //用户登录
-    @Log(value = "用户登录")
+    @SysLogAnnotaion(value = "sysloganno用户登录")
+//    @Operation(value = "用户登录")
     @RequestMapping("/sysUser/login")
     public ResponseResult login(@RequestBody SysUserVo sysUserVo){
         return getResult(sysUserService.login(sysUserVo));
     }
-    @Log(value = "退出登录")
+
+    @SysLogAnnotaion(value = "退出登录")
     @RequestMapping("/sysUser/logout")
-    public void logout(){
-        logger.debug("用户退出系统");
+    public Map<String, String> logout(){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("1","result");
+        return map;
     }
 }
