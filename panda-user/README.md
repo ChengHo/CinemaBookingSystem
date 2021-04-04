@@ -1,10 +1,11 @@
-# gouyan-ui
+# panda-user
 
 ## Project setup
 ```
 npm install
 ```
 
+sudo npm install -g node-gyp
 ### Compiles and hot-reloads for development
 ```
 npm run serve
@@ -27,9 +28,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-```
-vue create 项目名
-npm run serve
-vue add axios
-```
