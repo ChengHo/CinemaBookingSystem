@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 04/04/2021 01:15:12
+ Date: 04/04/2021 23:44:42
 */
 
 SET NAMES utf8mb4;
@@ -457,7 +457,9 @@ INSERT INTO `sys_hall_category` VALUES (15, 'MX4D厅');
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log`  (
   `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `sys_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '系统类型',
   `user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作用户',
+  `oper_seq` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作序号',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作描述',
   `params` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '参数',
   `start_time` timestamp(0) NULL DEFAULT NULL COMMENT '操作时间',
@@ -470,7 +472,7 @@ CREATE TABLE `sys_log`  (
   `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `result` tinyint(255) NULL DEFAULT NULL COMMENT '结果',
   PRIMARY KEY (`log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 176 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 485 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_log
