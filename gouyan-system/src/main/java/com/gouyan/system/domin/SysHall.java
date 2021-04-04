@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

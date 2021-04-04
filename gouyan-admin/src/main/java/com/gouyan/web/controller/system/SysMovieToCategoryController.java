@@ -1,11 +1,10 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovieToCategory;
 import com.gouyan.system.service.impl.SysMovieToCategoryServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**

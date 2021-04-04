@@ -2,12 +2,13 @@ package com.gouyan.web.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.gouyan.common.page.Page;
-import com.gouyan.common.page.PageBuilder;
-import com.gouyan.common.response.ResponseResult;
-import static com.gouyan.common.page.PageBuilder.*;
+import com.panda.common.page.Page;
+import com.panda.common.page.PageBuilder;
+import com.panda.common.response.ResponseResult;
 
 import java.util.List;
+
+import static com.panda.common.page.PageBuilder.*;
 
 /**
  * 抽取重复功能为基类

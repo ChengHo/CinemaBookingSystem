@@ -1,7 +1,6 @@
 package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysActor;
-import com.gouyan.system.domin.SysUser;
 
 import java.util.List;
 

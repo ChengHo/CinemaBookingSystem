@@ -1,6 +1,5 @@
 package com.gouyan.system.service;
 
-import com.gouyan.system.domin.SysMovieArea;
 import com.gouyan.system.domin.SysMovieCategory;
 
 import java.util.List;

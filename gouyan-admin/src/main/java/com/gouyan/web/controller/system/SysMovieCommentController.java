@@ -1,8 +1,7 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.constant.HttpStatus;
-import com.gouyan.common.exception.DataNotFoundException;
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.exception.DataNotFoundException;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.SysMovieComment;
 import com.gouyan.system.service.impl.SysMovieCommentServiceImpl;

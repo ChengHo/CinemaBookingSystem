@@ -1,12 +1,13 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysCinema;
 import com.gouyan.system.domin.SysSession;
 import com.gouyan.system.domin.vo.SysCinemaVo;
 import com.gouyan.system.service.impl.SysCinemaServiceImpl;
 import com.gouyan.system.service.impl.SysSessionServiceImpl;
 import com.gouyan.web.controller.BaseController;
+import com.gouyan.web.controller.annotation.SysLogAnnotaion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ public class SysCinemaController extends BaseController {
     @Autowired
     private SysSessionServiceImpl sysSessionService;
 
+    @SysLogAnnotaion(operModul = "影院信息管理-获取所有影院信息")
     @GetMapping("/sysCinema")
     public ResponseResult findAll(SysCinemaVo sysCinemaVo){
         startPage();
@@ -38,6 +40,7 @@ public class SysCinemaController extends BaseController {
         return getResult(sysCinemaService.findById(id));
     }
 
+    @SysLogAnnotaion(operModul = "影院信息管理-添加影院")
     @PostMapping("/sysCinema")
     public ResponseResult add(@Validated @RequestBody SysCinema sysCinema){
         return getResult(sysCinemaService.add(sysCinema));

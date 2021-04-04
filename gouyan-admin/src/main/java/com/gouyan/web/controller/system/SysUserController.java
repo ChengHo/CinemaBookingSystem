@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.domin.vo.SysUserVo;
 import com.gouyan.system.service.impl.SysUserServiceImpl;
@@ -57,16 +57,15 @@ public class SysUserController extends BaseController {
     }
 
     //用户登录
-    @SysLogAnnotaion(value = "sysloganno用户登录")
-//    @Operation(value = "用户登录")
+    @SysLogAnnotaion(operModul = "用户登录", operSeq = "00")
     @RequestMapping("/sysUser/login")
     public ResponseResult login(@RequestBody SysUserVo sysUserVo){
         return getResult(sysUserService.login(sysUserVo));
     }
 
-    @SysLogAnnotaion(value = "退出登录")
-    @RequestMapping("/sysUser/logout")
-    public Map<String, String> logout(){
+    @SysLogAnnotaion(operModul = "退出登录", operSeq = "01")
+    @RequestMapping("/sysUser/logout/{userName}")
+    public Map<String, String> logout(@PathVariable String userName){
         Map<String, String> map = new HashMap<String, String>();
         map.put("1","result");
         return map;

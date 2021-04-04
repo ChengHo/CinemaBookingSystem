@@ -1,8 +1,9 @@
 package com.gouyan.web.controller.aspect;
 
-import com.gouyan.common.utils.IpAdrressUtils;
-import com.gouyan.common.utils.JacksonUtils;
-import com.gouyan.common.utils.JwtUtil;
+import com.panda.common.utils.IpUtils;
+import com.panda.common.utils.JacksonUtils;
+import com.panda.common.utils.JwtUtil;
+import com.panda.common.utils.ServletUtil;
 import com.gouyan.system.domin.SysLog;
 import com.gouyan.system.domin.vo.SysUserVo;
 import com.gouyan.system.service.SysLogService;
@@ -19,12 +20,12 @@ import org.springframework.stereotype.Component;
 
 
 import com.gouyan.web.controller.annotation.SysLogAnnotaion;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author: chengho
@@ -33,6 +34,11 @@ import java.util.Date;
 @Aspect
 @Component
 public class SysLogAspect {
+
+    private final static int ADMIN_PORT = 8888;
+    private final static String ADMIN_IP = "127.0.0.1";
+    private final static String ADMIN_IP_ADDRESS = "localhost";
+
     private static final Logger logger = LoggerFactory.getLogger(SysLogAspect.class);
 
     @Autowired
@@ -72,15 +78,23 @@ public class SysLogAspect {
         SysLogAnnotaion sysLogAnnotaion = method.getAnnotation(SysLogAnnotaion.class);
         if (sysLogAnnotaion != null) {
             // 注解上的描述
-            sysLog.setDescription(sysLogAnnotaion.value());
+            sysLog.setDescription(sysLogAnnotaion.operModul());
         }
 
-        // 获取RequestAttributes
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        // 从获取RequestAttributes中获取HttpServletRequest的信息
-        HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
+        // 获取HttpServletRequest对象
+        HttpServletRequest request = ServletUtil.getRequest();
+        HttpServletResponse response = ServletUtil.getResponse();
         // 设置IP地址
-        sysLog.setIp(IpAdrressUtils.getIpAdrress(request));
+        sysLog.setIp(IpUtils.getIpAdrress(request));
+        // 判断是否为管理系统，是则添加管理系统属性并添加管理项序号
+        if (isAdminSystem(IpUtils.getOriginIPAndPort(request))) {
+            sysLog.setSysType("管理系统");
+            if (sysLog.getDescription() != null) {
+                sysLog.setOperSeq(sysLogAnnotaion.operSeq());
+            }
+        } else {
+            sysLog.setSysType("购票系统");
+        }
         // 设置根路径
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
@@ -95,10 +109,12 @@ public class SysLogAspect {
 
         //请求的参数
         Object[] args = joinPoint.getArgs();
-        if(sysLog.getReqUri().equals("/sysUser/login")){
+        if (sysLog.getReqUri().equals("/sysUser/login")) {
             SysUserVo arg = (SysUserVo) args[0];
             sysLog.setUserName(arg.getUserName());
-        }else{
+        } else if (sysLog.getReqUri().contains("/sysUser/logout")) {
+            sysLog.setUserName((String) args[0]);
+        } else {
             String token = request.getHeader("Token");
             // 解密获得username，用于和数据库进行对比
             String username = null;
@@ -131,5 +147,26 @@ public class SysLogAspect {
         logger.debug(sysLog.getMethod());
         // 保存系统日志
         sysLogService.insert(sysLog);
+    }
+
+    // 判断是否为管理系统
+    public boolean isAdminSystem(Map map) {
+        boolean result = false;
+
+        String originPort = (String) map.get("originPort");
+        int originPortIntValue = Integer.parseInt(originPort);
+        // 当管理系统和购票系统ip相同，端口号不同时，以端口号判断是否为管理系统
+        if (originPortIntValue >= ADMIN_PORT) {
+            result = true;
+        }
+
+//        // 当管理系统和购票系统端口号相同，ip不同时，以ip判断是否为管理系统
+//        if (map.get("originIP").equals(ADMIN_IP_ADDRESS) || map.get("originIP").equals(ADMIN_IP)) {
+//            result = true;
+//        }
+
+        // 不设置两系统端口和ip都相同的情况，当ip和端口都不同是，则有一个不同就能做出判断
+
+        return result;
     }
 }

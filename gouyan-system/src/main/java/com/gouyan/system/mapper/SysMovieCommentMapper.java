@@ -2,7 +2,6 @@ package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysMovieComment;
 
-import java.util.Date;
 import java.util.List;
 
 /**

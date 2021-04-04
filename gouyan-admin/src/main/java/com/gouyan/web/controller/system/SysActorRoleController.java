@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysActorRole;
 import com.gouyan.system.service.impl.SysActorRoleServiceImpl;
 import com.gouyan.web.controller.BaseController;

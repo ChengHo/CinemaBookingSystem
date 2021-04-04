@@ -3,7 +3,7 @@
     <el-header>
       <div class="header-inner">
         <a href="/welcome" class="logo">
-          <img style="width: 200px; height: 68px; margin-top: 6px;" src="../assets/homeLogo.jpg">
+          <img style="width: 270px; height: 68px; margin-top: 6px;" src="../assets/homeLogo.jpg">
         </a>
         <el-menu
             :default-active="activeUrl"
@@ -36,7 +36,7 @@
     <el-footer>
       <div class="footer-mini"></div>
       <div class="footer">
-        <img style="width: 357px; height: 50px" src="../assets/register-footer.png">
+        <img style="width: 512px; height: 70px" src="../assets/register-footer.jpg">
       </div>
       <el-backtop></el-backtop>
     </el-footer>
@@ -98,6 +98,9 @@ export default {
     },
     handleCommand(command){
       if(command === 'logout'){
+        const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
+        const userName = loginUser.userName
+        axios.get('sysUser/logout/'+userName);
         window.sessionStorage.clear();
         return this.$router.push('/login')
       }

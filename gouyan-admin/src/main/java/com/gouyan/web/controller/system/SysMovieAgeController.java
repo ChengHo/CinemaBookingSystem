@@ -1,7 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.github.pagehelper.PageHelper;
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovieAge;
 import com.gouyan.system.service.impl.SysMovieAgeServiceImpl;
 import com.gouyan.web.controller.BaseController;

@@ -18,5 +18,7 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface SysLogAnnotaion {
-    String value() default "";
+    String operModul() default "";       // 系统模块
+
+    String operSeq() default "";        // 系统类型
 }

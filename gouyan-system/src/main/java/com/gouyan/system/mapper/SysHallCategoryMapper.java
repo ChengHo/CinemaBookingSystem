@@ -1,7 +1,6 @@
 package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysHallCategory;
-import com.gouyan.system.domin.SysMovieAge;
 
 import java.util.List;
 

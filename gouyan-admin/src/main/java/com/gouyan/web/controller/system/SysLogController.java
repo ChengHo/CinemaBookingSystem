@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysLog;
 import com.gouyan.system.service.impl.SysLogServiceImpl;
 import com.gouyan.web.controller.BaseController;
@@ -20,7 +20,7 @@ public class SysLogController extends BaseController {
     @Autowired
     private SysLogServiceImpl sysLogService;
 
-    @SysLogAnnotaion(value = "查看日志")
+    @SysLogAnnotaion(operModul = "查看日志")
     @GetMapping("/sysLog")
     public ResponseResult findAll(){
         startPage();

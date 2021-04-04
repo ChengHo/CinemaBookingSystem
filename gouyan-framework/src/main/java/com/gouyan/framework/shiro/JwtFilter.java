@@ -1,12 +1,11 @@
 package com.gouyan.framework.shiro;
 
-import com.gouyan.common.constant.HttpStatus;
+import com.panda.common.constant.HttpStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.Filter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;

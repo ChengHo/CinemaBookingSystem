@@ -1,7 +1,7 @@
 <template>
   <div class="register-container">
     <div class="header" @click="toWelcome">
-      <img src="../assets/registerLogo.jpg" style="width: 230px; height: 54px;">
+      <img src="../assets/homeLogo.jpg" style="width: 230px; height: 54px;">
     </div>
     <div class="register-body">
       <el-form class="register-form" ref="registerFormRef" :model="registerForm" :rules="registerFormRules" label-width="80px">
@@ -30,7 +30,7 @@
     </div>
     <div class="footer-mini"></div>
     <div class="footer">
-      <img style="width: 357px; height: 50px" src="../assets/register-footer.png">
+      <img style="width: 512px; height: 70px" src="../assets/register-footer.jpg">
     </div>
   </div>
 </template>

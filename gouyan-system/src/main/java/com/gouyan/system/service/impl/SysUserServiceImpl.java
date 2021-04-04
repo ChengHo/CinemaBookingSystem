@@ -1,12 +1,12 @@
 package com.gouyan.system.service.impl;
 
-import com.gouyan.common.utils.JwtUtil;
-import com.gouyan.common.utils.SaltUtils;
 import com.gouyan.system.domin.LoginUser;
 import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.domin.vo.SysUserVo;
 import com.gouyan.system.mapper.SysUserMapper;
 import com.gouyan.system.service.SysUserService;
+import com.panda.common.utils.JwtUtil;
+import com.panda.common.utils.SaltUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;

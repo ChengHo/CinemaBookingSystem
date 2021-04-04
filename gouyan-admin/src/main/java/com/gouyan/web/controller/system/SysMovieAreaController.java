@@ -1,10 +1,7 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
-import com.gouyan.system.domin.SysMovieAge;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovieArea;
-import com.gouyan.system.service.SysMovieAreaService;
-import com.gouyan.system.service.impl.SysMovieAgeServiceImpl;
 import com.gouyan.system.service.impl.SysMovieAreaServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

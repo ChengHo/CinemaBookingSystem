@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysActorMovie;
 import com.gouyan.system.service.impl.SysActorMovieServiceImpl;
 import com.gouyan.web.controller.BaseController;

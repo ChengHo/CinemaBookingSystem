@@ -1,7 +1,6 @@
 package com.gouyan.system.mapper;
 
 import com.gouyan.system.domin.SysMovieRuntime;
-import com.gouyan.system.domin.SysUserHobby;
 
 import java.util.List;
 

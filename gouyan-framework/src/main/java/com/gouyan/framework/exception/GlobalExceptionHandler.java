@@ -1,8 +1,8 @@
 package com.gouyan.framework.exception;
 
-import com.gouyan.common.constant.HttpStatus;
-import com.gouyan.common.exception.DataNotFoundException;
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.constant.HttpStatus;
+import com.panda.common.exception.DataNotFoundException;
+import com.panda.common.response.ResponseResult;
 import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 

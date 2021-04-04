@@ -1,7 +1,6 @@
 package com.gouyan.system.service;
 
 import com.gouyan.system.domin.LoginUser;
-import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.SysUser;
 import com.gouyan.system.domin.vo.SysUserVo;
 

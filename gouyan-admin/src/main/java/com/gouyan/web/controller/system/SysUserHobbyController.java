@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysUserHobby;
 import com.gouyan.system.service.impl.SysUserHobbyServiceImpl;
 import com.gouyan.web.controller.BaseController;

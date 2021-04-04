@@ -3,7 +3,7 @@
     <div class="login_box">
       <!-- 头像区域 -->
 <!--      <div class="avatar_box">-->
-<!--        <img src="../assets/loginLogo.jpg">-->
+<!--        <img src="../assets/loginLogo1.jpg">-->
 <!--      </div>-->
       <div class="title_box">
         <p>影院管理系统</p>

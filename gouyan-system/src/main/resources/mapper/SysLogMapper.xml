@@ -12,9 +12,9 @@
     <insert id="insert" parameterType="SysLog">
         <!-- 将添加后的主键id传回原对象 -->
         insert into sys_log (
-        description,user_name,start_time,spend_time,base_path,req_uri,method,user_agent,ip,result,req_type,params
+        sys_type,oper_seq,description,user_name,start_time,spend_time,base_path,req_uri,method,user_agent,ip,result,req_type,params
         ) values (
-        #{description},#{userName},#{startTime},#{spendTime},#{basePath},#{reqUri},#{method},#{userAgent},#{ip},#{result},#{reqType},#{params}
+        #{sysType},#{operSeq},#{description},#{userName},#{startTime},#{spendTime},#{basePath},#{reqUri},#{method},#{userAgent},#{ip},#{result},#{reqType},#{params}
         )
     </insert>
 
@@ -31,8 +31,8 @@
 <!--        <result property="sysUser.roleId" column="role_id"></result>-->
 <!--        <result property="cinemaId" column="cinema_id"></result>-->
 <!--        <result property="cinemaName" column="cinema_name"></result>-->
-<!--        <association property="sysUser.sysRole" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findById"></association>-->
-<!--        <association property="sysUser.sysRole.children" column="role_id" select="com.gouyan.system.mapper.SysRoleMapper.findByRoleId"></association>-->
+<!--        <association property="sysUser.sysRole" column="role_id" select="SysRoleMapper.findById"></association>-->
+<!--        <association property="sysUser.sysRole.children" column="role_id" select="SysRoleMapper.findByRoleId"></association>-->
 <!--    </resultMap>-->
 
 </mapper>

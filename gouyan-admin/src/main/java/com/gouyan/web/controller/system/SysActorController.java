@@ -1,8 +1,7 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysActor;
-import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.service.impl.SysActorServiceImpl;
 import com.gouyan.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

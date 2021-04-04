@@ -1,10 +1,8 @@
 package com.gouyan.framework.shiro.realms;
 
-import com.gouyan.common.utils.ApplicationContextUtils;
-import com.gouyan.common.utils.JwtUtil;
+import com.panda.common.utils.JwtUtil;
 import com.gouyan.framework.shiro.JwtToken;
 import com.gouyan.system.domin.SysUser;
-import com.gouyan.system.service.SysUserService;
 import com.gouyan.system.service.impl.SysUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,7 +12,6 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

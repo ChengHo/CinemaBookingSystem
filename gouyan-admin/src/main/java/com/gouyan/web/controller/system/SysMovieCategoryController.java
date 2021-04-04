@@ -1,7 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
-import com.gouyan.system.domin.SysMovieArea;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovieCategory;
 import com.gouyan.system.service.impl.SysMovieCategoryServiceImpl;
 import com.gouyan.web.controller.BaseController;

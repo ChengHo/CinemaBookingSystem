@@ -1,7 +1,9 @@
 <template>
   <el-container class="home-container">
     <el-header>
+
       <div class="span-container" style="padding: 5px" @click="toWelcome">
+        <span>&nbsp;&nbsp;</span>
         <img src="../assets/logo.png" alt="" height="40px" width="40px">
         <span>影院管理系统</span>
       </div>
@@ -27,7 +29,7 @@
               <!--图标-->
               <i :class="iconlist[item.id]"></i>
               <!--文本-->
-              <span>{{item.name}}</span>
+              <span>{{item.id}} &nbsp; {{item.name}}</span>
             </template>
             <!--二级菜单-->
             <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id">
@@ -35,7 +37,7 @@
                 <!--图标-->
                 <i class="el-icon-menu"></i>
                 <!--文本-->
-                <span>{{ subItem.name }}</span>
+                <span>{{subItem.id}} &nbsp; {{ subItem.name }}</span>
               </template>
             </el-menu-item>
           </el-submenu>
@@ -75,7 +77,9 @@ export default {
   },
   methods:{
     logout(){
-      axios.get('sysUser/logout');
+      const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
+      const userName = loginUser.sysUser.userName
+      axios.get('sysUser/logout/'+userName);
       //清空sessionStorage
       window.sessionStorage.clear();
       this.$router.push('/login')

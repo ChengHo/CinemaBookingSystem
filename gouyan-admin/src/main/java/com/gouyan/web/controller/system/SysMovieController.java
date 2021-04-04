@@ -1,7 +1,7 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.constant.MovieRankingList;
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.constant.MovieRankingList;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysMovie;
 import com.gouyan.system.domin.vo.SysMovieVo;
 import com.gouyan.system.service.impl.SysMovieServiceImpl;
@@ -25,7 +25,7 @@ public class SysMovieController extends BaseController {
     @Autowired
     private SysMovieServiceImpl sysMovieService;
 
-    @SysLogAnnotaion(value = "查看所有电影信息")
+    @SysLogAnnotaion(operModul = "查看所有电影信息")
     @GetMapping("/sysMovie")
     public ResponseResult findAll(SysMovieVo sysMovieVo){
         startPage();

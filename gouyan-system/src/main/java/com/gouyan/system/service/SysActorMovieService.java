@@ -1,6 +1,5 @@
 package com.gouyan.system.service;
 
-import com.gouyan.system.domin.SysActor;
 import com.gouyan.system.domin.SysActorMovie;
 
 import java.util.List;

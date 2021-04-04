@@ -21,8 +21,12 @@ public class SysLog implements Serializable {
     private final static Long serialVersionUID = 1L;
     //日志id
     private Long logId;
+    // 系统类别
+    private String sysType;
     //操作用户
     private String userName;
+    // 操作序号
+    private String operSeq;
     //操作描述
     private String description;
     //请求参数

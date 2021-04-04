@@ -3,7 +3,6 @@ package com.gouyan.system.service.impl;
 import com.gouyan.system.domin.SysHall;
 import com.gouyan.system.mapper.SysHallMapper;
 import com.gouyan.system.service.SysHallService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

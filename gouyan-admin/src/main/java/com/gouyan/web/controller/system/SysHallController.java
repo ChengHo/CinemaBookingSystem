@@ -1,6 +1,6 @@
 package com.gouyan.web.controller.system;
 
-import com.gouyan.common.response.ResponseResult;
+import com.panda.common.response.ResponseResult;
 import com.gouyan.system.domin.SysHall;
 import com.gouyan.system.domin.SysSession;
 import com.gouyan.system.domin.vo.SysSessionVo;

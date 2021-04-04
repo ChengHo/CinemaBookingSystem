@@ -1,7 +1,6 @@
 package com.gouyan.system.service;
 
 import com.gouyan.system.domin.SysMovieAge;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
