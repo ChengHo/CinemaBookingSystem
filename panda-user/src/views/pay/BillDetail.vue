@@ -37,7 +37,7 @@
       <!-- 订单信息 -->
       <div class="bill-info-desc">
         <div class="bill-info-header">
-          <span>狗眼订单号: {{billInfo.billId}}</span>
+          <span>panda订单号: {{billInfo.billId}}</span>
           <span class="bill-info-helper">(有订单问题可拨打客服电话<div>1111-1111</div>，工作时间: 9:00-24:00)</span>
         </div>
         <table class="order-table">

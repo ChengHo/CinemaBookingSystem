@@ -29,7 +29,7 @@
       <div class="movie-info-detail clearfix">
         <div class="main-content">
           <div class="crumbs-nav-container">
-            <a href="/welcome">狗眼电影</a> &gt; <a href="/movie">电影</a> &gt; {{actorInfo.actorName}}
+            <a href="/welcome">panda电影</a> &gt; <a href="/movie">电影</a> &gt; {{actorInfo.actorName}}
           </div>
           <div class="module">
             <div class="mod-title">

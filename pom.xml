@@ -8,29 +8,29 @@
 		<version>2.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gouyan</groupId>
-	<artifactId>gouyan</artifactId>
+	<groupId>com.panda</groupId>
+	<artifactId>panda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>gouyan</name>
+	<name>panda</name>
 	<description>电影售票系统</description>
 
 	<!--加入子模块-->
 	<modules>
-		<module>gouyan-admin</module>
-		<module>gouyan-common</module>
-		<module>gouyan-system</module>
-		<module>gouyan-framework</module>
+		<module>panda-admin</module>
+		<module>panda-common</module>
+		<module>panda-system</module>
+		<module>panda-framework</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11.0.10</java.version>
 
 		<!--统一定义版本号-->
-		<gouyan.version>0.0.1-SNAPSHOT</gouyan.version>
+		<panda.version>0.0.1-SNAPSHOT</panda.version>
 		<druid.version>1.2.2</druid.version>
 		<mybatis.springboot.version>2.1.3</mybatis.springboot.version>
 		<pagehelper.version>1.3.0</pagehelper.version>
@@ -108,27 +108,27 @@
 
 			<!-- 子模块 -->
 			<dependency>
-				<groupId>com.gouyan</groupId>
-				<artifactId>gouyan-framework</artifactId>
-				<version>${gouyan.version}</version>
+				<groupId>com.panda</groupId>
+				<artifactId>panda-framework</artifactId>
+				<version>${panda.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.gouyan</groupId>
-				<artifactId>gouyan-system</artifactId>
-				<version>${gouyan.version}</version>
+				<groupId>com.panda</groupId>
+				<artifactId>panda-system</artifactId>
+				<version>${panda.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.gouyan</groupId>
-				<artifactId>gouyan-common</artifactId>
-				<version>${gouyan.version}</version>
+				<groupId>com.panda</groupId>
+				<artifactId>panda-common</artifactId>
+				<version>${panda.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.gouyan</groupId>
-				<artifactId>gouyan-admin</artifactId>
-				<version>${gouyan.version}</version>
+				<groupId>com.panda</groupId>
+				<artifactId>panda-admin</artifactId>
+				<version>${panda.version}</version>
 			</dependency>
 
 		</dependencies>

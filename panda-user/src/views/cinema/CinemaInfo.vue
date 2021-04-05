@@ -25,7 +25,7 @@
       <div class="movie-info-detail clearfix">
         <div class="main-content">
           <div class="crumbs-nav-container">
-            <a href="/welcome">狗眼电影</a> &gt; <a href="/cinema">影院</a> &gt; {{cinemaInfo.cinemaName}}
+            <a href="/welcome">panda电影</a> &gt; <a href="/cinema">影院</a> &gt; {{cinemaInfo.cinemaName}}
           </div>
           <!-- 当前影院上映的所有电影 -->
           <div class="movie-list-container" v-if="cinemaInfo.sysMovieList !== null && cinemaInfo.sysMovieList.length !== 0">

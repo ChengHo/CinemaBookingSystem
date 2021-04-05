@@ -22,7 +22,7 @@
           </div>
           <div class="movie-info-score">
             <div class="movie-index">
-              <span class="movie-index-title">狗眼口碑</span>
+              <span class="movie-index-title">panda口碑</span>
               <div style="display: flex">
                 <span class="movie-score-num">{{movieInfo.movieScore}}</span>
                 <div class="score-container">
@@ -52,7 +52,7 @@
       <div class="movie-info-detail clearfix">
         <div class="main-content">
           <div class="crumbs-nav-container">
-            <a href="/welcome">狗眼电影</a> &gt; <a href="/movie">电影</a> &gt; {{movieInfo.movieNameCn}}
+            <a href="/welcome">panda电影</a> &gt; <a href="/movie">电影</a> &gt; {{movieInfo.movieNameCn}}
           </div>
           <el-tabs v-model="activeName">
             <el-tab-pane label="介绍" name="introduction">

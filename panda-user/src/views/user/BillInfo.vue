@@ -4,7 +4,7 @@
     <div class="order-box" v-for="item in billList">
       <div class="order-header">
         <span class="order-date">{{item.billDate}}</span>
-        <span class="order-id">狗眼订单号: {{item.billId}}</span>
+        <span class="order-id">panda订单号: {{item.billId}}</span>
         <span class="del-order"  @click="deleteBill(item.billId)">
           <i class="el-icon-delete"></i>
         </span>
