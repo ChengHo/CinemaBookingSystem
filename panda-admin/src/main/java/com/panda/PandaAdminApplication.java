@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class PandaAdminApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PandaAdminApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PandaAdminApplication.class, args);
+    }
 
 }

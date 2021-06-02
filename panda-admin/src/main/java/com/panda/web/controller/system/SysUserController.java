@@ -17,14 +17,14 @@ public class SysUserController extends BaseController {
     private SysUserServiceImpl sysUserService;
 
     @GetMapping("/sysUser")
-    public ResponseResult findAll(SysUser sysUser){
+    public ResponseResult findAll(SysUser sysUser) {
         startPage();
         List<SysUser> data = sysUserService.findAll(sysUser);
         return getResult(data);
     }
 
     @GetMapping("/sysUser/{id}")
-    public ResponseResult findById(@PathVariable Long id){
+    public ResponseResult findById(@PathVariable Long id) {
         return getResult(sysUserService.findById(id));
     }
 
@@ -34,37 +34,39 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PostMapping("/sysUser")
-    public ResponseResult add(@Validated @RequestBody SysUser sysUser){
+    public ResponseResult add(@Validated @RequestBody SysUser sysUser) {
         return getResult(sysUserService.add(sysUser));
     }
 
     @PutMapping("/sysUser")
-    public ResponseResult update(@Validated @RequestBody SysUser sysUser){
+    public ResponseResult update(@Validated @RequestBody SysUser sysUser) {
         return getResult(sysUserService.update(sysUser));
     }
 
     @DeleteMapping("/sysUser/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids){
+    public ResponseResult delete(@PathVariable Long[] ids) {
         return getResult(sysUserService.delete(ids));
     }
 
     /**
      * 用户登录请求
+     *
      * @param sysUserVo
      * @return
      */
     @RequestMapping("/sysUser/login")
-    public ResponseResult login(@RequestBody SysUserVo sysUserVo){
+    public ResponseResult login(@RequestBody SysUserVo sysUserVo) {
         return getResult(sysUserService.login(sysUserVo));
     }
 
     /**
      * 用户注册请求
+     *
      * @param sysUser
      * @return
      */
     @PostMapping("/sysUser/register")
-    public ResponseResult register(@Validated @RequestBody SysUser sysUser){
+    public ResponseResult register(@Validated @RequestBody SysUser sysUser) {
         // 注册只接收部分参数值，重新建立一个实例对象只接受注册接受的参数
         SysUser registerUserInfo = new SysUser();
         registerUserInfo.setUserName(sysUser.getUserName());
@@ -73,4 +75,5 @@ public class SysUserController extends BaseController {
         registerUserInfo.setPhoneNumber(sysUser.getPhoneNumber());
         return getResult(sysUserService.add(registerUserInfo));
     }
+
 }

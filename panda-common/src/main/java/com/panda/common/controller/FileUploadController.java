@@ -26,7 +26,7 @@ public class FileUploadController {
         FileUploadUtils.setDefaultBaseDir(FileUploadUtils.userPath);
         String filename = FileUploadUtils.upload(file);
         log.debug("上传文件名 : " + filename);
-        return ResponseResult.success((Object)filename);
+        return ResponseResult.success((Object) filename);
     }
 
     @PostMapping("/movie")
@@ -34,7 +34,7 @@ public class FileUploadController {
         FileUploadUtils.setDefaultBaseDir(FileUploadUtils.moviePath);
         String filename = FileUploadUtils.upload(file);
         log.debug("上传文件名 : " + filename);
-        return ResponseResult.success((Object)filename);
+        return ResponseResult.success((Object) filename);
     }
 
     @PostMapping("/cinema")
@@ -42,7 +42,7 @@ public class FileUploadController {
         FileUploadUtils.setDefaultBaseDir(FileUploadUtils.cinemaPath);
         String filename = FileUploadUtils.upload(file);
         log.debug("上传文件名 : " + filename);
-        return ResponseResult.success((Object)filename);
+        return ResponseResult.success((Object) filename);
     }
 
     @PostMapping("/actor")
@@ -50,11 +50,11 @@ public class FileUploadController {
         FileUploadUtils.setDefaultBaseDir(FileUploadUtils.actorPath);
         String filename = FileUploadUtils.upload(file);
         log.debug("上传文件名 : " + filename);
-        return ResponseResult.success((Object)filename);
+        return ResponseResult.success((Object) filename);
     }
 
     @RequestMapping("/delete")
-    public ResponseResult deletePicture(String filePath){
+    public ResponseResult deletePicture(String filePath) {
         try {
             String path = ResourceUtils.getURL("classpath:").getPath().substring(1) + "static" + filePath;
             log.debug("删除文件路径为：" + path);

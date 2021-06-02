@@ -17,7 +17,9 @@ import java.io.Serializable;
 public class SysUserVo implements Serializable {
 
     private String userName;
+
     private String password;
+
     //验证码
     private String checkCode;
 

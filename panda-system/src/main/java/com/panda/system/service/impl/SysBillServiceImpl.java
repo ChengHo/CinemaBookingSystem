@@ -1,9 +1,7 @@
 package com.panda.system.service.impl;
 
 import com.panda.system.domin.SysBill;
-import com.panda.system.domin.SysSession;
 import com.panda.system.mapper.SysBillMapper;
-import com.panda.system.mapper.SysSessionMapper;
 import com.panda.system.service.SysBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +39,7 @@ public class SysBillServiceImpl implements SysBillService {
     @Override
     public int delete(Long[] ids) {
         int rows = 0;
-        for(Long id : ids){
+        for (Long id : ids) {
             rows += sysBillMapper.delete(id);
         }
         return rows;

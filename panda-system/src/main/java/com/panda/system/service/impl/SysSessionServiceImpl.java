@@ -32,7 +32,7 @@ public class SysSessionServiceImpl implements SysSessionService {
     }
 
     @Override
-    public SysSession findOne(Long id){
+    public SysSession findOne(Long id) {
         return sysSessionMapper.findOne(id);
     }
 
@@ -49,7 +49,7 @@ public class SysSessionServiceImpl implements SysSessionService {
     @Override
     public int delete(Long[] ids) {
         int rows = 0;
-        for(Long id : ids){
+        for (Long id : ids) {
             rows += sysSessionMapper.delete(id);
         }
         return rows;

@@ -25,6 +25,7 @@ public class CustomerRealm extends AuthorizingRealm {
 
     /**
      * 重写此方法避免shiro报错
+     *
      * @param token
      * @return
      */
@@ -66,4 +67,5 @@ public class CustomerRealm extends AuthorizingRealm {
         }
         return new SimpleAuthenticationInfo(token, token, this.getName());
     }
+
 }

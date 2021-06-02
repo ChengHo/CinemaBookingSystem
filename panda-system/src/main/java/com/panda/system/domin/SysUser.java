@@ -11,7 +11,6 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

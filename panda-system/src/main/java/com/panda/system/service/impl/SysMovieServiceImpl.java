@@ -44,7 +44,7 @@ public class SysMovieServiceImpl implements SysMovieService {
     @Override
     public int delete(Long[] ids) {
         int rows = 0;
-        for(Long id : ids){
+        for (Long id : ids) {
             rows += sysMovieMapper.delete(id);
         }
         return rows;
@@ -57,6 +57,7 @@ public class SysMovieServiceImpl implements SysMovieService {
 
     /**
      * 总票房榜
+     *
      * @return
      */
     @Override
@@ -66,6 +67,7 @@ public class SysMovieServiceImpl implements SysMovieService {
 
     /**
      * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 movieArea in (港台+大陆)
+     *
      * @return
      */
     @Override
@@ -75,6 +77,7 @@ public class SysMovieServiceImpl implements SysMovieService {
 
     /**
      * 国外票房榜 已上映的国外电影里，按票房取前10 国外电影 movieArea not in (港台+大陆)
+     *
      * @return
      */
     @Override

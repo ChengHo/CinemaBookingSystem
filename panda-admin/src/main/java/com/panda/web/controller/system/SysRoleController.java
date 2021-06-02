@@ -17,29 +17,29 @@ public class SysRoleController extends BaseController {
     SysRoleServiceImpl sysRoleService;
 
     @GetMapping("/sysRole")
-    public ResponseResult findAll(){
+    public ResponseResult findAll() {
         startPage();
         List<SysRole> data = sysRoleService.findAll();
         return getResult(data);
     }
 
     @GetMapping("/sysRole/{id}")
-    public ResponseResult findById(@PathVariable Long id){
+    public ResponseResult findById(@PathVariable Long id) {
         return getResult(sysRoleService.findById(id));
     }
 
     @PostMapping("/sysRole")
-    public ResponseResult add(@Validated @RequestBody SysRole sysRole){
+    public ResponseResult add(@Validated @RequestBody SysRole sysRole) {
         return getResult(sysRoleService.add(sysRole));
     }
 
     @PutMapping("/sysRole")
-    public ResponseResult update(@Validated @RequestBody SysRole sysRole){
+    public ResponseResult update(@Validated @RequestBody SysRole sysRole) {
         return getResult(sysRoleService.update(sysRole));
     }
 
     @DeleteMapping("/sysRole/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids){
+    public ResponseResult delete(@PathVariable Long[] ids) {
         return getResult(sysRoleService.delete(ids));
     }
 
@@ -50,7 +50,8 @@ public class SysRoleController extends BaseController {
      * @return
      */
     @PostMapping("/sysRole/{roleId}")
-    public ResponseResult allotRight(@PathVariable Long roleId, @RequestBody Long[] keys){
+    public ResponseResult allotRight(@PathVariable Long roleId, @RequestBody Long[] keys) {
         return getResult(sysRoleService.allotRight(roleId, keys));
     }
+
 }

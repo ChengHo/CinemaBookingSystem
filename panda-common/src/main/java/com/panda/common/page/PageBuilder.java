@@ -25,17 +25,17 @@ public class PageBuilder {
     //升序还是降序
     public static final String IS_ASC = "isAsc";
 
-    public static Page buildPage(){
+    public static Page buildPage() {
         Page page = new Page();
         HttpServletRequest request = ServletUtil.getRequest();
 
         String pageNum = request.getParameter(PAGE_NUM);
-        if(StringUtil.isNotEmpty(pageNum)){
+        if (StringUtil.isNotEmpty(pageNum)) {
             page.setPageNum(Integer.parseInt(pageNum));
         }
 
         String pageSize = request.getParameter(PAGE_SIZE);
-        if(StringUtil.isNotEmpty(pageSize)) {
+        if (StringUtil.isNotEmpty(pageSize)) {
             page.setPageSize(Integer.parseInt(pageSize));
         }
 

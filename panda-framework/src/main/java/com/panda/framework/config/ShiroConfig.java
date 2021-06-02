@@ -7,10 +7,8 @@ import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public class ShiroConfig {
 
     // 创建shiroFilter
     @Bean("shiroFilter")
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager){
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
         // 给shiroFilter设置安全管理器
@@ -65,7 +63,7 @@ public class ShiroConfig {
 
     //创建安全管理器
     @Bean
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm){
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
 
         //给安全管理器设置realm
@@ -83,7 +81,7 @@ public class ShiroConfig {
 
     //创建自定义realm
     @Bean(name = "realm")
-    public Realm getRealm(){
+    public Realm getRealm() {
         CustomerRealm realm = new CustomerRealm();
         return realm;
     }

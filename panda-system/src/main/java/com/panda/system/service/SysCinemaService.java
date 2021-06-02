@@ -2,8 +2,6 @@ package com.panda.system.service;
 
 import com.panda.system.domin.SysCinema;
 
-import java.util.List;
-
 
 public interface SysCinemaService {
 

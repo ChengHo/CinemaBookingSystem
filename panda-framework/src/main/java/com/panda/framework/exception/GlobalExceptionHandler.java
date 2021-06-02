@@ -27,10 +27,11 @@ public class GlobalExceptionHandler {
 
     /**
      * 处理验证不通过异常，将错误信息响应给前端
+     *
      * @return 错误响应信息
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+    public ResponseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         //打印日志
         log.error(e.getMessage(), e);
         //获取该异常的结果
@@ -41,37 +42,37 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseResult sqlIntegrityConstraintViolationExceptionHandler(SQLIntegrityConstraintViolationException e){
+    public ResponseResult sqlIntegrityConstraintViolationExceptionHandler(SQLIntegrityConstraintViolationException e) {
         log.error(e.getMessage(), e);
         return ResponseResult.error("插入或修改操作不合法");
     }
 
     @ExceptionHandler(DataNotFoundException.class)
-    public ResponseResult dataNotFoundExceptionHandler(DataNotFoundException e){
+    public ResponseResult dataNotFoundExceptionHandler(DataNotFoundException e) {
         log.warn(e.getMessage());
         return ResponseResult.error(e.getMessage());
     }
 
     @ExceptionHandler(NoSuchMethodException.class)
-    public ResponseResult noSuchMethodExceptionHandler(NoSuchMethodException e){
+    public ResponseResult noSuchMethodExceptionHandler(NoSuchMethodException e) {
         log.warn(e.getMessage());
         return ResponseResult.error("抱歉，服务器内部出现了些问题");
     }
 
     @ExceptionHandler(IllegalAccessException.class)
-    public ResponseResult illegalAccessExceptionHandler(IllegalAccessException e){
+    public ResponseResult illegalAccessExceptionHandler(IllegalAccessException e) {
         log.warn(e.getMessage());
         return ResponseResult.error("抱歉，服务器内部出现了些问题");
     }
 
     @ExceptionHandler(IOException.class)
-    public ResponseResult IOExceptionHandler(IOException e){
+    public ResponseResult IOExceptionHandler(IOException e) {
         log.warn(e.getMessage());
         return ResponseResult.error("文件信息错误，原因：" + e.getMessage());
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseResult authenticationExceptionHandler(AuthenticationException e){
+    public ResponseResult authenticationExceptionHandler(AuthenticationException e) {
         log.warn(e.getMessage());
         return ResponseResult.error(HttpStatus.BAD_REQUEST, e.getMessage());
     }

@@ -22,41 +22,41 @@ public class SysMovieController extends BaseController {
     private SysMovieServiceImpl sysMovieService;
 
     @GetMapping("/sysMovie/find")
-    public ResponseResult findAll(SysMovieVo sysMovieVo){
+    public ResponseResult findAll(SysMovieVo sysMovieVo) {
         startPage();
         List<SysMovie> data = sysMovieService.findAll(sysMovieVo);
         return getResult(data);
     }
 
     @GetMapping("/sysMovie/find/{id}")
-    public ResponseResult findById(@PathVariable Long id){
+    public ResponseResult findById(@PathVariable Long id) {
         return getResult(sysMovieService.findById(id));
     }
 
     @PostMapping("/sysMovie")
-    public ResponseResult add(@Validated @RequestBody SysMovie sysMovie){
+    public ResponseResult add(@Validated @RequestBody SysMovie sysMovie) {
         return getResult(sysMovieService.add(sysMovie));
     }
 
     @PutMapping("/sysMovie")
-    public ResponseResult update(@Validated @RequestBody SysMovie sysMovie){
+    public ResponseResult update(@Validated @RequestBody SysMovie sysMovie) {
         return getResult(sysMovieService.update(sysMovie));
     }
 
     @DeleteMapping("/sysMovie/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids){
+    public ResponseResult delete(@PathVariable Long[] ids) {
         return getResult(sysMovieService.delete(ids));
     }
 
     @GetMapping("/sysMovie/find/rankingList/{listId}")
     public ResponseResult findRankingList(@PathVariable Integer listId) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        if(listId <= 0 || listId > 4){
+        if (listId <= 0 || listId > 4) {
             //暂时只支持4种榜单
             return ResponseResult.error("抱歉，暂时只支持3种榜单，id为[1,3]");
         }
         Method getList = sysMovieService.getClass().getMethod(MovieRankingList.listNames[listId - 1]);
         startPage();
-        List<SysMovie> data = (List<SysMovie>)getList.invoke(sysMovieService);
+        List<SysMovie> data = (List<SysMovie>) getList.invoke(sysMovieService);
         return getResult(data);
     }
 

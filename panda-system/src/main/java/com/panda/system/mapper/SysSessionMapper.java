@@ -10,6 +10,7 @@ public interface SysSessionMapper {
 
     /**
      * 根据条件查询
+     *
      * @param sysSessionVo
      * @return
      */
@@ -17,6 +18,7 @@ public interface SysSessionMapper {
 
     /**
      * 查询一个
+     *
      * @param sysSession
      * @return
      */
@@ -24,6 +26,7 @@ public interface SysSessionMapper {
 
     /**
      * 查询一个
+     *
      * @param id
      * @return
      */
@@ -31,6 +34,7 @@ public interface SysSessionMapper {
 
     /**
      * 查询一个，不查询相关的信息
+     *
      * @param id
      * @return
      */
@@ -38,6 +42,7 @@ public interface SysSessionMapper {
 
     /**
      * 添加
+     *
      * @param sysSession
      * @return
      */
@@ -45,6 +50,7 @@ public interface SysSessionMapper {
 
     /**
      * 修改
+     *
      * @param sysSession
      * @return
      */
@@ -52,6 +58,7 @@ public interface SysSessionMapper {
 
     /**
      * 删除
+     *
      * @param id
      * @return
      */
@@ -59,6 +66,7 @@ public interface SysSessionMapper {
 
     /**
      * 根据影院id和电影id查询近5天上映的场次信息
+     *
      * @param cinemaId
      * @param movieId
      * @return

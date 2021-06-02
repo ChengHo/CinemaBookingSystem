@@ -1,12 +1,12 @@
 package com.panda.system.service.impl;
 
+import com.panda.common.utils.JwtUtil;
+import com.panda.common.utils.SaltUtils;
 import com.panda.system.domin.LoginUser;
 import com.panda.system.domin.SysUser;
 import com.panda.system.domin.vo.SysUserVo;
 import com.panda.system.mapper.SysUserMapper;
 import com.panda.system.service.SysUserService;
-import com.panda.common.utils.JwtUtil;
-import com.panda.common.utils.SaltUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,13 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 处理注册逻辑
+     *
      * @param sysUser
      * @return
      */
     @Override
     public int add(SysUser sysUser) {
-        if(!isUserNameUnique(sysUser.getUserName(), -1L)){
+        if (!isUserNameUnique(sysUser.getUserName(), -1L)) {
             throw new AuthenticationException("用户名重复");
         }
         //处理密码：md5 + salt + hash散列
@@ -57,15 +58,15 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public int update(SysUser sysUser) {
-        if(!isUserNameUnique(sysUser.getUserName(), sysUser.getUserId())){
+        if (!isUserNameUnique(sysUser.getUserName(), sysUser.getUserId())) {
             throw new AuthenticationException("用户名重复");
         }
         SysUser originUser = sysUserMapper.findById(sysUser.getUserId());
-        if(originUser == null){
+        if (originUser == null) {
             throw new AuthenticationException("用户不存在");
         }
 
-        if(!originUser.getPassword().equals(sysUser.getPassword())){
+        if (!originUser.getPassword().equals(sysUser.getPassword())) {
             //修改了密码
             //重新处理密码存储
             String salt = SaltUtils.getSalt(8);
@@ -90,13 +91,13 @@ public class SysUserServiceImpl implements SysUserService {
     public LoginUser login(SysUserVo sysUserVo) {
         //登录，先查询用户信息
         SysUser user = sysUserMapper.findByName(sysUserVo.getUserName());
-        if(user == null){
+        if (user == null) {
             throw new AuthenticationException("用户名不存在");
         }
 
         //验证密码
         Md5Hash md5Hash = new Md5Hash(sysUserVo.getPassword(), user.getSalt(), 1024);
-        if(!user.getPassword().equals(md5Hash.toHex())){
+        if (!user.getPassword().equals(md5Hash.toHex())) {
             throw new AuthenticationException("用户名或密码错误");
         }
 
@@ -118,8 +119,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public boolean isUserNameUnique(String userName, Long userId) {
         List<Long> userIds = sysUserMapper.findUsersByName(userName);
-        for(Long id : userIds){
-            if(id.equals(userId)){
+        for (Long id : userIds) {
+            if (id.equals(userId)) {
                 return true;
             }
         }

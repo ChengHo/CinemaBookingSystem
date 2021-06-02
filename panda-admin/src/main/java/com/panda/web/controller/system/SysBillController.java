@@ -33,6 +33,7 @@ public class SysBillController extends BaseController {
     @GetMapping("/sysBill")
     public ResponseResult findAll(SysBill sysBill) {
         startPage();
+        // 取消所有超时订单并释放占座资源
         ApplicationContextUtils.getBean("cancelTimeoutBill");
         List<SysBill> data = sysBillService.findAll(sysBill);
         return getResult(data);
@@ -112,4 +113,5 @@ public class SysBillController extends BaseController {
     public ResponseResult delete(@PathVariable Long[] ids) {
         return getResult(sysBillService.delete(ids));
     }
+
 }

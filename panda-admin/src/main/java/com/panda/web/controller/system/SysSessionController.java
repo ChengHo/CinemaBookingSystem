@@ -2,7 +2,6 @@ package com.panda.web.controller.system;
 
 import com.panda.common.response.ResponseResult;
 import com.panda.common.utils.ApplicationContextUtils;
-import com.panda.framework.config.QuartzConfig;
 import com.panda.system.domin.SysSession;
 import com.panda.system.domin.vo.SysSessionVo;
 import com.panda.system.service.impl.SysSessionServiceImpl;
@@ -34,6 +33,7 @@ public class SysSessionController extends BaseController {
 
     @GetMapping("/sysSession/find/{id}")
     public ResponseResult findById(@PathVariable Long id) {
+        // 取消所有超时订单并释放占座资源
         ApplicationContextUtils.getBean("cancelTimeoutBill");
         return getResult(sysSessionService.findById(id));
     }

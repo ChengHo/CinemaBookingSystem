@@ -13,7 +13,6 @@ import java.util.Map;
  */
 public class SessionSeatsUtil {
     /**
-     *
      * @param curSessionSeats
      * @param selectSeats
      * @return
@@ -25,13 +24,13 @@ public class SessionSeatsUtil {
         // 获取当前超时订单座位信息
         String[] selectedSeats = selectSeats.split(",");
         for (int i = 0; i < selectedSeats.length; i++) {
-            String row = selectedSeats[i].substring(selectedSeats[i].indexOf("\"")+1, selectedSeats[i].indexOf("排"));
-            Integer col = Integer.parseInt(selectedSeats[i].substring(selectedSeats[i].indexOf("排")+1, selectedSeats[i].indexOf("座")));
+            String row = selectedSeats[i].substring(selectedSeats[i].indexOf("\"") + 1, selectedSeats[i].indexOf("排"));
+            Integer col = Integer.parseInt(selectedSeats[i].substring(selectedSeats[i].indexOf("排") + 1, selectedSeats[i].indexOf("座")));
             selectedSeatsMap.put(row, col);
         }
         // 显示已选座位坐标
         selectedSeatsMap.forEach((key, value) -> {
-            System.out.println("key = "+key+" value="+value);
+            System.out.println("key = " + key + " value=" + value);
         });
 
 

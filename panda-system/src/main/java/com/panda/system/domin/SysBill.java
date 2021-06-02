@@ -56,7 +56,6 @@ public class SysBill implements Serializable {
     // 删除状态，1：删除，0：未删除
     private Boolean delState;
 
-
     //多表连接
     private SysSession sysSession;
 

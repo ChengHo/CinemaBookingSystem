@@ -2,9 +2,6 @@ package com.panda.system.mapper;
 
 import com.panda.system.domin.SysCinema;
 
-import java.util.List;
-
-
 public interface SysCinemaMapper {
 
     SysCinema findById(Long id);

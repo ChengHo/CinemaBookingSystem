@@ -39,11 +39,11 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     @Override
     public int add(SysResource sysResource) {
-        if(sysResource.getParentId() == 0){
+        if (sysResource.getParentId() == 0) {
             sysResource.setLevel(1);
-        }else{
+        } else {
             SysResource parent = this.findById(sysResource.getParentId());
-            if(parent != null){
+            if (parent != null) {
                 sysResource.setLevel(parent.getLevel() + 1);
             }
         }
@@ -52,11 +52,11 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     @Override
     public int update(SysResource sysResource) {
-        if(sysResource.getParentId() == 0){
+        if (sysResource.getParentId() == 0) {
             sysResource.setLevel(1);
-        }else{
+        } else {
             SysResource parent = this.findById(sysResource.getParentId());
-            if(parent != null){
+            if (parent != null) {
                 sysResource.setLevel(parent.getLevel() + 1);
             }
         }
@@ -67,7 +67,7 @@ public class SysResourceServiceImpl implements SysResourceService {
     @Override
     public int delete(Long[] ids) {
         int rows = 0;
-        for(Long id : ids){
+        for (Long id : ids) {
             rows += sysResourceMapper.delete(id);
         }
         return rows;

@@ -21,4 +21,5 @@ public class SysMovieCategory implements Serializable {
     //电影分类名称
     @NotBlank(message = "电影分类名称不能为空")
     private String movieCategoryName;
+
 }

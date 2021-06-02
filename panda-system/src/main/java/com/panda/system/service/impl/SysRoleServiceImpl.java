@@ -39,7 +39,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public int delete(Long[] ids) {
         int rows = 0;
-        for(Long id : ids){
+        for (Long id : ids) {
             rows += sysRoleMapper.delete(id);
         }
         return rows;
@@ -50,14 +50,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         int rows = 0;
         HashSet<Long> originResources = new HashSet<>(sysRoleMapper.findAllRights(roleId));
 
-        for(Long id : keys){
-            if(originResources.contains(id)){
+        for (Long id : keys) {
+            if (originResources.contains(id)) {
                 originResources.remove(id);
-            }else{
+            } else {
                 rows += sysRoleMapper.addRight(roleId, id);
             }
         }
-        for(Long id : originResources){
+        for (Long id : originResources) {
             rows += sysRoleMapper.deleteRight(roleId, id);
         }
         return rows;

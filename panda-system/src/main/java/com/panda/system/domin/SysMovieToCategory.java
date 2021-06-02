@@ -21,4 +21,5 @@ public class SysMovieToCategory implements Serializable {
     private Long movieId;
 
     private Long movieCategoryId;
+
 }

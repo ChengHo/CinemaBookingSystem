@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class SaltUtils {
 
-    public static String getSalt(int n){
+    public static String getSalt(int n) {
         //返回长度为n的随机盐
         StringBuilder sb = new StringBuilder();
         char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()".toCharArray();

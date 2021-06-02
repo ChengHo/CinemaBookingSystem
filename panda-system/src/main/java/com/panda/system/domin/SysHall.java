@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
 
 
 @AllArgsConstructor
@@ -55,4 +52,5 @@ public class SysHall implements Serializable {
 
     //影厅表的多表连接
     private SysCinema sysCinema;
+
 }

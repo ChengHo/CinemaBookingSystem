@@ -9,7 +9,7 @@ public class JwtToken implements AuthenticationToken {
 
     private String token;
 
-    public JwtToken(String token){
+    public JwtToken(String token) {
         this.token = token;
     }
 
@@ -22,4 +22,5 @@ public class JwtToken implements AuthenticationToken {
     public Object getCredentials() {
         return token;
     }
+
 }

@@ -37,13 +37,14 @@ public class Page {
 
     /**
      * 将isAsc拼接在orderby后边
+     *
      * @return
      */
     public String getOrderByColumn() {
-        if(!StringUtil.isNotEmpty(orderByColumn)){
+        if (!StringUtil.isNotEmpty(orderByColumn)) {
             return "";
         }
-        return orderByColumn + " " +isAsc;
+        return orderByColumn + " " + isAsc;
     }
 
     public void setOrderByColumn(String orderByColumn) {
@@ -55,8 +56,9 @@ public class Page {
     }
 
     public void setIsAsc(String isAsc) {
-        if(StringUtil.isNotEmpty(isAsc)){
+        if (StringUtil.isNotEmpty(isAsc)) {
             this.isAsc = isAsc;
         }
     }
+
 }

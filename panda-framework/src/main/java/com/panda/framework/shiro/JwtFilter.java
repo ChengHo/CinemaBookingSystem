@@ -32,6 +32,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
 
     /**
      * 登录认证
+     *
      * @param request
      * @param response
      * @param mappedValue
@@ -41,7 +42,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         try {
             return executeLogin(request, response);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("JwtFilter过滤验证失败");
             return false;
         }
@@ -49,6 +50,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
 
     /**
      * 处理跨域
+     *
      * @param request
      * @param response
      * @return
@@ -68,4 +70,5 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
         }
         return super.preHandle(request, response);
     }
+
 }

@@ -9,10 +9,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-
 
 
 @AllArgsConstructor
@@ -48,4 +45,5 @@ public class SysCinema implements Serializable {
 
     //当前影院上映的所有电影，规则：上映的电影指包括今天在内，未来5天有安排目标影片的场次
     private List<SysMovie> sysMovieList;
+
 }

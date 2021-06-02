@@ -24,6 +24,7 @@ public interface SysUserMapper {
 
     /**
      * 查出指定名字用户的所有id
+     *
      * @param userName
      * @return
      */

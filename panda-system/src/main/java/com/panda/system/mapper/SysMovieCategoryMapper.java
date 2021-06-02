@@ -9,12 +9,14 @@ public interface SysMovieCategoryMapper {
 
     /**
      * 查询所有电影分类
+     *
      * @return
      */
     List<SysMovieCategory> findAll();
 
     /**
      * 根据id查询电影分类
+     *
      * @param id
      * @return
      */
@@ -22,6 +24,7 @@ public interface SysMovieCategoryMapper {
 
     /**
      * 根据电影id查询所属的全部类别
+     *
      * @param id
      * @return
      */
@@ -29,6 +32,7 @@ public interface SysMovieCategoryMapper {
 
     /**
      * 添加一个电影分类
+     *
      * @param sysMovieCategory
      * @return
      */
@@ -36,6 +40,7 @@ public interface SysMovieCategoryMapper {
 
     /**
      * 更新电影分类信息
+     *
      * @param sysMovieCategory
      * @return
      */
@@ -43,6 +48,7 @@ public interface SysMovieCategoryMapper {
 
     /**
      * 根据id删除电影分类
+     *
      * @param id
      * @return
      */

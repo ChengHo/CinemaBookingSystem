@@ -24,23 +24,23 @@ public class SysCinemaController extends BaseController {
     private SysSessionServiceImpl sysSessionService;
 
     @GetMapping("/sysCinema/{id}")
-    public ResponseResult findById(@PathVariable Long id){
+    public ResponseResult findById(@PathVariable Long id) {
         return getResult(sysCinemaService.findById(id));
     }
 
     @PutMapping("/sysCinema/update")
-    public ResponseResult update(@Validated @RequestBody SysCinema sysCinema){
+    public ResponseResult update(@Validated @RequestBody SysCinema sysCinema) {
         return getResult(sysCinemaService.update(sysCinema));
     }
 
     @GetMapping(value = {"/sysCinema/find/{cinemaId}/{movieId}", "/sysCinema/find/{cinemaId}"})
-    public ResponseResult findCinemaById(@PathVariable Long cinemaId, @PathVariable(required = false) Long movieId){
+    public ResponseResult findCinemaById(@PathVariable Long cinemaId, @PathVariable(required = false) Long movieId) {
         SysCinema cinema = sysCinemaService.findCinemaById(cinemaId);
-        if(movieId == null || movieId == 0){
+        if (movieId == null || movieId == 0) {
             movieId = cinema.getSysMovieList().size() > 0 ? cinema.getSysMovieList().get(0).getMovieId() : 0;
         }
         List<SysSession> sessions = null;
-        if(movieId != null && movieId != 0){
+        if (movieId != null && movieId != 0) {
             sessions = sysSessionService.findByCinemaAndMovie(cinemaId, movieId);
         }
 
