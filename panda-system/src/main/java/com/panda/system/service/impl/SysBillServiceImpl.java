@@ -52,8 +52,4 @@ public class SysBillServiceImpl implements SysBillService {
         return sysBillMapper.findTimeoutBill();
     }
 
-    @Override
-    public Double todayBoxOffice() {
-        return sysBillMapper.todayBoxOffice();
-    }
 }

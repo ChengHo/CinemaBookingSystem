@@ -19,6 +19,4 @@ public interface SysBillService {
 
     List<SysBill> findTimeoutBill();
 
-    Double todayBoxOffice();
-    
 }

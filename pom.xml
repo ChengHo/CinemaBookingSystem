@@ -106,13 +106,6 @@
 				<version>${fastjson.version}</version>
 			</dependency>
 
-<!--            &lt;!&ndash; quartz 定时任务 &ndash;&gt;-->
-<!--			<dependency>-->
-<!--				<groupId>org.quartz-scheduler</groupId>-->
-<!--				<artifactId>quartz</artifactId>-->
-<!--				<version>${quartz.version}</version>-->
-<!--			</dependency>-->
-
 			<!-- 子模块 -->
 			<dependency>
 				<groupId>com.panda</groupId>

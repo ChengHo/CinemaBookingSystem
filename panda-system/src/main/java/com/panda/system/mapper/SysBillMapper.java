@@ -22,7 +22,4 @@ public interface SysBillMapper {
      * @return
      */
     List<SysBill> findTimeoutBill();
-
-    Double todayBoxOffice();
-    
 }

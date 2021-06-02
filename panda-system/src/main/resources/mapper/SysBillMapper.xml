@@ -69,10 +69,4 @@
         delete from sys_bill where bill_id = #{id}
     </update>
 
-    <select id="todayBoxOffice" resultType="double">
-        select COALESCE(sum(ss.session_price * JSON_LENGTH(sb.seats)), 0) from sys_bill sb
-        join sys_session ss on sb.session_id = ss.session_id
-        where ss.session_date = curdate()
-    </select>
-
 </mapper>
