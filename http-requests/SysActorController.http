@@ -8,12 +8,11 @@ Content-Type: application/json
   "actorPhoto": "bablablablabla",
   "actorAge": 20,
   "actorHeight": 170.5,
-  "actorSchool": "中央美院",
+  "actorSchool": "中央院",
   "actorNation": "汉族",
   "actorBloodType": "B型",
   "actorConstellation": "水瓶座",
-  "actorNationality": "中国",
-  "actorInformation": "守护全世界最好的肖战割割"
+  "actorNationality": "中国"
 }
 
 
@@ -41,8 +40,7 @@ Content-Type: application/json
   "actorNation": "汉族",
   "actorBloodType": "A型",
   "actorConstellation": "水瓶座",
-  "actorNationality": "中国",
-  "actorInformation": "守护全世界最好的肖战割割"
+  "actorNationality": "中国"
 }
 
 ### 删除

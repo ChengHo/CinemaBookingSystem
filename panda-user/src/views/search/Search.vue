@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="searchContainer">
-      <el-input v-model="keyword" class="searchBar" placeholder="找电影、影人、影院"></el-input>
+      <el-input v-model="keyword" class="searchBar" placeholder="请输入电影名称"></el-input>
       <el-button id="searchBtn" icon="el-icon-search" type="primary" circle @click="searchInfo"></el-button>
     </div>
     <div>
@@ -33,17 +33,13 @@ export default {
           id: '1',
           name: '电影',
           path: '/search/searchMovie'
-        },
-        {
-          id: '2',
-          name: '影人',
-          path: '/search/searchActor'
-        },
-        {
-          id: '3',
-          name: '影院',
-          path: '/search/searchCinema'
         }
+        // ,
+        // {
+        //   id: '2',
+        //   name: '影院',
+        //   path: '/search/searchCinema'
+        // }
       ],
       keyword: this.$route.query.kw
     }

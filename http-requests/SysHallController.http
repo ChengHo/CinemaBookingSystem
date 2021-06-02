@@ -8,12 +8,7 @@ Content-Type: application/json
   "hallName": "3号厅",
   "hallCategoryId": 2,
   "seatState": "[{\"1\": [2,2,0,0,0]},{\"2\": [0,0,0,0,0]},{\"3\": [0,0,0,0,0]}]",
-  "hallState": false
 }
-
-### 查询所有
-GET http://localhost:8181/sysHall?hallState=1
-Accept: application/json
 
 ### 查询一个
 GET http://localhost:8181/sysHall/1/2
@@ -31,8 +26,7 @@ Content-Type: application/json
   "rowStart": "A",
   "rowNums": 10,
   "seatNumsRow": 20,
-  "seatNums": 200,
-  "hallState": false
+  "seatNums": 200
 }
 
 ### 删除

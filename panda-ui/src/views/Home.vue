@@ -1,7 +1,6 @@
 <template>
   <el-container class="home-container">
     <el-header>
-
       <div class="span-container" style="padding: 5px" @click="toWelcome">
         <span>&nbsp;&nbsp;</span>
         <img src="../assets/logo.png" alt="" height="40px" width="40px">
@@ -23,16 +22,18 @@
             :router="true"
             :default-active="$route.path">
           <!--一级菜单-->
-          <el-submenu :index="String(item.id)" v-for="item in menulist" :key="item.id">
+          <el-submenu v-for="item in menuList"
+                      :index="String(item.id)" :key="item.id">
             <!--一级菜单的模板区域-->
             <template slot="title">
               <!--图标-->
-              <i :class="iconlist[item.id]"></i>
+              <i :class="iconList[item.id]"></i>
               <!--文本-->
               <span>{{item.id}} &nbsp; {{item.name}}</span>
             </template>
             <!--二级菜单-->
-            <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id">
+            <el-menu-item v-for="subItem in item.children"
+                          :index="'/' + subItem.path" :key="subItem.id">
               <template slot="title">
                 <!--图标-->
                 <i class="el-icon-menu"></i>
@@ -54,11 +55,12 @@
 
 <script>
 export default {
-  data(){
+  name: "Home",
+  data() {
     return {
       //左侧菜单数据
-      menulist:[],
-      iconlist: {
+      menuList: [],
+      iconList: {
         '1': 'el-icon-s-home',
         '2': 'el-icon-video-camera-solid',
         '3': 'el-icon-s-help',
@@ -71,26 +73,21 @@ export default {
       isCollapsed: false
     }
   },
-  name: "Home",
   created(){
     this.getMenuList()
   },
-  methods:{
-    logout(){
-      const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
-      const userName = loginUser.sysUser.userName
-      axios.get('sysUser/logout/'+userName);
+  methods: {
+    logout() {
       //清空sessionStorage
       window.sessionStorage.clear();
       this.$router.push('/login')
     },
     async getMenuList(){
       const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
-      console.log(loginUser)
-      this.menulist = loginUser.sysUser.sysRole.children
+      this.menuList = loginUser.sysUser.sysRole.children
     },
     // 菜单展开与闭合：点击事件
-    toggleCollapse(){
+    toggleCollapse() {
       this.isCollapsed = !this.isCollapsed
     },
     toWelcome(){

@@ -8,7 +8,6 @@
       <div class="objects">
         <img class="object_rocket" src="../assets/404images/rocket.svg" width="40px">
         <div class="earth-moon">
-          <!-- <img class="object_earth" src="../assets/404images/" width="100px"> -->
           <img class="object_moon" src="../assets/404images/moon.svg" width="80px">
         </div>
         <div class="box_astronaut">

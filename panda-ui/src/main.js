@@ -9,6 +9,8 @@ import './assets/css/fonts/iconfont.css'
 import {Message} from 'element-ui'
 import has from './assets/js/permission'
 import global_variable from "@/components/global_variable";
+// import echarts from 'echarts'
+// Vue.prototype.$echarts = echarts
 
 Vue.prototype.global = global_variable
 

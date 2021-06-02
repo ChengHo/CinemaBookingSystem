@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 自定义realm
- * @Author: 华雨欣
- * @Create: 2020-12-07 21:20
  */
 @Slf4j
 public class CustomerRealm extends AuthorizingRealm {

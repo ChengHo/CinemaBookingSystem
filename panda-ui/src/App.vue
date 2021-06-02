@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import global from "@/assets/css/global.css"
+import global from "./assets/css/global.css"
 export default {
   name: 'App',
   data() {

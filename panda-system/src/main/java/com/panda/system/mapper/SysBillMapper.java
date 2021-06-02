@@ -4,10 +4,7 @@ import com.panda.system.domin.SysBill;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-30 14:01
- */
+
 public interface SysBillMapper {
 
     List<SysBill> findAll(SysBill sysBill);
@@ -19,6 +16,12 @@ public interface SysBillMapper {
     int update(SysBill sysBill);
 
     int delete(Long id);
+
+    /**
+     * 查询所有超时订单
+     * @return
+     */
+    List<SysBill> findTimeoutBill();
 
     Double todayBoxOffice();
     

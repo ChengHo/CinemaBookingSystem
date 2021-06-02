@@ -9,8 +9,6 @@ import java.io.Serializable;
 
 /**
  * 封装用户登录输入的信息
- * @Author: 华雨欣
- * @Create: 2020-12-07 22:58
  */
 @Data
 @AllArgsConstructor
@@ -23,27 +21,4 @@ public class SysUserVo implements Serializable {
     //验证码
     private String checkCode;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCheckCode() {
-        return checkCode;
-    }
-
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
-    }
 }

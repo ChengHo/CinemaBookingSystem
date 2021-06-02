@@ -1,22 +1,20 @@
 <template>
   <div class="login_container">
     <div class="login_box">
-      <!-- 头像区域 -->
-<!--      <div class="avatar_box">-->
-<!--        <img src="../assets/loginLogo1.jpg">-->
-<!--      </div>-->
       <div class="title_box">
-        <p>影院管理系统</p>
+        <p>影院管理登录</p>
       </div>
       <!-- 登录表单区域 -->
       <el-form class="login_form" :model="loginForm" :rules="loginFormRules" ref="loginFormRef">
         <!-- 用户名 -->
         <el-form-item prop="userName">
-          <el-input v-model="loginForm.userName" prefix-icon="iconfont icon-user" placeholder="请输入用户名"></el-input>
+          <el-input v-model="loginForm.userName" placeholder="请输入用户名" clearable
+                    prefix-icon="iconfont icon-user"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-lock" placeholder="请输入密码" type="password"></el-input>
+          <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" show-password
+                    prefix-icon="iconfont icon-lock"></el-input>
         </el-form-item>
         <!-- 按扭区域 -->
         <el-form-item class="btns">
@@ -50,9 +48,9 @@ export default {
   data() {
     return {
       //登录表单数据对象
-      loginForm:{
-        userName : 'admin',
-        password : '123456'
+      loginForm: {
+        userName: 'admin',
+        password: '123456'
       },
       //表单验证规则
       loginFormRules: {
@@ -70,11 +68,11 @@ export default {
     }
   },
   methods:{
-    success(params){
+    success(params) {
       console.log(params);
       this.login()
     },
-    useVerify(){
+    useVerify() {
       this.$refs.verify.show()
     },
     //点击重置按钮，重置表单
@@ -82,28 +80,28 @@ export default {
       // console.log(this.$refs)
       this.$refs.loginFormRef.resetFields();
     },
-    login(){
-      this.$refs.loginFormRef.validate(async valid =>{
+    login() {
+      this.$refs.loginFormRef.validate(async valid => {
         if(!valid) return;
         axios.defaults.headers.post['Content-Type'] = 'application/json'
         const { data: res} = await axios.post('sysUser/login', JSON.stringify(this.loginForm));
-          if(res.code != 200) return this.$message.error(res.msg);
+        if(res.code !== 200) return this.$message.error(res.msg);
         //控制登录权限
-        if(res.data.sysUser.sysRole.children === null || res.data.sysUser.sysRole.children[0] === null){
+        if(res.data.sysUser.sysRole.children === null || res.data.sysUser.sysRole.children[0] === null) {
           this.$message.error("抱歉，您没有权限登录，请联系管理员获取权限")
           return
         }
-        this.$message.success("登录成功");
+        this.$message.success("登录成功")
         // console.log(res.data);
         //保存token
-        window.sessionStorage.setItem("token", res.data.token);
+        window.sessionStorage.setItem("token", res.data.token)
         window.sessionStorage.setItem("loginUser", JSON.stringify({sysUser : res.data.sysUser, cinemaId : res.data.cinemaId, cinemaName : res.data.cinemaName}));
-        window.sessionStorage.setItem("btnPermission", res.data.sysUser.sysRole.roleId === 1 ? "admin" : "normal")
+        // window.sessionStorage.setItem("btnPermission", res.data.sysUser.sysRole.roleId === 1 ? "admin" : "normal")
+        window.sessionStorage.setItem("btnPermission", res.data.sysUser.sysRole.roleId === 1 ? "admin" : "admin")
         //导航跳转到首页
-        this.$router.push('/welcome');
+        await this.$router.push('/welcome');
       })
     }
-
   }
 }
 </script>

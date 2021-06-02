@@ -17,8 +17,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 配置异常处理器，管理全局异常
- * @Author: 华雨欣
- * @Create: 2020-11-17 23:33
  */
 @RestController
 @ControllerAdvice

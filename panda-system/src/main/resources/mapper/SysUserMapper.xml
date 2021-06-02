@@ -10,9 +10,28 @@
         <association property="sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findById"></association>
     </resultMap>
 
+    <resultMap id="loginUserMap" type="LoginUser">
+        <id property="sysUser.userId" column="user_id"></id>
+        <result property="sysUser.userName" column="user_name"></result>
+        <result property="sysUser.password" column="password"></result>
+        <result property="sysUser.salt" column="salt"></result>
+        <result property="sysUser.email" column="email"></result>
+        <result property="sysUser.phoneNumber" column="phone_number"></result>
+        <result property="sysUser.sex" column="sex"></result>
+        <result property="sysUser.userPicture" column="user_picture"></result>
+        <result property="sysUser.birthday" column="birthday"></result>
+        <result property="sysUser.autograph" column="autograph"></result>
+        <result property="sysUser.roleId" column="role_id"></result>
+        <result property="cinemaId" column="cinema_id"></result>
+        <result property="cinemaName" column="cinema_name"></result>
+        <association property="sysUser.sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findById"></association>
+        <association property="sysUser.sysRole.children" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findByRoleId"></association>
+    </resultMap>
+
     <select id="findAll" resultMap="SysUserMap" parameterType="SysUser">
         select * from sys_user
         <where>
+            del_state = 0
             <if test="userName != null and userName != ''">
                 and user_name like concat('%', #{userName}, '%')
             </if>
@@ -25,6 +44,9 @@
             <if test="sex != null">
                 and sex = #{sex}
             </if>
+            <if test="roleId != null and roleId != ''">
+                and role_id = #{roleId}
+            </if>
         </where>
     </select>
 
@@ -33,7 +55,7 @@
     </select>
 
     <select id="findByName" resultMap="SysUserMap" parameterType="String">
-        select * from sys_user where user_name = #{userName}
+        select * from sys_user where user_name = #{userName} and del_state = 0
     </select>
 
     <update id="add" parameterType="SysUser">
@@ -48,7 +70,6 @@
         <if test="email != null and email != ''">email,</if>
         <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
         <if test="userPicture != null and userPicture != ''">user_picture,</if>
-        <if test="information != null and information != ''" >information,</if>
         <if test="roleId != null and roleId != 0"> role_id, </if>
         sex
         )
@@ -59,7 +80,6 @@
         <if test="email != null and email != ''">#{email},</if>
         <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
         <if test="userPicture != null and userPicture != ''">#{userPicture},</if>
-        <if test="information != null and information != ''" >#{information},</if>
         <if test="roleId != null and roleId != 0">#{roleId}, </if>
         #{sex})
     </update>
@@ -72,32 +92,16 @@
         <if test="email != null and email != ''">email = #{email},</if>
         <if test="phoneNumber != null and phoneNumber != ''">phone_number = #{phoneNumber}, </if>
         <if test="userPicture != null and userPicture != ''">user_picture = #{userPicture},</if>
-        <if test="information != null and information != ''" >information = #{information},</if>
+        <if test="birthday != null and birthday != ''" >birthday = #{birthday},</if>
+        <if test="autograph != null and autograph != ''" >autograph = #{autograph},</if>
         <if test="roleId != null and roleId != 0">role_id = #{roleId}, </if>
         sex = #{sex}
         where user_id = #{userId}
     </update>
 
     <update id="delete" parameterType="Long">
-        delete from sys_user where user_id = #{id}
+        update sys_user set del_state = 1 where user_id = #{id}
     </update>
-
-    <resultMap id="loginUserMap" type="LoginUser">
-        <id property="sysUser.userId" column="user_id"></id>
-        <result property="sysUser.userName" column="user_name"></result>
-        <result property="sysUser.password" column="password"></result>
-        <result property="sysUser.salt" column="salt"></result>
-        <result property="sysUser.email" column="email"></result>
-        <result property="sysUser.phoneNumber" column="phone_number"></result>
-        <result property="sysUser.sex" column="sex"></result>
-        <result property="sysUser.userPicture" column="user_picture"></result>
-        <result property="sysUser.information" column="information"></result>
-        <result property="sysUser.roleId" column="role_id"></result>
-        <result property="cinemaId" column="cinema_id"></result>
-        <result property="cinemaName" column="cinema_name"></result>
-        <association property="sysUser.sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findById"></association>
-        <association property="sysUser.sysRole.children" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findByRoleId"></association>
-    </resultMap>
 
     <!-- 查询登录用户信息 -->
     <select id="findLoginUser" parameterType="SysUserVo" resultMap="loginUserMap">

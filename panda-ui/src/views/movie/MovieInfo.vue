@@ -9,78 +9,68 @@
       </el-breadcrumb>
     </div>
 
-
     <el-card class="box-card">
       <el-row :addDialogVisible="20">
         <el-col :span="5">
-          <el-select v-model="selectedMovieArea" placeholder="请选择电影地区" clearable>
+          <el-input v-model="inputMovieName" placeholder="请输入电影名称" clearable></el-input>
+        </el-col>
+        <el-col :span="5">
+          <el-select class="el-select-search" v-model="selectedMovieArea" placeholder="请选择电影地区" clearable>
             <el-option
                 v-for="item in movieAreaList"
-                :key="item.movieAreaId"
-                :label="item.movieAreaName"
-                :value="item.movieAreaId">
+                :key="item"
+                :label="item"
+                :value="item">
             </el-option>
           </el-select>
-        </el-col>
-        <el-col :span="5">
-          <el-select v-model="selectedMovieAge" placeholder="请选择电影年代" clearable>
-            <el-option
-                v-for="item in movieAgeList"
-                :key="item.movieAgeId"
-                :label="item.movieAgeName"
-                :value="item.movieAgeId">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="5">
-          <el-date-picker
-              :unlink-panels="true"
-              v-model="selectedDate"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
-          </el-date-picker>
-        </el-col>
-
-      </el-row>
-      <el-row :gutter="20" class="row2">
-        <el-col :span="5">
-          <el-input v-model="selectedMovieNameCn" placeholder="请输入电影中文名称" clearable></el-input>
-        </el-col>
-        <el-col :span="5">
-          <el-input v-model="selectedMovieNameEn" placeholder="请输入电影英文名称" clearable></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button icon="el-icon-search" @click="getMovieList">搜索</el-button>
+          <el-button class="el-button-search" icon="el-icon-search" @click="getMovieList">搜索</el-button>
         </el-col>
+      </el-row>
+      <el-row :gutter="20" class="row2">
+        <el-col :span="10">
+            <el-date-picker
+                    :unlink-panels="true"
+                    v-model="selectedDate"
+                    type="datetimerange"
+                    range-separator="至"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期">
+            </el-date-picker>
+        </el-col>
+
         <el-col :span="4">
           <el-button type="primary" @click="addDialogVisible = true">添加电影</el-button>
         </el-col>
         <el-col :span="4">
-          <el-button type="danger" @click="multipleDelete">批量删除</el-button>
+          <el-button type="danger" @click="isAbleMultipleDelete">批量删除</el-button>
         </el-col>
       </el-row>
 
-<!--    电影分类列表-->
+<!--    电影信息列表-->
     <el-table :data="movieList" style="width: 100%" border stripe @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="movieNameCn" label="电影中文名称"></el-table-column>
-      <el-table-column prop="movieNameEn" label="电影英文名称"></el-table-column>
-      <el-table-column prop="sysMovieArea.movieAreaName" label="电影区域"></el-table-column>
-      <el-table-column prop="sysMovieAge.movieAgeName" label="电影年代id"></el-table-column>
+      <el-table-column prop="movieId" label="#" width="40"></el-table-column>
+      <el-table-column prop="movieName" label="电影名称"></el-table-column>
+      <el-table-column prop="movieArea" label="电影区域"></el-table-column>
+      <el-table-column prop="movieLength" label="电影时长（分钟）"></el-table-column>
       <el-table-column prop="releaseDate" label="上映时间"></el-table-column>
+      <el-table-column prop="movieBoxOffice" label="票房"></el-table-column>
 <!--      操作按钮-->
-      <el-table-column label="操作" width="180">
+      <el-table-column label="操作" width="240">
         <template slot-scope="scope">
+          <el-tooltip effect="dark" content="查看电影信息详细" placement="top" :enterable="false" :open-delay="500">
+            <el-button type="success" icon="el-icon-view" size="mini" @click="toMovieInfo(scope.row.movieId)"></el-button>
+          </el-tooltip>
           <el-tooltip effect="dark" content="修改电影信息" placement="top" :enterable="false" :open-delay="500">
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.movieId)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="isAbleEdit(scope.row.movieId)"></el-button>
           </el-tooltip>
           <el-tooltip effect="dark" content="删除电影" placement="top" :enterable="false" :open-delay="500">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieById(scope.row.movieId)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="isAbleDelete(scope.row.movieId)"></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="演员&影片分类" placement="top" :enterable="false" :open-delay="500">
-            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showEditActorDialog(scope.row.movieId)"></el-button>
+          <el-tooltip effect="dark" content="影片类别管理" placement="top" :enterable="false" :open-delay="500">
+            <el-button type="warning" icon="el-icon-setting" size="mini" @click="showEditCategoryDialog(scope.row.movieId)"></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -103,19 +93,20 @@
       <!--内容主题区-->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="100px">
         <!--prop：在addFormRules中定义校验规则， v-model：双向绑定数据-->
-        <el-form-item label="电影中文名称" prop="movieNameCn">
-          <el-input v-model="addForm.movieNameCn"></el-input>
+        <el-form-item label="电影名称" prop="movieName">
+          <el-input v-model="addForm.movieName"></el-input>
         </el-form-item>
-        <el-form-item label="电影英文名称" prop="movieNameEn">
-          <el-input v-model="addForm.movieNameEn"></el-input>
+        <el-form-item label="电影区域" prop="movieArea">
+          <el-select v-model="addForm.movieArea" placeholder="请选择电影区域" clearable >
+            <el-option
+                    v-for="item in movieAreaList"
+                    :key="item"
+                    :label="item"
+                    :value="item">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="电影区域id" prop="movieAreaId">
-          <el-input v-model="addForm.movieAreaId"></el-input>
-        </el-form-item>
-        <el-form-item label="电影年代id" prop="movieAgeId">
-          <el-input v-model="addForm.movieAgeId"></el-input>
-        </el-form-item>
-        <el-form-item label="电影时长/分" prop="movieLength">
+        <el-form-item label="电影时长/分钟" prop="movieLength">
           <el-input v-model="addForm.movieLength"></el-input>
         </el-form-item>
         <el-form-item label="上映时间" prop="releaseDate">
@@ -130,8 +121,13 @@
           <el-input v-model="addForm.movieIntroduction"></el-input>
         </el-form-item>
         <el-form-item label="电影封面">
-          <el-upload action="" list-type="picture-card"   :auto-upload="false" :limit="1"
-                     :file-list="poster" :on-exceed="handleExceed" :on-change="handleChangeP" :on-success="handleSuccessP" :on-error="handleError" ref="posterRef" :http-request="submitFileP">
+          <el-upload action="" list-type="picture-card"
+                     :auto-upload="false" :limit="1"
+                     :file-list="poster" :on-exceed="handleExceed"
+                     :on-change="handleChangeP"
+                     :on-success="handleSuccessP"
+                     :on-error="handleError" ref="posterRef"
+                     :http-request="submitFileP">
             <i slot="default" class="el-icon-plus" ></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -146,14 +142,16 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
         <!--        修改图集-->
         <el-form-item label="电影图集">
           <el-upload action="" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureRef" :http-request="submitFile">
+                     :file-list="pics" :on-change="handleChange"
+                     :on-success="handleSuccess" :on-error="handleError"
+                     ref="pictureRef" :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -168,7 +166,7 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
@@ -184,19 +182,21 @@
     <!-- 修改电影信息对话框 -->
     <el-dialog title="修改电影信息" :visible.sync="editDialogVisible" width="60%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
-        <el-form-item label="电影中文名称" prop="movieNameCn">
-          <el-input v-model="editForm.movieNameCn"></el-input>
+        <el-form-item label="电影名称" prop="movieName">
+          <el-input v-model="editForm.movieName" disabled></el-input>
         </el-form-item>
-        <el-form-item label="电影英文名称" prop="movieNameEn">
-          <el-input v-model="editForm.movieNameEn"></el-input>
+
+        <el-form-item label="电影区域" prop="movieArea">
+          <el-select v-model="editForm.movieArea" placeholder="请选择电影区域" clearable >
+            <el-option
+              v-for="item in movieAreaList"
+              :key="item"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="电影区域id" prop="movieAreaId">
-          <el-input v-model="editForm.movieAreaId"></el-input>
-        </el-form-item>
-        <el-form-item label="电影年代id" prop="movieAgeId">
-          <el-input v-model="editForm.movieAgeId"></el-input>
-        </el-form-item>
-        <el-form-item label="电影时长/分" prop="movieLength">
+        <el-form-item label="电影时长/分钟" prop="movieLength">
           <el-input v-model="editForm.movieLength"></el-input>
         </el-form-item>
         <el-form-item label="上映时间" prop="releaseDate">
@@ -212,8 +212,13 @@
         </el-form-item>
 <!--        修改封面-->
         <el-form-item label="电影封面">
-          <el-upload action="" list-type="picture-card"   :auto-upload="false" :limit="1"
-                     :file-list="poster" :on-exceed="handleExceed" :on-change="handleChangeP" :on-success="handleSuccessP" :on-error="handleError" ref="posterEditRef" :http-request="submitFileP">
+          <el-upload action="" list-type="picture-card"
+                     :auto-upload="false" :limit="1"
+                     :file-list="poster" :on-exceed="handleExceed"
+                     :on-change="handleChangeP"
+                     :on-success="handleSuccessP"
+                     :on-error="handleError" ref="posterEditRef"
+                     :http-request="submitFileP">
             <i slot="default" class="el-icon-plus" ></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -228,14 +233,17 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
 <!--        修改图集-->
         <el-form-item label="电影图集">
           <el-upload action="" list-type="picture-card" :auto-upload="false"
-                     :file-list="pics" :on-change="handleChange" :on-success="handleSuccess" :on-error="handleError" ref="pictureEditRef" :http-request="submitFile">
+                     :file-list="pics" :on-change="handleChange"
+                     :on-success="handleSuccess"
+                     :on-error="handleError" ref="pictureEditRef"
+                     :http-request="submitFile">
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -250,19 +258,19 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editHallInfo">确 定</el-button>
+        <el-button type="primary" @click="editMovieInfo">确 定</el-button>
       </span>
     </el-dialog>
 
-<!--    演员管理界面-->
-    <el-dialog title="电影类型&演员信息 管理" :visible.sync="editActorVisible" width="60%" @close="editActorDialogClosed">
+<!--    电影类型管理界面-->
+    <el-dialog title="电影类型管理" :visible.sync="editCategoryVisible" width="60%" @close="editCategoryDialogClosed">
 <!--      <template>-->
 <!--        <el-checkbox-group-->
 <!--            v-model="selectedMovieCategory">-->
@@ -292,44 +300,6 @@
               </el-tag>
         </el-form-item>
       </el-form>
-      <el-form   ref="editActorFormRef" label-width="100px">
-        <el-form-item label="演员属性" prop="movieActor">
-          <el-select v-model="selectedMovieActor" placeholder="请选择演员姓名" clearable>
-            <el-option
-                v-for="item in actorList"
-                :key="item.actorId"
-                :label="item.actorName"
-                :value="item.actorId">
-            </el-option>
-          </el-select>
-          <el-select v-model="selectedMovieRole" placeholder="请选择角色名称" clearable>
-            <el-option
-                v-for="item in roleList"
-                :key="item.actorRoleId"
-                :label="item.actorRoleName"
-                :value="item.actorRoleId">
-            </el-option>
-          </el-select>
-          <el-button type="primary" @click="addActor">保存</el-button>
-          <el-table :data="editActorForm" style="width: 100%" border stripe>
-            <el-table-column type="expand">
-              <template slot-scope="scope">
-                <el-tag
-                    v-for="tag in scope.row.actorList"
-                    :key="tag.actorName"
-                    closable
-                    @close="deleteActor(scope.row.actorRoleId,tag.actorId)">
-                  {{tag.actorName}}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-                label="职务名称"
-                prop="actorRoleName">
-            </el-table-column>
-          </el-table>
-        </el-form-item>
-      </el-form>
     </el-dialog>
   </div>
 </template>
@@ -341,14 +311,12 @@ export default {
     return {
       queryInfo: {
         movieId: '',
-        movieAreaId: '',
-        movieAgeId: '',
-        movieNameCn: '',
-        movieNameEn: '',
-        pageNum: 1,
-        pageSize: 7,
+        movieArea: '',
+        movieName: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        pageNum: 1,
+        pageSize: 7
       },
       total: 0,
       url: 'http://localhost:8181/',
@@ -356,24 +324,18 @@ export default {
       addDialogVisible: false,
       selectedMovieCategory:[],
       selectedMovieArea: '',
-      selectedMovieAge: '',
-      selectedMovieActor:'',
-      selectedMovieRole:'',
       selectedDate: [],
-      selectedMovieNameCn: '',
-      selectedMovieNameEn: '',
+      inputMovieName: '',
       categoryList:[],
       movieList: [],
-      movieAreaList: [],
-      movieAgeList: [],
-      actorList: [],
-      roleList: [],
+      movieAreaList: ["中国大陆", "美国", "韩国", "日本", "中国香港", "中国台湾", "泰国", "印度",
+        "法国", "英国", "俄罗斯", "意大利", "西班牙", "德国", "波兰", "澳大利亚", "伊朗", "其他"],
       editForm: {},
-      editActorForm:null,
+      checkAbleId: {},
       editCategoryForm:[],
-      actorMovieId:'',
+      movieId:'',
       editDialogVisible: false,
-      editActorVisible: false,
+      editCategoryVisible: false,
       multipleSelection: [],
       dialogVisible: false,
       dialogImageUrl: '',
@@ -392,71 +354,49 @@ export default {
       //添加电影表单数据
       addForm: {
         movieId: '',
-        movieNameCn: '',
-        movieNameEn: '',
-        movieAreaId: '',
-        movieAgeId: '',
+        movieName: '',
+        movieArea: '',
         movieLength: 0,
         releaseDate: '',
-        movieScore: '',
         movieBoxOffice: '',
-        movieRateNum: 0,
         movieIntroduction: '',
         moviePictures: '',
-        moviePoster:'',
+        moviePoster:''
       },
       //添加验证表单规则对象
       addFormRules: {
-        movieNameCn: [
-          {required: true, message: '请输入电影中文名', trigger: 'blur'}
+        movieName: [
+          {required: true, message: '请输入电影名称', trigger: 'blur'}
         ],
-        movieNameEn: [
-          {required: true, message: '请输入电影英文名', trigger: 'blur'}
-        ],
-        movieAreaId: [
-          {required: true, message: '请输入电影区域id', trigger: 'blur'}
-        ],
-        movieAgeId: [
-          {required: true, message: '请输入电影年代id', trigger: 'blur'}
+        movieArea: [
+          {required: true, message: '请选择电影区域', trigger: 'blur'}
         ]
       },
       //修改验证表单规则对象
       editFormRules: {
-        movieNameCn: [
-          {required: true, message: '请输入电影中文名', trigger: 'blur'}
+        movieName: [
+          {required: true, message: '请输入电影名称', trigger: 'blur'}
         ],
-        movieNameEn: [
-          {required: true, message: '请输入电影英文名', trigger: 'blur'}
-        ],
-        movieAreaId: [
-          {required: true, message: '请输入电影区域id', trigger: 'blur'}
-        ],
-        movieAgeId: [
-          {required: true, message: '请输入电影年代id', trigger: 'blur'}
+        movieArea: [
+          {required: true, message: '请选择电影区域', trigger: 'blur'}
         ]
       }
     }
   },
   created() {
-    this.getMovieList();
-    this.getMovieAgeList();
-    this.getMovieAreaList();
-    this.getactorList();
-    this.getroleList();
-    this.getCategoryList();
+    this.getMovieList()
+    this.getCategoryList()
   },
   methods: {
     getMovieList() {
-      this.queryInfo.movieNameCn = this.selectedMovieNameCn
-      this.queryInfo.movieNameEn = this.selectedMovieNameEn
-      this.queryInfo.movieAgeId = this.selectedMovieAge
-      this.queryInfo.movieAreaId = this.selectedMovieArea
+      this.queryInfo.movieName = this.inputMovieName
+      this.queryInfo.movieArea = this.selectedMovieArea
       if (!this.selectedDate) {
         this.queryInfo.startDate = this.selectedDate[0]
         this.queryInfo.endDate = this.selectedDate[1]
       }
       const _this = this;
-      axios.get('sysMovie', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysMovie/find', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
         _this.movieList = resp.data.data;
         _this.total = resp.data.total;
@@ -466,44 +406,15 @@ export default {
     },
     getCategoryList() {
       const _this = this
-      axios.get('sysMovieCategory').then(resp=>{
+      axios.get('sysMovieCategory/find').then(resp=>{
         _this.categoryList = resp.data.data;
         console.log(_this.categoryList)
       })
     },
-    getMovieAreaList() {
-      const _this = this;
-      axios.get('sysMovieArea').then(resp => {
-        console.log(resp)
-        _this.movieAreaList = resp.data.data;
-      })
-    },
-    getMovieAgeList() {
-      const _this = this;
-      axios.get('sysMovieAge').then(resp => {
-        console.log(resp)
-        _this.movieAgeList = resp.data.data;
-      })
-    },
-    getactorList(){
-      const _this = this;
-      axios.get('sysActor').then(resp =>{
-        console.log(resp.data.data)
-        _this.actorList = resp.data.data;
-      })
-    },
-    getroleList(){
-      const _this = this;
-      axios.get('sysActorRole').then(resp =>{
-        console.log(resp.data.data)
-        _this.roleList = resp.data.data;
-      })
-    },
-    ifShow(id){
-      let i = 0
+    ifShow(id) {
       let l = true
-      for(i=0;i<this.editCategoryForm.length;i++){
-        if(id==this.editCategoryForm[i].movieCategoryId){
+      for (let i = 0; i < this.editCategoryForm.length; i++) {
+        if (id === this.editCategoryForm[i].movieCategoryId) {
           l =false
         }
       }
@@ -567,7 +478,7 @@ export default {
       await this.submitFileP()
       this.addForm.moviePictures = JSON.stringify(this.pictureList)
       this.addForm.moviePoster = JSON.stringify(this.posterL)
-      const _this = this;
+      const _this = this
       this.$refs.addFormRef.validate(async valid => {
         console.log(valid)
         if (!valid) return
@@ -596,34 +507,12 @@ export default {
       this.posterL = []
       this.poster = []
     },
-    //监听修改演员对话框的关闭事件
-    editActorDialogClosed(){
+    //监听修改类别对话框的关闭事件
+    editCategoryDialogClosed(){
       this.selectedMovieCategory = ''
-      this.selectedMovieActor = ''
-      this.selectedMovieRole = ''
-      this.$refs.editActorFormRef.resetFields()
     },
-    //修改演员对话框
-    // async editActorInfo() {
-    //   this.$refs.editActorFormRef.validate(async valid => {
-    //     const _this = this
-    //     if(!valid) return
-    //     let success = true
-    //     axios.defaults.headers.put['Content-Type'] = 'application/json'
-    //     await axios.post('sysActorMovie',JSON.stringify(_this.editActorForm)).then(resp =>{
-    //       if(resp.data.code !== 200){
-    //         this.$message.error('修改演员信息失败!')
-    //         success = false
-    //       }
-    //     })
-    //     if(!success) return
-    //     this.editActorVisible = false
-    //     this.$message.success('修改演员信息成功!')
-    //   })
-    // },
-
     // 修改电影信息对话框
-    async editHallInfo() {
+    async editMovieInfo() {
       await this.submitFile()
       this.editForm.moviePictures = JSON.stringify(this.pictureList)
       await this.submitFileP()
@@ -698,10 +587,38 @@ export default {
     handleError(err) {
       console.log(err)
     },
+    toMovieInfo(id) {
+      window.open('http://localhost:8081/movieInfo/' + id)
+    },
+    isAbleEdit(id) {
+      this.checkAbleId.movieId = id
+      axios.get('sysSession/isAbleEdit', {params: this.checkAbleId}).then(response => {
+        console.log(response.data.total)
+        let sessions = response.data.data
+        if (response.data.total === 0) {
+          console.log('空的可改')
+          this.showEditDialog(id)
+        } else {
+          console.log('修改前判断有未完成session')
+          let sessionIds = ''
+          for (let temp of sessions) {
+            console.log(temp)
+            sessionIds += temp.sessionId+' '
+          }
+          console.log('sessionIds is : '+sessionIds)
+          this.$alert('抱歉！有未完成电影场次，不能修改电影信息。\n'+'导致异常的场次编号为: '+sessionIds, '修改请求异常通知', {
+            confirmButtonText: '我知道了',
+            callback: action => {
+              this.$router.push('/movie')
+            }
+          })
+        }
+      })
+    },
     // 显示修改对话框，回显数据
-    async showEditDialog(id1) {
+    async showEditDialog(id) {
       const _this = this
-      await axios.get('sysMovie/' + id1).then(resp => {
+      await axios.get('sysMovie/find/' + id).then(resp => {
         console.log(resp)
         _this.editForm = resp.data.data
       })
@@ -719,17 +636,14 @@ export default {
       }
       this.editDialogVisible = true
     },
-    //显示修改演员对话框,回显数据
-    async showEditActorDialog(id1){
+    //显示修改类别对话框,回显数据
+    async showEditCategoryDialog(id){
       const _this = this
-      _this.actorMovieId = id1
-      await axios.get('sysMovie/find/'+id1).then(response=>{
-        console.log('电影演员列表')
-          console.log(response.data.data)
-        _this.editActorForm = response.data.data.actorRoleList
+      _this.movieId = id
+      await axios.get('sysMovie/find/'+id).then(response=>{
         _this.editCategoryForm = response.data.data.movieCategoryList
         })
-      this.editActorVisible = true
+      this.editCategoryVisible = true
     },
     //取消修改
     cancelEdit(){
@@ -740,6 +654,29 @@ export default {
     // 监听多选框变化
     handleSelectionChange(val) {
       this.multipleSelection = val
+    },
+    // 批量删除前校验
+    async isAbleMultipleDelete() {
+      let ableDelete = true
+      let ids = ''
+      for (let i = 0; i < this.multipleSelection.length; i++) {
+        this.checkAbleId.movieId = this.multipleSelection[i].movieId
+        const { data : res } = await axios.get('sysSession/isAbleEdit', {params: this.checkAbleId})
+        if (res.data.length !== 0) {
+          ids += this.multipleSelection[i].movieId + ' '
+          ableDelete = false
+        }
+      }
+      if (ableDelete === false) {
+        this.$alert('抱歉！有未完成电影场次，不能批量删除电影信息。\n' + '导致异常的电影编号为: ' + ids, '批量删除请求异常通知', {
+          confirmButtonText: '我知道了',
+          callback: action => {
+            this.$router.push('/movie')
+          }
+        })
+        return
+      }
+      await this.multipleDelete()
     },
     // 批量删除电影
     async multipleDelete() {
@@ -753,7 +690,7 @@ export default {
 
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
-      if (resp == 'cancel') {
+      if (resp === 'cancel') {
         return _this.$message.info('已取消删除')
       }
 
@@ -773,9 +710,33 @@ export default {
       this.getMovieList()
       this.$message.success('批量删除电影成功！')
     },
+    async isAbleDelete(id) {
+      this.checkAbleId.movieId = id
+      await axios.get('sysSession/isAbleEdit', {params: this.checkAbleId}).then(response => {
+        console.log(response.data.total)
+        let sessions = response.data.data
+        if (response.data.total === 0) {
+          this.deleteMovieById(id)
+        } else {
+          console.log('删除前判断有未完成session')
+          let sessionIds = ''
+          for (let temp of sessions) {
+            console.log(temp)
+            sessionIds += temp.sessionId+' '
+          }
+          console.log('sessionIds is : '+sessionIds)
+          this.$alert('抱歉！有未完成电影场次，不能删除电影信息。\n'+'导致异常的场次编号为: '+sessionIds, '删除请求异常通知', {
+            confirmButtonText: '我知道了',
+            callback: action => {
+              this.$router.push('/movie')
+            }
+          })
+        }
+      })
+    },
     // 单个删除电影
-    async deleteMovieById(id1) {
-      let deleteInfo = id1
+    async deleteMovieById(id) {
+      let deleteInfo = id
       const _this = this
       //询问用户是否确认删除
       const resp = await this.$confirm('此操作将永久删除该条目, 是否继续?', '提示', {
@@ -787,7 +748,7 @@ export default {
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
       console.log(resp)
-      if (resp == 'cancel') {
+      if (resp === 'cancel') {
         return _this.$message.info('已取消删除')
       }
 
@@ -801,64 +762,15 @@ export default {
       this.getMovieList()
       this.$message.success('删除电影信息成功！')
     },
-    async deleteActor(rid,aid){
-      console.log('aid:'+aid)
-      for(let i = 0;i < this.editActorForm.length;i++){
-        if(rid == this.editActorForm[i].actorRoleId){
-          console.log('this.editForm.actorList:'+this.editActorForm[i].actorList)
-          for(let j = 0;j < this.editActorForm[i].actorList.length;j++){
-            if(aid == this.editActorForm[i].actorList[j].actorId){
-              this.editActorForm[i].actorList.splice(j,1)
-              if(this.editActorForm[i].actorList.length==0){
-                this.editActorForm.splice(i,1)
-              }
-              break
-            }
-          }
-        }
-      }
-      const _this = this
-      console.log(111)
-      await axios.delete('sysActorMovie/'+_this.actorMovieId+'/'+aid+'/'+rid).then(resp =>{
-        if(resp.data.code!== 200){
-          _this.$message.success('删除演员信息失败!')
-        }
-      })
-      this.$message.success('删除演员信息成功')
-    },
-    async addActor(){
-      if(this.selectedMovieRole&&this.selectedMovieActor){
-      let obj = {
-        movieId :this.actorMovieId,
-        actorId:this.selectedMovieActor,
-        actorRoleId:this.selectedMovieRole
-      }
-      const _this = this
-        let success = true
-      await axios.post('sysActorMovie',obj).then(resp=>{
-        if(resp.data.code!== 200){
-          _this.$message.error('添加演员信息失败!')
-          success = false;
-        }
-      })
-        if(!success) return
-        await axios.get('sysMovie/find/'+_this.actorMovieId).then(response=>{
-          console.log('电影演员列表')
-          console.log(response.data.data)
-          _this.editActorForm = response.data.data.actorRoleList
-        })
-      this.$message.success('添加演员信息成功')
-      }
-    },
     async deleteCategory(categoryId){
       console.log('类型id')
       console.log(categoryId)
       const _this = this
-      await axios.delete('sysMovieToCategory/'+this.actorMovieId+'/'+categoryId).then(resp=>{
+      await axios.delete('sysMovieToCategory/'+this.movieId+'/'+categoryId).then(resp=>{
         console.log(resp)
         _this.$message.success('删除类型成功')
       })
-      await axios.get('sysMovie/find/'+this.actorMovieId).then(response=>{
+      await axios.get('sysMovie/find/'+this.movieId).then(response=>{
         _this.editCategoryForm = response.data.data.movieCategoryList
       })
     },
@@ -867,11 +779,11 @@ export default {
     },
     async addCategory(){
       const _this = this
-      await axios.post('sysMovieToCategory/'+this.actorMovieId+'/'+this.selectedMovieCategory).then(resp=>{
+      await axios.post('sysMovieToCategory/'+this.movieId+'/'+this.selectedMovieCategory).then(resp=>{
         console.log(resp)
 
       })
-      axios.get('sysMovie/find/'+this.actorMovieId).then(response=>{
+      axios.get('sysMovie/find/'+this.movieId).then(response=>{
         _this.editCategoryForm = response.data.data.movieCategoryList
       })
     }
@@ -882,5 +794,14 @@ export default {
 <style scoped>
 .row2{
   margin-top: 20px;
+}
+.el-tag{
+    margin: 0 10px 10px 0;
+}
+.el-button-search{
+  margin: 0px 0px 0px 10px;
+}
+.el-select-search{
+  margin: 0 0px 0px 20px;
 }
 </style>

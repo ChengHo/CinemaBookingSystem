@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "sysBill":{
-  "billState": true,
+  "payState": true,
   "userId": 1,
   "sessionId": 6,
   "seats": "[\"3排4号\",\"2排5号\"]"
@@ -26,15 +26,12 @@ Accept: application/json
 ### 修改
 PUT http://localhost:8181/sysBill
 Content-Type: application/json
-
-{
-  "billId": 1,
-  "billState":  true,
-  "seats": "[\"1排4号\",\"1排1号\"]"
-}
+#
+#{
+#  "billId": 1,
+#  "payState":  true,
+#  "seats": "[\"1排4号\",\"1排1号\"]"
+#}
 
 ### 删除
 DELETE http://localhost:8181/sysBill/3,4
-
-### 返回今日票房
-GET http://localhost:8181/todayBoxOffice

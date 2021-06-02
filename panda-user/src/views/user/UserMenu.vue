@@ -23,13 +23,13 @@ export default {
       menuList:[
         {
           id:1,
-          name:'我的订单',
-          path:'/bill'
+          name:'基本信息',
+          path:'/user'
         },
         {
           id:2,
-          name:'基本信息',
-          path:'/user'
+          name:'我的订单',
+          path:'/bill'
         }
       ]
     }

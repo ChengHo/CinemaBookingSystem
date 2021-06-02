@@ -3,8 +3,7 @@ POST http://localhost:8181/sysMovie
 Content-Type: application/json
 
 {
-  "movieNameCn": "一万",
-  "movieNameEn": "Caught By Time",
+  "movieName": "一万",
   "movieLength": 120,
   "movieAreaId": 2
 }
@@ -23,8 +22,7 @@ Content-Type: application/json
 
 {
   "movieId": 4,
-  "movieNameCn": "除暴",
-  "movieNameEn": "Caught By Time",
+  "movieName": "除暴",
   "movieLength": 120
 }
 

@@ -10,10 +10,10 @@
       </div>
       <!-- 电影信息 -->
       <div class="movie-info">
-        <div class="movie-name">{{item.movieNameCn}}</div>
-        <div class="movie-ename">{{item.movieNameEn}}</div>
-        <div class="movie-score">{{item.movieScore.toFixed(1)}}</div>
-        <div class="movie-category">{{item.movieCategoryList.join(',')}}</div>
+        <div class="movie-name">{{item.movieName}}</div>
+        <br/>
+        <div class="movie-category">{{item.movieCategoryList.join('/')}}</div>
+        <br/>
         <div class="movie-releaseDate">{{item.releaseDate}}上映</div>
       </div>
     </div>
@@ -36,11 +36,9 @@ export default {
           movieCategoryList: [],
           movieId: 0,
           movieLength: 0,
-          movieNameCn: '',
-          movieNameEn: '',
+          movieName: '',
           moviePoster: '',
-          movieScore: 0,
-          releaseDate: '',
+          releaseDate: ''
         }
       ]
     }
@@ -51,9 +49,9 @@ export default {
   methods:{
     async getSearchMovieList(){
       let queryInfo = {
-        movieNameCn: this.keyword
+        movieName: this.keyword
       }
-      const { data : res } = await axios.get('sysMovie', {params : queryInfo})
+      const { data : res } = await axios.get('sysMovie/find', {params : queryInfo})
       if(res.code !== 200) return this.$message.error('获取信息失败')
       this.movieList = res.data
       //处理数据

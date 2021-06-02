@@ -12,7 +12,6 @@
 	<artifactId>panda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<name>panda</name>
 	<description>电影售票系统</description>
 
@@ -40,6 +39,7 @@
 		<java-jwt.version>3.4.0</java-jwt.version>
 		<captcha.verions>1.2.4</captcha.verions>
 		<fastjson.version>1.2.74</fastjson.version>
+<!--		<quartz.version>2.3.2</quartz.version>-->
 	</properties>
 
 	<!-- 只统一管理版本，实际依赖在各个模块自身中实现 -->
@@ -105,6 +105,13 @@
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson.version}</version>
 			</dependency>
+
+<!--            &lt;!&ndash; quartz 定时任务 &ndash;&gt;-->
+<!--			<dependency>-->
+<!--				<groupId>org.quartz-scheduler</groupId>-->
+<!--				<artifactId>quartz</artifactId>-->
+<!--				<version>${quartz.version}</version>-->
+<!--			</dependency>-->
 
 			<!-- 子模块 -->
 			<dependency>

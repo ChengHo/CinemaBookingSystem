@@ -46,7 +46,7 @@
         <el-table-column prop="email" label="电子邮箱"></el-table-column>
         <el-table-column prop="phoneNumber" label="手机号码"></el-table-column>
         <el-table-column prop="sex" label="性别" :formatter="sexFormat" width="100px"></el-table-column>
-        <el-table-column prop="sysRole.roleName" label="权限" width="120px"></el-table-column>
+        <el-table-column prop="sysRole.roleName" label="角色" width="120px"></el-table-column>
 
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
@@ -136,7 +136,7 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
@@ -209,7 +209,7 @@
             </div>
           </el-upload>
           <!--放大预览-->
-          <el-dialog :visible.sync="dialogVisible">
+          <el-dialog :visible.sync="dialogVisible" append-to-body>
             <img width="100%" :src="dialogImageUrl" alt="">
           </el-dialog>
         </el-form-item>
@@ -223,7 +223,7 @@
 </template>
 
 <script>
-import global from "@/assets/css/global.css"
+import global from "../../assets/css/global.css"
 export default {
   data() {
     let checkEmail = (rule, value, cb) => {
@@ -260,8 +260,7 @@ export default {
         email: '',
         phoneNumber: '',
         sex: '',
-        userPicture: '',
-        information: ''
+        userPicture: ''
       },
       //验证表单规则对象
       addFormRules: {
@@ -466,7 +465,7 @@ export default {
 
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 
@@ -496,7 +495,7 @@ export default {
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
       console.log(resp)
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 
@@ -552,7 +551,7 @@ export default {
       }
     },
     sexFormat(row){
-      if (row.sex == true){
+      if (row.sex === true){
         return '男'
       }else {
         return '女'

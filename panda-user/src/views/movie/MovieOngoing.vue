@@ -26,17 +26,15 @@ import movieItem from '../../components/movie/movie-item'
 import moment from 'moment'
 export default {
   name: "MovieOngoing",
-  components:{
+  components: {
     movieItem
   },
-  props:{
+  props: {
     movieCategoryId: Number,
-    movieAreaId: Number,
-    movieAgeId: Number,
     orderByColumn: String
   },
-  data(){
-    return{
+  data() {
+    return {
       total: 0,
       pageSize: 30,
       pageNum: 1,
@@ -47,16 +45,16 @@ export default {
     }
   },
   computed: {
-    listenChange () {
-      const {movieCategoryId, movieAreaId, movieAgeId, orderByColumn} = this
-      return {movieCategoryId, movieAreaId, movieAgeId, orderByColumn}
+    listenChange() {
+      const {movieCategoryId, orderByColumn} = this
+      return {movieCategoryId, orderByColumn}
     }
   },
   created() {
     this.getMovieList()
   },
-  watch:{
-    listenChange(){
+  watch: {
+    listenChange() {
       this.getMovieList()
     }
   },
@@ -64,8 +62,6 @@ export default {
     async getMovieList(){
       let queryInfo = {
         movieCategoryId: this.movieCategoryId,
-        movieAgeId: this.movieAgeId,
-        movieAreaId: this.movieAreaId,
         orderByColumn: this.orderByColumn,
         pageSize: this.pageSize,
         pageNum: this.pageNum,
@@ -73,11 +69,10 @@ export default {
         endDate: this.endDate,
         isAsc: 'desc'
       }
-      const { data : res } = await axios.get('sysMovie', {params: queryInfo})
+      const { data : res } = await axios.get('sysMovie/find', {params: queryInfo})
       this.movieList = res.data
       this.total = res.total
-      if(this.movieList.length === 0) this.sorry = true
-      else this.sorry = false
+      this.sorry = this.movieList.length === 0;
     },
     handleCurrentChange(newPage) {
       this.pageNum = newPage

@@ -6,7 +6,6 @@ import com.panda.system.domin.SysMovie;
 import com.panda.system.domin.vo.SysMovieVo;
 import com.panda.system.service.impl.SysMovieServiceImpl;
 import com.panda.web.controller.BaseController;
-import com.panda.web.controller.annotation.SysLogAnnotaion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,25 +14,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-22 16:00
- */
+
 @RestController
 public class SysMovieController extends BaseController {
 
     @Autowired
     private SysMovieServiceImpl sysMovieService;
 
-    @SysLogAnnotaion(operModul = "查看所有电影信息")
-    @GetMapping("/sysMovie")
+    @GetMapping("/sysMovie/find")
     public ResponseResult findAll(SysMovieVo sysMovieVo){
         startPage();
         List<SysMovie> data = sysMovieService.findAll(sysMovieVo);
         return getResult(data);
     }
 
-    @GetMapping("/sysMovie/{id}")
+    @GetMapping("/sysMovie/find/{id}")
     public ResponseResult findById(@PathVariable Long id){
         return getResult(sysMovieService.findById(id));
     }
@@ -53,16 +48,11 @@ public class SysMovieController extends BaseController {
         return getResult(sysMovieService.delete(ids));
     }
 
-    @GetMapping("/sysMovie/find/{id}")
-    public ResponseResult findMovieById(@PathVariable Long id){
-        return getResult(sysMovieService.findMovieById(id));
-    }
-
-    @GetMapping("/sysMovie/rankingList/{listId}")
+    @GetMapping("/sysMovie/find/rankingList/{listId}")
     public ResponseResult findRankingList(@PathVariable Integer listId) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if(listId <= 0 || listId > 4){
             //暂时只支持4种榜单
-            return ResponseResult.error("抱歉，暂时只支持4种榜单，id为[1,4]");
+            return ResponseResult.error("抱歉，暂时只支持3种榜单，id为[1,3]");
         }
         Method getList = sysMovieService.getClass().getMethod(MovieRankingList.listNames[listId - 1]);
         startPage();

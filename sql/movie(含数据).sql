@@ -280,7 +280,7 @@ CREATE TABLE `sys_bill`  (
   `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
   `session_id` bigint(20) UNSIGNED NOT NULL COMMENT '场次id',
   `seats` json NOT NULL COMMENT '购买的座位号，可能为多个，使用json传输',
-  `bill_date` datetime(0) NOT NULL COMMENT '订单日期',
+  `create_time` datetime(0) NOT NULL COMMENT '订单日期',
   PRIMARY KEY (`bill_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 

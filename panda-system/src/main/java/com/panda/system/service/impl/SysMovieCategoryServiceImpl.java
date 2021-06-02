@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-19 18:41
- */
+
 @Service
 public class SysMovieCategoryServiceImpl implements SysMovieCategoryService {
 

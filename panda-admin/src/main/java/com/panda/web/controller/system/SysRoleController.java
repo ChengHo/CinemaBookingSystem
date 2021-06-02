@@ -53,5 +53,4 @@ public class SysRoleController extends BaseController {
     public ResponseResult allotRight(@PathVariable Long roleId, @RequestBody Long[] keys){
         return getResult(sysRoleService.allotRight(roleId, keys));
     }
-
 }

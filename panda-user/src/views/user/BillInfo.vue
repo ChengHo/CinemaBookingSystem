@@ -3,8 +3,8 @@
     <div class="profile-title">我的订单</div>
     <div class="order-box" v-for="item in billList">
       <div class="order-header">
-        <span class="order-date">{{item.billDate}}</span>
-        <span class="order-id">panda订单号: {{item.billId}}</span>
+        <span class="order-date">订单时间：{{item.createTime}}</span>
+        <span class="order-id">订单编号: {{item.billId}}</span>
         <span class="del-order"  @click="deleteBill(item.billId)">
           <i class="el-icon-delete"></i>
         </span>
@@ -14,21 +14,24 @@
           <img :src="item.sysSession.sysMovie.moviePoster">
         </div>
         <div class="order-content">
-          <div class="movie-name">《{{item.sysSession.sysMovie.movieNameCn}}》</div>
-          <div class="cinema-name">{{item.sysSession.sysCinema.cinemaName}}</div>
+          <div class="movie-name">《{{item.sysSession.sysMovie.movieName}}》</div>
+          <div class="cinema-name">{{item.sysSession.sysHall.sysCinema.cinemaName}}</div>
           <div class="hall-ticket">
-            <span>{{item.sysSession.sysHall.sysHallCategory.hallCategoryName+item.sysSession.sysHall.hallName}}</span>
+            <span>放映厅：{{item.sysSession.sysHall.hallName}}({{item.sysSession.sysHall.hallCategory}})</span>
             <span></span>
           </div>
-          <div class="show-time">{{item.sysSession.sessionDate + ' ' + item.sysSession.sysMovieRuntime.beginTime}}</div>
+          <div class="show-time">播放时间：{{item.sysSession.sessionDate + ' ' + item.sysSession.playTime + ' - ' + item.sysSession.endTime}}</div>
         </div>
-        <div class="order-price">￥{{item.sysSession.sessionPrice}}</div>
+        <div class="order-price">
+          ￥{{item.sysSession.sessionPrice * JSON.parse(item.seats).length}} (
+          {{JSON.parse(item.seats).length}}*{{item.sysSession.sessionPrice}}/张 )
+        </div>
         <div class="order-status">
-          {{item.billState?'已完成':'未完成'}}
+          {{item.payState?'已完成':'未完成'}}
         </div>
         <div class="actions">
           <div>
-            <a href="" class="order-detail" >查看详情</a>
+            <a @click="toBillDetail(item.billId)" class="order-detail" >查看详情</a>
           </div>
         </div>
       </div>
@@ -38,68 +41,69 @@
 
 <script>
 import moment from 'moment'
+import billDetail from '../pay/BillDetail'
 export default {
   name: "BillInfo",
-  data(){
-    return{
-      queryInfo:{
-        userId:''
+  data() {
+    return {
+      queryInfo: {
+        userId: ''
       },
-      billList:[
+      billList: [
         {
-          sysSession:{
-            sysMovie:{
-              moviePoster:''
+          sysSession: {
+            sysMovie: {
+              moviePoster: ''
             },
-            sysCinema:{},
-            sysHall:{
-              sysHallCategory:{}
-            },
-            sysMovieRuntime:{}
+            sysCinema: {},
+            sysHall: {}
           }
         }
       ]
     }
   },
-  methods:{
-    getUser(){
+  created() {
+    this.getUser()
+    this.getBillList()
+  },
+  methods: {
+    getUser() {
       this.queryInfo.userId = JSON.parse(window.sessionStorage.getItem('loginUser')).userId
     },
-    async getBillList(){
+    async getBillList() {
       const _this = this
       await axios.get('sysBill',{params:_this.queryInfo}).then(resp=>{
         _this.billList = resp.data.data
-        console.log(_this.billList)
       })
 
-      for(let idx in this.billList){
+      for(let idx in this.billList) {
         this.billList[idx].sysSession.sessionDate = moment(this.billList[idx].sysSession.sessionDate).format('YYYY年MM月DD日')
-        this.billList[idx].sysSession.sysMovie.moviePoster = 'http://127.0.0.1:8181' + JSON.parse(this.billList[idx].sysSession.sysMovie.moviePoster)[0]
+        this.billList[idx].sysSession.sysMovie.moviePoster =
+          this.global.base + JSON.parse(this.billList[idx].sysSession.sysMovie.moviePoster)[0]
       }
 
     },
-    async deleteBill(id){
+    toBillDetail(id) {
+      this.$router.push('/billDetail/' + id)
+    },
+    async deleteBill(id) {
       const _this = this
       const resp = await this.$confirm('此操作将永久删除订单信息,是否继续?','提示',{
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err=>err)
-      if(resp=="cancel"){
+      if (resp==="cancel") {
         return _this.$message.info('已取消删除')
       }
       await axios.delete('sysBill/'+id).then(resp=>{
         if (resp.data.code !== 200){
-          this.$message.success('删除失败！')
+          this.$message.error('删除失败！')
         }
       })
-      this.getBillList()
+      await this.getBillList()
       this.$message.success('删除成功！')
     }
-  },
-  created() {
-    this.getUser()
-    this.getBillList()
   }
 }
 </script>
@@ -185,10 +189,12 @@ export default {
 .order-price, .order-status, .actions{
   font-size: 14px;
   color: #333;
-  width: 12%;
+  width: 15%;
   line-height: 95px;
 }
-
+.order-detail {
+  color: #2d98f3;
+}
 a {
   text-decoration: none;
   cursor: pointer;

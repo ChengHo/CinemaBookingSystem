@@ -7,8 +7,10 @@ import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -17,26 +19,39 @@ import java.util.Map;
 
 /**
  * 配置shiro安全框架
- * @Author: 华雨欣
- * @Create: 2020-12-07 18:58
  */
 @Configuration
 public class ShiroConfig {
 
-    //创建shiroFilter
+    // 创建shiroFilter
     @Bean("shiroFilter")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 
-        //给shiroFilter设置安全管理器
+        // 给shiroFilter设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
 
-        //配置受限资源
+        // 配置受限资源
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("/sysUser/**", "anon");//放行
-        map.put("/images/**", "anon");//放行图片查询
-        map.put("/captcha/**", "anon");//放行验证码请求
-        map.put("/**", "jwt");//请求这个资源需要认证与授权
+        // 放行注册和登录
+        map.put("/sysUser/register", "anon");
+        map.put("/sysUser/login", "anon");
+        // 放行图片查询
+        map.put("/images/**", "anon");
+        // 放行验证码请求
+        map.put("/captcha/**", "anon");
+        // 请求这个资源需要认证与授权
+        map.put("/sysCinema/update", "jwt");
+        // 放行影院查询请求
+        map.put("/sysCinema/**", "anon");
+        // 放行电影查找相关请求
+        map.put("/sysMovie/find/**", "anon");
+        // 放行电影类别查找相关请求
+        map.put("/sysMovieCategory/find/**", "anon");
+        // 放行电影场次查找相关请求
+        map.put("/sysSession/find/**", "anon");
+        // 请求这个资源需要认证与授权
+        map.put("/**", "jwt");
 
         // 添加自己的过滤器并且取名为jwt
         Map<String, Filter> filterMap = new HashMap<String, Filter>(1);

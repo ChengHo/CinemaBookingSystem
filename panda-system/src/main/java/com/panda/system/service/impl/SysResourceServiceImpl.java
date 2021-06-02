@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-12-10 15:20
- */
+
 @Slf4j
 @Service
 public class SysResourceServiceImpl implements SysResourceService {

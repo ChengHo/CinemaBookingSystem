@@ -112,7 +112,7 @@ public class FileUploadUtils
     }
 
     /**
-     * 编码文件名 如 : images/user/2020/12/4/***.png
+     * 编码文件名 如 : images/user/2021/3/4/***.png
      */
     public static final String extractFilename(MultipartFile file)
     {

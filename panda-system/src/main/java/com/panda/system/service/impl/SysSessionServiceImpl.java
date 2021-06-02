@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-24 23:24
- */
+
 @Service
 public class SysSessionServiceImpl implements SysSessionService {
 
@@ -22,6 +19,11 @@ public class SysSessionServiceImpl implements SysSessionService {
     @Override
     public List<SysSession> findByVo(SysSessionVo sysSessionVo) {
         return sysSessionMapper.findByVo(sysSessionVo);
+    }
+
+    @Override
+    public List<SysSession> findByMovieIdOrHallId(SysSession sysSession) {
+        return sysSessionMapper.findByMovieIdOrHallId(sysSession);
     }
 
     @Override

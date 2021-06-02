@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-22 15:58
- */
+
 @Service
 public class SysMovieServiceImpl implements SysMovieService {
 
@@ -53,27 +50,22 @@ public class SysMovieServiceImpl implements SysMovieService {
         return rows;
     }
 
-    @Override
-    public SysMovie findMovieById(Long id) {
-        return sysMovieMapper.findMovieById(id);
-    }
-
-    @Override
-    public List<SysMovie> findByCinemaId(Long id) {
-        return sysMovieMapper.findByCinemaId(id);
-    }
+//    @Override
+//    public List<SysMovie> findByCinemaId(Long id) {
+//        return sysMovieMapper.findByCinemaId(id);
+//    }
 
     /**
-     * 热映口碑榜 昨日热映的电影里，按评分取前10
+     * 总票房榜
      * @return
      */
     @Override
-    public List<SysMovie> hotMovieList() {
-        return sysMovieMapper.hotMovieList();
+    public List<SysMovie> totalBoxOfficeList() {
+        return sysMovieMapper.totalBoxOfficeList();
     }
 
     /**
-     * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 areaid = 1、5、6
+     * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 movieArea in (港台+大陆)
      * @return
      */
     @Override
@@ -82,20 +74,12 @@ public class SysMovieServiceImpl implements SysMovieService {
     }
 
     /**
-     * 欧美票房榜 已上映的欧美电影里，按票房取前10 欧美电影 areaid = 2、9、10、11、12、13、14
+     * 国外票房榜 已上映的国外电影里，按票房取前10 国外电影 movieArea not in (港台+大陆)
      * @return
      */
     @Override
-    public List<SysMovie> europeanAndAmericanBoxOfficeList() {
-        return sysMovieMapper.europeanAndAmericanBoxOfficeList();
+    public List<SysMovie> foreignBoxOfficeList() {
+        return sysMovieMapper.foreignBoxOfficeList();
     }
 
-    /**
-     * top100榜 所有已上映影片按评分、评分人数取前100
-     * @return
-     */
-    @Override
-    public List<SysMovie> top100List() {
-        return sysMovieMapper.top100List();
-    }
 }

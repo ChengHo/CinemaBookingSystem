@@ -5,10 +5,7 @@ import com.panda.system.domin.vo.SysSessionVo;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-23 22:29
- */
+
 public interface SysSessionMapper {
 
     /**
@@ -17,6 +14,13 @@ public interface SysSessionMapper {
      * @return
      */
     List<SysSession> findByVo(SysSessionVo sysSessionVo);
+
+    /**
+     * 查询一个
+     * @param sysSession
+     * @return
+     */
+    List<SysSession> findByMovieIdOrHallId(SysSession sysSession);
 
     /**
      * 查询一个

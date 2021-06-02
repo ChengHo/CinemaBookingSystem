@@ -36,19 +36,19 @@
         <result property="name" column="resource_name"></result>
         <result property="path" column="path"></result>
         <result property="level" column="level"></result>
-        <result property="parentId" column="parent_id"></result>
+        <result property="parentId" column="parent_id"></result>    <!-- 一级目录 -->
         <collection property="children" column="resource_id" ofType="SysResource">
             <id property="id" column="sid"></id>
             <result property="name" column="sname"></result>
             <result property="path" column="spath"></result>
             <result property="level" column="slevel"></result>
-            <result property="parentId" column="sparent_id"></result>
+            <result property="parentId" column="sparent_id"></result>    <!-- 二级目录 -->
             <collection property="children" column="resource_id" ofType="SysResource">
                 <id property="id" column="gsid"></id>
                 <result property="name" column="gsname"></result>
                 <result property="path" column="gspath"></result>
                 <result property="level" column="gslevel"></result>
-                <result property="parentId" column="gsparent_id"></result>
+                <result property="parentId" column="gsparent_id"></result>    <!-- 三级权限 -->
             </collection>
         </collection>
     </resultMap>

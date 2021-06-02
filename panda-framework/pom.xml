@@ -20,6 +20,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- SpringBoot quartz -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+		</dependency>
+
 		<!-- SpringBoot 拦截器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

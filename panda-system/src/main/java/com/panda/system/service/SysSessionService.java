@@ -5,13 +5,12 @@ import com.panda.system.domin.SysSession;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-24 23:23
- */
+
 public interface SysSessionService {
 
     List<SysSession> findByVo(SysSessionVo sysSessionVo);
+
+    List<SysSession> findByMovieIdOrHallId(SysSession sysSession);
 
     SysSession findById(Long id);
 

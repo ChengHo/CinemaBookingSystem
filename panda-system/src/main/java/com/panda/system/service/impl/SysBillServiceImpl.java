@@ -1,17 +1,16 @@
 package com.panda.system.service.impl;
 
 import com.panda.system.domin.SysBill;
+import com.panda.system.domin.SysSession;
 import com.panda.system.mapper.SysBillMapper;
+import com.panda.system.mapper.SysSessionMapper;
 import com.panda.system.service.SysBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-30 14:25
- */
+
 @Service
 public class SysBillServiceImpl implements SysBillService {
 
@@ -46,6 +45,11 @@ public class SysBillServiceImpl implements SysBillService {
             rows += sysBillMapper.delete(id);
         }
         return rows;
+    }
+
+    @Override
+    public List<SysBill> findTimeoutBill() {
+        return sysBillMapper.findTimeoutBill();
     }
 
     @Override

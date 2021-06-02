@@ -3,7 +3,9 @@
     <el-header>
       <div class="header-inner">
         <a href="/welcome" class="logo">
+<!--        <a @click="toWelcome" class="logo">-->
           <img style="width: 270px; height: 68px; margin-top: 6px;" src="../assets/homeLogo.jpg">
+<!--          <p style="width: 270px; height: 68px; margin-top: 10px; font-size: 40px; background-color: #2d98f3" >{{this.cinemaInfo.cinemaName.substring(0, this.cinemaInfo.cinemaName.indexOf('（'))}}</p>-->
         </a>
         <el-menu
             :default-active="activeUrl"
@@ -15,7 +17,7 @@
           <el-menu-item :index="item.path" v-for="item in menuList" :key="item.id">{{item.name}}</el-menu-item>
         </el-menu>
         <div class="searchContainer">
-          <el-input v-model="kw" class="searchBar" placeholder="找电影、影人、影院"></el-input>
+          <el-input v-model="kw" class="searchBar" placeholder="搜索电影"></el-input>
           <el-button id="searchBtn" icon="el-icon-search" type="primary" circle @click="search"></el-button>
         </div>
         <el-dropdown @command="handleCommand">
@@ -24,8 +26,10 @@
             <i class="el-icon-arrow-down el-icon--right icon-arrow"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userMenu">个人中心</el-dropdown-item>
-            <el-dropdown-item command="logout">退出</el-dropdown-item>
+            <el-dropdown-item command="userMenu" v-if="isToken">个人中心</el-dropdown-item>
+            <el-dropdown-item command="logout" v-if="isToken">退出</el-dropdown-item>
+            <el-dropdown-item command="login" v-if="!isToken">登录</el-dropdown-item>
+            <el-dropdown-item command="register" v-if="!isToken">注册账号</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -37,6 +41,7 @@
       <div class="footer-mini"></div>
       <div class="footer">
         <img style="width: 512px; height: 70px" src="../assets/register-footer.jpg">
+<!--        <p style=" font-size: 40px; background-color: white">看电影，就上-{ {{this.cinemaInfo.cinemaName}} }</p>-->
       </div>
       <el-backtop></el-backtop>
     </el-footer>
@@ -48,6 +53,8 @@ export default {
   name: "Welcome",
   data() {
     return {
+      isToken: '',
+      cinemaInfo: '',
       url: '',
       activeUrl: this.$route.path.substring(0, this.$route.path.indexOf('/',1) === -1 ? this.$route.path.length : this.$route.path.indexOf('/',1)),
       menuList: [
@@ -63,20 +70,22 @@ export default {
         },
         {
           id: 3,
-          name: '影院',
-          path: '/cinema'
+          name: '榜单',
+          path: '/rankingList'
         },
         {
           id: 4,
-          name: '榜单',
-          path: '/rankingList'
+          name: '关于我们',
+          path: '/aboutUs'
         }
       ],
       //搜索关键字
-      kw:''
+      kw: ''
     }
   },
   created() {
+    this.getCinemaInfo()
+    this.isToken = window.sessionStorage.getItem("token")
     const userPicture = JSON.parse(window.sessionStorage.getItem('loginUser')).userPicture
     const picture = JSON.parse(userPicture)
     if(picture === null || picture.length === 0) return;
@@ -88,25 +97,30 @@ export default {
     }
   },
   methods: {
-    handleSelect(key, keyPath){
+    async getCinemaInfo(){
+      const _this = this
+      await axios.get('sysCinema/1').then(resp => {
+        _this.cinemaInfo = resp.data.data
+      })
+    },
+    handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
-    search(){
+    search() {
       let tmp = this.kw
       this.$router.push('/search/searchMovie?kw=' + tmp)
       this.kw = ''
     },
-    handleCommand(command){
-      if(command === 'logout'){
-        const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
-        const userName = loginUser.userName
-        axios.get('sysUser/logout/'+userName);
+    handleCommand(command) {
+      if(command === 'logout') {
         window.sessionStorage.clear();
         return this.$router.push('/login')
       }
       this.$router.push('/' + command)
+    },
+    toWelcome() {
+      this.$router.push('/welcome')
     }
-
   }
 }
 </script>

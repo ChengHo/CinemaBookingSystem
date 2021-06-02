@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 轮播图 -->
     <el-carousel :height="carouselHeight">
       <el-carousel-item v-for="item in posterList" :key="item.url">
         <img :src="item.url" alt/>
@@ -42,40 +43,22 @@
       <div class="right">
         <div class="panel">
           <div class="panel-header">
-            <h2 style="color: #ffb400">TOP 100</h2>
-            <a href="/rankingList/top100List">查看完整榜单</a>
+            <h2 style="color: #ffb400">票房榜</h2>
+            <a href="/rankingList/totalBoxOfficeList">查看完整榜单</a>
           </div>
           <div class="panel-content">
-            <div class="board" v-for="(item, index) in top100List">
+            <div class="board" v-for="(item, index) in totalBoxOfficeList">
               <div class="board-left">
                 <i class="board-index">{{index+1}}</i>
               </div>
               <div class="board-middle">
-                <a :href="'/movieInfo/' + item.movieId"><p class="name">{{ item.movieNameCn }}</p></a>
-              </div>
-              <div class="board-right">
-                <p>{{ item.movieScore.toFixed(1) }} 分</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-header">
-            <h2 style="color: #ffb400">热门影人</h2>
-          </div>
-          <div class="panel-content">
-            <div class="board" v-for="(item, index) in actorList">
-              <div class="board-left">
-                <i class="board-index">{{index+1}}</i>
-              </div>
-              <div class="board-middle">
-                <a :href="'/actor/' + item.actorId"><p class="name">{{ item.actorName }}</p></a>
+                <a :href="'/movieInfo/' + item.movieId">
+                  <p class="name">{{ item.movieName }}</p>
+                </a>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -83,7 +66,7 @@
 
 <script>
 import movieItem from '../../components/movie/movie-item'
-import moment from "moment";
+import moment from 'moment'
 export default {
   name: "Home",
   components: {
@@ -102,16 +85,16 @@ export default {
         total: 0,
         pageSize: 8,
         pageNum: 1,
-        startDate: moment().format('YYYY-MM-DD'),
+        startDate: moment().format('YYYY-MM-DD')
       },
       queryInfo3: {
         total: 0,
         pageSize: 8,
-        pageNum: 1,
+        pageNum: 1
       },
       queryInfo4:{
-        pageNum: 1,
         pageSize: 10,
+        pageNum: 1
       },
       posterList: [
         {url: require('../../assets/carousel1.jpg')},
@@ -123,8 +106,7 @@ export default {
       upcomingMovieList: [],
       classicMovieList: [],
       carouselHeight: '',
-      top100List: [],
-      actorList: [],
+      totalBoxOfficeList: []
     }
   },
   created() {
@@ -132,41 +114,34 @@ export default {
     this.getUpcomingMovieList()
     this.getClassicMovieList()
     this.getHeight()
-    this.getTop100List()
-    this.getActorList()
+    this.getTotalBoxOfficeList()
   },
   methods:{
-    async getOngoingMovieList(){
-      const { data : res } = await axios.get('sysMovie', {params: this.queryInfo1})
+    async getOngoingMovieList() {
+      const { data : res } = await axios.get('sysMovie/find', {params: this.queryInfo1})
       this.ongoingMovieList = res.data
       this.total = res.total
     },
     async getUpcomingMovieList() {
-      const {data: res} = await axios.get('sysMovie', {params: this.queryInfo2})
+      const {data: res} = await axios.get('sysMovie/find', {params: this.queryInfo2})
       this.upcomingMovieList = res.data
       this.total = res.total
     },
-    async getClassicMovieList(){
-      const { data : res } = await axios.get('sysMovie', {params: this.queryInfo3})
+    async getClassicMovieList() {
+      const { data : res } = await axios.get('sysMovie/find', {params: this.queryInfo3})
       this.classicMovieList = res.data
       this.total = res.total
     },
-    getHeight(){
+    getHeight() {
       let clientWidth =   `${document.documentElement.clientWidth}`
       clientWidth *= 0.8
       this.carouselHeight = clientWidth / 1700 * 520 + 'px'
     },
-    async getTop100List(){
-      const {data: resp} = await axios.get('sysMovie/rankingList/4', {params: this.queryInfo4})
+    async getTotalBoxOfficeList(){
+      const {data: resp} = await axios.get('sysMovie/find/rankingList/1', {params: this.queryInfo})
       console.log(resp)
-      if(resp.code != 200) return this.$message.error(resp.msg)
-      this.top100List = resp.data
-    },
-    async getActorList(){
-      const {data: resp} = await axios.get('sysActor', {params: this.queryInfo4})
-      console.log(resp)
-      if(resp.code != 200) return this.$message.error(resp.msg)
-      this.actorList = resp.data
+      if(resp.code !== 200) return this.$message.error(resp.msg)
+      this.totalBoxOfficeList = resp.data
     }
   }
 }
@@ -197,7 +172,6 @@ export default {
 .right{
   width: 30%;
   margin-left: 100px;
-  /*background-color: lightpink;*/
 }
 
 h2{
@@ -240,7 +214,6 @@ h2{
   align-items: center;
 }
 
-
 .board-middle{
   display: flex;
   /*align-items: center;*/
@@ -250,12 +223,10 @@ h2{
   font-size: 18px;
 }
 
-
 .board-middle > a{
   text-decoration: none;
   color: #333;
 }
-
 
 .board-right{
   display: flex;
@@ -278,10 +249,8 @@ h2{
   align-items: center;
 }
 
-
 .panel-content{
   margin: 0px 0px 50px 0px;
 }
-
 
 </style>

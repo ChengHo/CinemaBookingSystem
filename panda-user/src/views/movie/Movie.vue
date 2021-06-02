@@ -12,7 +12,7 @@
       </el-menu>
     </el-header>
     <el-main>
-      <!-- 分类查询 -->
+      <!-- 类别查询 -->
       <div class="tags-container">
         <div class="tags-line">
           <div class="tags-title">类型:</div>
@@ -21,29 +21,16 @@
             <el-radio-button :label="item.movieCategoryId" v-for="item in categoryList" :key="item.movieCategoryId">{{item.movieCategoryName}}</el-radio-button>
           </el-radio-group>
         </div>
-        <div class="tags-line">
-          <div class="tags-title">区域:</div>
-          <el-radio-group v-model="areaRadio">
-            <el-radio-button :label="0">全部</el-radio-button>
-            <el-radio-button :label="item.movieAreaId" v-for="item in areaList" :key="item.movieAreaId">{{item.movieAreaName}}</el-radio-button>
-          </el-radio-group>
-        </div>
-        <div class="tags-line">
-          <div class="tags-title">年代:</div>
-          <el-radio-group v-model="ageRadio">
-            <el-radio-button :label="0">全部</el-radio-button>
-            <el-radio-button :label="item.movieAgeId" v-for="item in ageList" :key="item.movieAgeId">{{item.movieAgeName}}</el-radio-button>
-          </el-radio-group>
-        </div>
       </div>
 
       <!-- 按条件排序 -->
       <div class="order-by-container">
         <el-radio v-model="orderByColumn" label="releaseDate">按时间排序</el-radio>
-        <el-radio v-model="orderByColumn" label="movieScore">按评价排序</el-radio>
+<!--        <el-radio v-model="orderByColumn" label="movieScore">按评价排序</el-radio>-->
       </div>
 
-      <router-view :movieCategoryId="categoryRadio" :movieAreaId="areaRadio" :movieAgeId="ageRadio" :orderByColumn="orderByColumn"></router-view>
+<!--      <router-view :movieCategoryId="categoryRadio" :movieAreaId="areaRadio" :movieAgeId="ageRadio" :orderByColumn="orderByColumn"></router-view>-->
+      <router-view :movieCategoryId="categoryRadio" :orderByColumn="orderByColumn"></router-view>
     </el-main>
   </el-container>
 </template>
@@ -72,41 +59,23 @@ export default {
       ],
       categoryRadio: 0,
       categoryList: [],
-      areaRadio: 0,
-      areaList: [],
-      ageRadio: 0,
-      ageList: [],
       orderByColumn: 'releaseDate'
     }
   },
   created() {
     this.getCategoryList()
-    this.getAreaList()
-    this.getAgeList()
   },
-  methods:{
-    async getCategoryList(){
-      const { data : res } = await axios.get('sysMovieCategory')
+  methods: {
+    async getCategoryList() {
+      const { data : res } = await axios.get('sysMovieCategory/find')
       if(res.code !== 200) return this.$message.error('获取服务器信息失败')
       this.categoryList = res.data
-    },
-    async getAreaList(){
-      const { data : res } = await axios.get('sysMovieArea')
-      if(res.code !== 200) return this.$message.error('获取服务器信息失败')
-      this.areaList = res.data
-    },
-    async getAgeList(){
-      const { data : res } = await axios.get('sysMovieAge')
-      if(res.code !== 200) return this.$message.error('获取服务器信息失败')
-      this.ageList = res.data
-    },
+    }
   },
   watch:{
     '$route'(){
       //页面发生变化时初始化类别选项
       this.categoryRadio = 0
-      this.areaRadio = 0
-      this.ageRadio = 0
       this.orderByColumn = 'releaseDate'
     }
   }

@@ -12,8 +12,6 @@ import static com.panda.common.page.PageBuilder.*;
 
 /**
  * 抽取重复功能为基类
- * @Author: 华雨欣
- * @Create: 2020-11-19 17:37
  */
 public class BaseController {
 

@@ -9,8 +9,6 @@ import java.io.Serializable;
 
 /**
  * 存储电影与电影类别的多对多联系
- * @Author: 华雨欣
- * @Create: 2020-11-30 22:07
  */
 @Data
 @AllArgsConstructor
@@ -23,24 +21,4 @@ public class SysMovieToCategory implements Serializable {
     private Long movieId;
 
     private Long movieCategoryId;
-
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Long getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
-    }
-
-    public Long getMovieCategoryId() {
-        return movieCategoryId;
-    }
-
-    public void setMovieCategoryId(Long movieCategoryId) {
-        this.movieCategoryId = movieCategoryId;
-    }
 }

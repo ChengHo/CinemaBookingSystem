@@ -23,7 +23,10 @@
             <div class="row" v-for="(value, key) in seats">
               <span style="width:10px;margin-right: 50px">{{key}}</span>
               <div style="display: flex; justify-content: flex-end">
-                <span class="seat" :class="isSelected[seats[key][index]]" @click="pressSeat(key, index)" v-for="(item, index) in value"></span>
+                <span class="seat"
+                      :class="isSelected[seats[key][index]]"
+                      @click="pressSeat(key, index)"
+                      v-for="(item, index) in value"></span>
               </div>
             </div>
         </div>
@@ -32,9 +35,11 @@
       <div class="right">
         <div class="right-content">
           <div class="right-header">
-            <div class="poster"><img :src="session.sysMovie.moviePoster" alt=""> </div>
+            <div class="poster">
+              <img :src="session.sysMovie.moviePoster" alt="">
+            </div>
             <div class="movie-info">
-              <p style="font-size: 20px;font-weight: 700">{{session.sysMovie.movieNameCn}}</p>
+              <p style="font-size: 20px;font-weight: 700">{{session.sysMovie.movieName}}</p>
               <span>类型：{{session.sysMovie.movieCategoryList.join('/')}}</span>
               <span>时长：{{session.sysMovie.movieLength}}分钟</span>
             </div>
@@ -42,7 +47,7 @@
           <div class="right-content">
             <div class="info-item">
               <span>影院：</span>
-              <span>{{session.sysCinema.cinemaName}}</span>
+              <span>{{session.sysHall.sysCinema.cinemaName}}</span>
             </div>
             <div class="info-item">
               <span>影厅：</span>
@@ -54,7 +59,7 @@
             </div>
             <div class="info-item">
               <span>场次：</span>
-              <span>{{session.sessionDate}} {{session.sysMovieRuntime.movieRuntimeName}}</span>
+              <span>{{session.sessionDate}} {{session.playTime}}</span>
             </div>
             <div class="info-item">
               <span>票价：</span>
@@ -81,6 +86,7 @@
 
 <script>
 import moment from 'moment'
+import { Message } from "element-ui";
 export default {
   name: "ChooseSeat",
   data() {
@@ -94,18 +100,17 @@ export default {
       seats: {},
       sessionId: this.$route.params.sessionId,
       session: {
-        sysMovie:{
+        sysMovie: {
           movieCategoryList: []
         },
-        sysCinema:{},
-        sysHall: {},
-        sysMovieRuntime: {}
+        sysCinema: {},
+        sysHall: {}
       },
       pickedSeats: [],
-      addForm:{
+      addForm: {
         userId: 0,
         sessionId: 0,
-        seats: '',
+        seats: ''
       }
     }
   },
@@ -114,21 +119,23 @@ export default {
   },
   methods: {
     async getSession(){
-      const {data: resp} = await axios.get('sysSession/' + this.sessionId )
-      console.log(resp)
-      if(resp.code != 200) return this.$message.error(resp.msg)
+      const {data: resp} = await axios.get('sysSession/find/' + this.sessionId )
+      if(resp.code !== 200) return this.$message.error(resp.msg)
       this.session = resp.data
       this.session.sysMovie.moviePoster = this.global.base + JSON.parse(this.session.sysMovie.moviePoster)[0]
       this.seats = JSON.parse(resp.data.sessionSeats)
       this.session.sysMovie.movieCategoryList = this.session.sysMovie.movieCategoryList.map((obj, index) => {
         return obj.movieCategoryName
       })
+      console.log('加载页面时的座位状态')
       console.log(this.seats)
     },
-    pressSeat(key, idx){
+    pressSeat(key, idx) {
       let seat_str = key + "排" + (idx+1) + "座"
-      if (this.seats[key][idx] === 0){
-        if (this.pickedSeats.length === 5){
+      // 选座
+      if (this.seats[key][idx] === 0) {
+        // 判断选座是否超过5个，超过5个则不能选
+        if (this.pickedSeats.length === 5) {
           this.$alert('您最多选择五个座位', '提示', {
             confirmButtonText: '确定',
             type: 'warning'
@@ -137,25 +144,68 @@ export default {
         }
         this.$set(this.seats[key], idx, 2)
         this.pickedSeats.push(seat_str)
-      } else if (this.seats[key][idx] === 2){
+      } else if (this.seats[key][idx] === 2) {
+        // 取消选座
         this.$set(this.seats[key], idx, 0)
         this.pickedSeats.splice(this.pickedSeats.indexOf(seat_str), 1)
       }
       console.log(this.pickedSeats)
     },
-    async submitBill(){
+    async submitBill() {
+      // 获取token，校验登录
+      const token = window.sessionStorage.getItem("token")
+      if (!token) {
+        window.sessionStorage.setItem('sessionId', this.session.sessionId)
+        this.$alert('抱歉！提交订单前，请先登录', '提交订单异常通知', {
+          confirmButtonText: '我知道了',
+          callback: action => {
+            this.$router.push('/login')
+          }
+        })
+        return
+      }
+      // 校验是否选座，未选座则警告
+      if (this.pickedSeats.length === 0){
+        this.$alert('抱歉！您暂时未选座，无法提交订单，请选座后提交订单。', '提交订单异常通知', {
+          confirmButtonText: '我知道了',
+          callback: action => {
+            this.$router.push('/chooseSeat/' + this.sessionId)
+          }
+        })
+        return
+      }
+      //获取场次座位信息
+      const { data : curSession } = await axios.get('sysSession/find/' + this.sessionId)
+      let sessionSeats = JSON.parse(curSession.data.sessionSeats)
+      //解析出订单选择的座位，更新座位信息
+      for (let seat of this.pickedSeats) {
+        let row = seat.substring(0, seat.indexOf('排'))
+        let col = Number.parseInt(seat.substring(seat.indexOf('排') + 1, seat.length - 1))
+        if (sessionSeats[row][col - 1] === 3){
+          // 更新座位信息
+          this.seats = JSON.parse(curSession.data.sessionSeats)
+          this.$alert('抱歉！您所选的座位'+seat+'已被占用，请重新选择。', '选座异常通知', {
+            confirmButtonText: '我知道了',
+            callback: action => {
+              this.$router.push('/chooseSeat/' + this.sessionId)
+            }
+          })
+          return
+        } else {
+          sessionSeats[row][col - 1] = 3
+        }
+      }
+      console.log('提交订单后的座位状态')
+      console.log(sessionSeats)
+
       this.addForm.userId = JSON.parse(window.sessionStorage.getItem('loginUser')).userId
       this.addForm.sessionId = this.sessionId
       this.addForm.seats = JSON.stringify(this.pickedSeats)
-      console.log(this.addForm)
       axios.defaults.headers.post['Content-Type'] = 'application/json'
-      const { data: res} = await axios.post('sysBill', JSON.stringify(this.addForm));
-      if(res.code != 200) {
-        this.$message.error('添加订单失败！');
-        return
-      }
-      console.log(res.data)
-      this.$router.push('/billDetail/' + res.data.billId)
+      const { data: res } = await axios.post('sysBill', JSON.stringify({sysBill: this.addForm, sessionSeats: JSON.stringify(sessionSeats)}))
+      // const { data: res} = await axios.post('sysBill', JSON.stringify(this.addForm));
+      if(res.code !== 200) return this.$message.error('添加订单失败！')
+      await this.$router.push('/billDetail/' + res.data.billId)
     }
   }
 }

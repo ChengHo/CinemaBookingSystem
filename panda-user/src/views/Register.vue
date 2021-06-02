@@ -6,24 +6,27 @@
     <div class="register-body">
       <el-form class="register-form" ref="registerFormRef" :model="registerForm" :rules="registerFormRules" label-width="80px">
         <el-form-item label="用户名" prop="userName">
-          <el-input v-model="registerForm.userName"></el-input>
+          <el-input v-model="registerForm.userName" placeholder="请输入用户名" clearable></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="registerForm.password" type="password"></el-input>
+        <el-form-item label="用户密码" prop="password">
+          <el-input v-model="registerForm.password" type="password" placeholder="请输入密码" show-password></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input v-model="registerForm.confirmPassword" type="password"></el-input>
+          <el-input v-model="registerForm.confirmPassword" type="password" placeholder="请输入确认密码" show-password></el-input>
+        </el-form-item>
+        <el-form-item label="手机号码" prop="phoneNumber">
+          <el-input v-model="registerForm.phoneNumber" type="text" aria-placeholder="请输入手机号" clearable></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-radio v-model="gender" label="0">女</el-radio>
           <el-radio v-model="gender" label="1">男</el-radio>
+          <el-radio v-model="gender" label="0">女</el-radio>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="register">同意以下协议并注册</el-button>
         </el-form-item>
         <el-form-item id="protocal">
-          <el-link type="primary" style="line-height: 14px;">《假装有协议》</el-link>
-          <el-link type="primary" style="line-height: 14px;">《这里无协议》</el-link>
+          <el-link type="primary" style="line-height: 14px;">《NN协议》</el-link>
+          <el-link type="primary" style="line-height: 14px;">《XX协议》</el-link>
         </el-form-item>
       </el-form>
       <img src="../assets/register.png">
@@ -39,7 +42,7 @@
 export default {
   name: "Register",
   data() {
-    var validatePass = (rule, value, callback) => {
+    let validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
         // password 是表单上绑定的字段
@@ -49,18 +52,26 @@ export default {
         callback()
       }
     }
+    let checkMobile = (rule, value, cb) => {
+      const regMobile = /^(0|86|17951)?(13[0-9]|15[0123456789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+      if (regMobile.test(value)){
+        return cb()
+      }
+      cb(new Error('请输入合法的手机号码'))
+    }
     return {
-      gender: '0',
+      gender: '1',
       registerForm: {
         userName: '',
         password: '',
         confirmPassword: '',
-        sex: '',
+        phoneNumber: '',
+        sex: ''
       },
       registerFormRules: {
         userName: [
           { required: true, message: "请输入用户名称", trigger: "blur"},
-          { min: 2, max: 20, message: "长度在2到20个字符之间", trigger: "blur"}
+          { min: 2, max: 20, message: "用户名称长度在2到20个字符之间", trigger: "blur"}
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur"},
@@ -68,25 +79,29 @@ export default {
         ],
         confirmPassword: [
           { required: true, validator: validatePass, message: "两次密码输入不一致", trigger: "blur"},
+        ],
+        phoneNumber: [
+          { required: true, message: '请输入手机号码', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur'}
         ]
       }
     }
   },
-  methods:{
-    register(){
-      this.$refs.registerFormRef.validate(async valid =>{
+  methods: {
+    register() {
+      this.$refs.registerFormRef.validate(async valid => {
         if(!valid) return
         this.registerForm.sex = this.gender === '1'
         axios.defaults.headers.post['Content-Type'] = 'application/json'
-        const { data: res} = await axios.post('sysUser', JSON.stringify(this.registerForm));
-        if(res.code != 200) return this.$message.error(res.msg);
+        const { data: res} = await axios.post('sysUser/register', JSON.stringify(this.registerForm));
+        if(res.code !== 200) return this.$message.error(res.msg);
 
         this.$message.success("注册完成！");
         this.$router.push('/login')
         this.$refs.registerFormRef.resetFields()
       })
     },
-    toWelcome(){
+    toWelcome() {
       this.$router.push('/welcome')
     }
   }

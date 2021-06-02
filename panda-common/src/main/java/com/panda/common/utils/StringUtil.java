@@ -2,8 +2,6 @@ package com.panda.common.utils;
 
 /**
  * 字符串工具类，抽取一些常用操作
- * @Author: 华雨欣
- * @Create: 2020-11-19 21:18
  */
 public class StringUtil {
 

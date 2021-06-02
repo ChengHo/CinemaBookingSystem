@@ -21,6 +21,7 @@
     "@vue/cli-plugin-babel": "^4.5.0",
     "@vue/cli-service": "^4.5.0",
     "axios": "^0.18.1",
+    "echarts": "^5.1.1",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "vue-cli-plugin-axios": "0.0.4",

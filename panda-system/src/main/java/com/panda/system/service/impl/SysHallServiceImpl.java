@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-25 10:21
- */
+
 
 @Service
 public class SysHallServiceImpl implements SysHallService {
@@ -25,8 +22,8 @@ public class SysHallServiceImpl implements SysHallService {
     }
 
     @Override
-    public SysHall findByCinemaIdAndHallId(SysHall sysHall) {
-        return sysHallMapper.findByCinemaIdAndHallId(sysHall);
+    public SysHall findById(SysHall sysHall) {
+        return sysHallMapper.findById(sysHall);
     }
 
     @Override

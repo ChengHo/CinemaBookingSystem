@@ -17,11 +17,11 @@
           <el-button type="primary" @click="addDialogVisible = true">添加角色</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete">批量删除</el-button>
+          <el-button type="danger" @click="isAbleMultipleDelete">批量删除</el-button>
         </el-col>
       </el-row>
 
-      <el-table :data="rolelist" border stripe @selection-change="handleSelectionChange">
+      <el-table :data="roleList" border stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="roleId" label="角色编号" width="145"></el-table-column>
         <el-table-column prop="roleName" label="角色名称" width="180"></el-table-column>
@@ -34,7 +34,7 @@
             </el-tooltip>
             <el-tooltip effect="dark" content="删除角色" placement="top" :enterable="false" :open-delay="500">
               <el-button type="danger" icon="el-icon-delete" size="mini"
-                         @click="deleteRoleById(scope.row.roleId)"></el-button>
+                         @click="isAbleDelete(scope.row.roleId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="分配权限" placement="top" :enterable="false" :open-delay="500">
               <el-button type="warning" icon="el-icon-setting" size="mini"
@@ -101,7 +101,7 @@
         width="50%"
         @close="setRightDialogClosed">
       <!-- 树形控件 -->
-      <el-tree :data="resourcelist"
+      <el-tree :data="resourceList"
                :props="treeProps"
                node-key="id"
                :default-checked-keys="defKeys"
@@ -118,6 +118,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "RoleInfo",
   data() {
@@ -127,8 +129,8 @@ export default {
         pageNum: 1,
         pageSize: 7
       },
-      rolelist: [],
-      resourcelist: [],
+      roleList: [],
+      resourceList: [],
       //树形控件的属性对象
       treeProps: {
         children: 'children',
@@ -158,6 +160,7 @@ export default {
         roleName: '',
         roleDesc: ''
       },
+      checkAbleId: {},
       editFormRules: {
         roleName: [
           {required: true, message: '请输入角色名', trigger: 'blur'}
@@ -179,7 +182,7 @@ export default {
   methods: {
     async getRoleList() {
       const {data: res} = await axios.get('sysRole', {params: this.queryInfo})
-      this.rolelist = res.data;
+      this.roleList = res.data;
       this.total = res.total
       this.queryInfo.pageNum = res.pageNum
       this.queryInfo.pageSize = res.pageSize
@@ -209,7 +212,7 @@ export default {
         //隐藏添加对话框
         this.addDialogVisible = false
         //重新加载列表
-        this.getRoleList()
+        await this.getRoleList()
         this.$message.success('添加角色信息成功！')
       })
     },
@@ -244,6 +247,29 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val
     },
+    // 批量删除前校验
+    async isAbleMultipleDelete() {
+      let ableMultipleDelete = true
+      let ids = ''
+      for (let i = 0; i < this.multipleSelection.length; i++) {
+        this.checkAbleId.roleId = this.multipleSelection[i].roleId
+        const { data : res } = await axios.get('sysUser', {params: this.checkAbleId})
+        if (res.data.length !== 0) {
+          ids += this.multipleSelection[i].roleId + ' '
+          ableMultipleDelete = false
+        }
+      }
+      if (ableMultipleDelete === false) {
+        this.$alert('抱歉！有用户与当前要删除的角色相关联，不能删除角色信息。\n' + '导致异常的角色编号为: ' + ids, '批量删除请求异常通知', {
+          confirmButtonText: '我知道了',
+          callback: action => {
+            this.$router.push('/role')
+          }
+        })
+        return
+      }
+      await this.multipleDelete()
+    },
     async multipleDelete() {
       const _this = this
       //询问用户是否确认删除
@@ -255,7 +281,7 @@ export default {
 
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
-      if (resp == 'cancel') {
+      if (resp === 'cancel') {
         return _this.$message.info('已取消删除')
       }
 
@@ -270,8 +296,33 @@ export default {
         }
       })
       if (!success) return this.$message.error('批量删除资源信息失败！')
-      this.getRoleList()
+      await this.getRoleList()
       this.$message.success('批量删除资源信息成功！')
+    },
+    async isAbleDelete(id) {
+      this.checkAbleId.roleId = id
+      await axios.get('sysUser', {params: this.checkAbleId}).then(response => {
+        console.log(response.data.total)
+        let users = response.data.data
+        if (response.data.total === 0) {
+          console.log('空的可改')
+          this.deleteRoleById(id)
+        } else {
+          console.log('删除前判断有相关联的user')
+          let ids = ''
+          for (let temp of users) {
+            console.log(temp)
+            ids += temp.userId+' '
+          }
+          console.log('users is : '+ids)
+          this.$alert('抱歉！有用户与当前要删除的角色相关联，不能删除角色信息。\n'+'导致异常的用户编号为: '+ids, '删除请求异常通知', {
+            confirmButtonText: '我知道了',
+            callback: action => {
+              this.$router.push('/role')
+            }
+          })
+        }
+      })
     },
     //根据id删除对应的资源信息
     async deleteRoleById(roleId) {
@@ -286,7 +337,7 @@ export default {
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
       console.log(resp)
-      if (resp == 'cancel') {
+      if (resp === 'cancel') {
         return _this.$message.info('已取消删除')
       }
 
@@ -297,14 +348,14 @@ export default {
         }
       })
       if (!success) return _this.$message.error('删除角色信息失败！')
-      this.getRoleList()
+      await this.getRoleList()
       this.$message.success('删除角色信息成功！')
     },
     //展示分配权限对话框
     async showSetRightDialog(role) {
       this.roleId = role.roleId
       const {data: res} = await axios.get('sysResource/tree')
-      this.resourcelist = res.data
+      this.resourceList = res.data
       console.log(role)
       await this.getLeafKeys(role, this.defKeys)
       console.log('defKeys' + this.defKeys)
@@ -330,10 +381,10 @@ export default {
       const _this = this
       axios.defaults.headers.post['Content-Type'] = 'application/json'
       const {data : res} = await axios.post('sysRole/' + _this.roleId, JSON.stringify(keys))
-      if(res.code != 200) return this.$message.error("更新权限失败！")
+      if(res.code !== 200) return this.$message.error("更新权限失败！")
 
       this.$message.success("更新权限成功！")
-      this.getRoleList()
+      await this.getRoleList()
       this.setRightDialogVisible = false
     }
   }

@@ -15,8 +15,6 @@ import java.io.IOException;
 
 /**
  * 封装图片上传请求
- * @Author: 华雨欣
- * @Create: 2020-12-05 12:25
  */
 @Slf4j
 @RestController

@@ -14,13 +14,10 @@
           <!-- 鼠标划过时显示的信息 -->
           <div class="movie-hover-info">
             <div class="title-hover">
-              <span class="name-tags">{{movieItem.movieNameCn}}</span>
+              <span class="name-tags">{{movieItem.movieName}}</span>
             </div>
             <div class="title-hover">
               <span class="name-tags">类型: </span>{{movieItem.movieCategoryList}}
-            </div>
-            <div class="title-hover">
-              <span class="name-tags">主演: </span>{{movieItem.majorActorNameList}}
             </div>
             <div class="title-hover">
               <span class="name-tags">上映时间: </span>{{movieItem.releaseDate}}
@@ -31,11 +28,7 @@
     </div>
     <!-- 标题 -->
     <div class="title-style">
-      <a href="/movieInfo">{{movieItem.movieNameCn}}</a>
-    </div>
-    <!-- 评分 -->
-    <div class="title-style score">
-      {{movieItem.movieScore.toFixed(1)}}
+      <a href="/movieInfo">{{movieItem.movieName}}</a>
     </div>
   </div>
 </template>
@@ -44,7 +37,7 @@
 import moment from 'moment'
 export default {
   name: "movie-item",
-  props:{
+  props: {
     movieItem: Object
   },
   data() {
@@ -57,8 +50,6 @@ export default {
     this.movieItem.moviePoster = JSON.parse(this.movieItem.moviePoster)[0]
     this.movieItem.moviePictures = JSON.parse(this.movieItem.moviePictures)
     this.movieItem.releaseDate = moment(this.movieItem.releaseDate).format('YYYY-MM-DD')
-    const tmp = this.movieItem.majorActorNameList
-    this.movieItem.majorActorNameList = (tmp.slice(0, Math.min(tmp.length, 3))).join('/')
     this.movieItem.movieCategoryList = this.movieItem.movieCategoryList.map((obj,index) => {
       return obj.movieCategoryName;
     }).join("/")
@@ -66,13 +57,11 @@ export default {
     //赋值目标链接
     this.movieInfoUrl = '/movieInfo/' + this.movieItem.movieId
   },
-  watch:{
-    'movieItem'(){
+  watch: {
+    'movieItem'() {
       this.movieItem.moviePoster = JSON.parse(this.movieItem.moviePoster)[0]
       this.movieItem.moviePictures = JSON.parse(this.movieItem.moviePictures)
       this.movieItem.releaseDate = moment(this.movieItem.releaseDate).format('YYYY-MM-DD')
-      const tmp = this.movieItem.majorActorNameList
-      this.movieItem.majorActorNameList = (tmp.slice(0, Math.min(tmp.length, 3))).join('/')
       this.movieItem.movieCategoryList = this.movieItem.movieCategoryList.map((obj,index) => {
         return obj.movieCategoryName;
       }).join("/")

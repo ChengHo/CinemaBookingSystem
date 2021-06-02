@@ -14,7 +14,7 @@
     <el-card class="box-card">
       <el-row :gutter="20">
         <el-col :span="2">
-          <el-button type="primary" @click="addDialogVisible = true" v-has>添加类别</el-button>
+          <el-button type="primary" @click="addDialogVisible = true">添加类别</el-button>
         </el-col>
         <el-col :span="2">
           <el-button type="danger" @click="multipleDelete" v-has>批量删除类别</el-button>
@@ -22,17 +22,17 @@
       </el-row>
 
       <!--类别分类列表-->
-      <el-table :data="moviecategorylist" style="width: 45%" border stripe @selection-change="handleSelectionChange">
+      <el-table :data="movieCategoryList" style="width: 45%" border stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="movieCategoryId" label="类别编号" width="145"></el-table-column>
         <el-table-column prop="movieCategoryName" label="电影类别" width="180"></el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-tooltip effect="dark" content="修改电影类别" placement="top" :enterable="false" :open-delay="500">
-              <el-button v-has type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.movieCategoryId)"></el-button>
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.movieCategoryId)"></el-button>
             </el-tooltip>
             <el-tooltip effect="dark" content="删除类别" placement="top" :enterable="false" :open-delay="500">
-              <el-button v-has type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieCategoryById(scope.row.movieCategoryId)"></el-button>
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteMovieCategoryById(scope.row.movieCategoryId)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -99,7 +99,7 @@ export default {
         pageNum: 1,
         pageSize: 7
       },
-      moviecategorylist: [],
+      movieCategoryList: [],
       total: 0,
       //控制对话框的显示与隐藏
       addDialogVisible: false,
@@ -129,9 +129,9 @@ export default {
   methods: {
     getMovieCategoryList() {
       const _this = this;
-      axios.get('sysMovieCategory', {params: _this.queryInfo}).then(resp => {
+      axios.get('sysMovieCategory/find', {params: _this.queryInfo}).then(resp => {
         console.log(resp)
-        _this.moviecategorylist = resp.data.data;
+        _this.movieCategoryList = resp.data.data;
         _this.total = resp.data.total;
         _this.queryInfo.pageSize = resp.data.pageSize;
         _this.queryInfo.pageNum = resp.data.pageNum;
@@ -216,7 +216,7 @@ export default {
 
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 
@@ -245,7 +245,7 @@ export default {
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
       console.log(resp)
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 

@@ -5,10 +5,7 @@ import com.panda.system.domin.vo.SysMovieVo;
 
 import java.util.List;
 
-/**
- * @Author: 华雨欣
- * @Create: 2020-11-22 10:00
- */
+
 public interface SysMovieMapper {
 
     /**
@@ -26,7 +23,7 @@ public interface SysMovieMapper {
     SysMovie findById(Long id);
 
     /**
-     * 查询一个电影的信息，不查询相关的演员等信息
+     * 查询一个电影的信息，不查询相关的其他等信息
      * @param id
      * @return
      */
@@ -51,43 +48,29 @@ public interface SysMovieMapper {
      */
     int delete(Long id);
 
-
     /**
-     * 前台根据movie_id查询电影信息，含电影演员与演员对应角色
-     * @param id
-     * @return
-     */
-    SysMovie findMovieById(Long id);
-
-    /**
-     * 根据影院id查询影院上映的所有电影
+     * 查询影院上映的所有电影
      * @param id
      * @return
      */
     List<SysMovie> findByCinemaId(Long id);
 
     /**
-     * 热映口碑榜 昨日热映的电影里，按评分取前10
+     * 总票房榜
      * @return
      */
-    List<SysMovie> hotMovieList();
+    List<SysMovie> totalBoxOfficeList();
 
     /**
-     * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 areaid = 1、5、6
+     * 国内票房榜 已上映的国内电影里，按票房取前10 国内电影 movieArea in (港台+大陆)
      * @return
      */
     List<SysMovie> domesticBoxOfficeList();
 
     /**
-     * 欧美票房榜 已上映的欧美电影里，按票房取前10 欧美电影 areaid = 2、9、10、11、12、13、14
+     * 国外票房榜 已上映的国外电影里，按票房取前10 国外电影 movieArea not in (港台+大陆)
      * @return
      */
-    List<SysMovie> europeanAndAmericanBoxOfficeList();
-
-    /**
-     * top100榜 所有已上映影片按评分、评分人数取前100
-     * @return
-     */
-    List<SysMovie> top100List();
+    List<SysMovie> foreignBoxOfficeList();
 
 }

@@ -10,17 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-19 18:45
- */
+
 @RestController
 public class SysMovieCategoryController extends BaseController {
 
     @Autowired
     private SysMovieCategoryServiceImpl sysMovieCategoryService;
 
-    @GetMapping("/sysMovieCategory")
+    @GetMapping("/sysMovieCategory/find")
     public ResponseResult findAll(){
         startPage();
         List<SysMovieCategory> data = sysMovieCategoryService.findAll();

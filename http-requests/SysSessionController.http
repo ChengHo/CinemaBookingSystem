@@ -9,7 +9,6 @@ Content-Type: application/json
   "movieId": 1,
   "movieRuntimeId": 3,
   "sessionDate": "2020-11-26",
-  "sessionState": true,
   "sessionPrice": 45.0,
   "sessionTips": "观影请佩戴口罩",
   "sessionSeats": "{\"A\": [0,0,0,0,0],\"B\": [0,0,0,0,0],\"C\": [0,0,0,1,0]}"
@@ -38,7 +37,6 @@ Content-Type: application/json
   "movieId": 1,
   "movieRuntimeId": 1,
   "sessionDate": "2020-11-26",
-  "sessionState": true,
   "sessionPrice": 34.0,
   "sessionTips": null,
   "sessionSeats": "{\"A\": [0,0,0,0,0],\"B\": [0,0,0,0,0],\"C\": [0,0,0,1,0]}"

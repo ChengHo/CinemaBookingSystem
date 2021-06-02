@@ -1,30 +1,29 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { Message }from 'element-ui'
+
 import Login from "../views/Login";
 import Welcome from "../views/Welcome";
 import Register from "../views/Register";
+import ForgetPassword from "../views/ForgetPassword";
 import Error404 from "../views/Error404";
+
 import Home from "../views/home/Home";
 import Movie from "../views/movie/Movie";
-import Cinema from "../views/cinema/Cinema";
-import RankingList from "../views/rankinglist/Rankinglist";
-import ReputationList from "@/views/rankinglist/ReputationList";
-import DomesticBoxOfficeList from "@/views/rankinglist/DomesticBoxOfficeList";
-import AmericanBoxOfficeList from "@/views/rankinglist/AmericanBoxOfficeList";
-import Top100List from "@/views/rankinglist/Top100List";
+import AboutUs from "../views/cinema/AboutUs";
+import RankingList from "../views/rankinglist/RankingList";
+import TotalBoxOfficeList from "../views/rankinglist/TotalBoxOfficeList";
+import DomesticBoxOfficeList from "../views/rankinglist/DomesticBoxOfficeList";
+import ForeignBoxOfficeList from "../views/rankinglist/ForeignBoxOfficeList";
 import MovieOngoing from "../views/movie/MovieOngoing";
 import MovieUpcoming from "../views/movie/MovieUpcoming";
 import MovieClassics from "../views/movie/MovieClassics";
 import MovieInfo from "../views/movie/MovieInfo";
-import ActorInfo from "../views/actor/ActorInfo";
-import CinemaInfo from "../views/cinema/CinemaInfo";
+import ChooseSession from "../views/cinema/ChooseSession";
 import ChooseSeat from "../views/pay/ChooseSeat";
 import BillDetail from "../views/pay/BillDetail";
 import Search from "../views/search/Search";
 import SearchMovie from "../views/search/SearchMovie";
-import SearchActor from "../views/search/SearchActor";
-import SearchCinema from "../views/search/SearchCinema";
 import UserMenu from "../views/user/UserMenu";
 import UserInfo from "../views/user/UserInfo";
 import BillInfo from "../views/user/BillInfo";
@@ -33,7 +32,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path:'/', redirect: 'login'
+    path:'/', redirect: 'home'
   },
   {
     path: '/login',
@@ -72,36 +71,30 @@ const routes = [
         component: MovieInfo
       },
       {
-        path: '/actor/:actorId',
-        name: '演员详细信息',
-        component: ActorInfo
+        path: '/aboutUs/',
+        name: '关于我们',
+        component: AboutUs
       },
       {
-        path: '/cinema/',
-        component: Cinema,
-        name: 'cinema'
-      },
-      {
-        path: '/cinemaInfo/:cinemaId',
+        path: '/chooseSession/:cinemaId',
         name: '影院详细信息',
-        component: CinemaInfo
+        component: ChooseSession
       },
       {
         path: '/rankingList/',
         component: RankingList,
         name: 'rankingList',
-        redirect: '/rankingList/reputationList',
+        redirect: '/rankingList/totalBoxOfficeList',
         children: [
-          { path: 'reputationList', name: '口碑热映榜', component: ReputationList},
+          { path: 'totalBoxOfficeList', name: '总票房榜', component: TotalBoxOfficeList},
           { path: 'domesticBoxOfficeList', name: '国内票房榜', component: DomesticBoxOfficeList},
-          { path: 'americanBoxOfficeList', name: '北美票房榜', component: AmericanBoxOfficeList},
-          { path: 'top100List', name: 'Top100榜', component: Top100List}
+          { path: 'foreignBoxOfficeList', name: '国外票房榜', component: ForeignBoxOfficeList}
         ]
       },
       {
-        path: '/ChooseSeat/:sessionId',
+        path: '/chooseSeat/:sessionId',
         component: ChooseSeat,
-        name: 'chooseSeat',
+        name: 'chooseSeat'
       },
       {
         path: '/billDetail/:billId',
@@ -112,22 +105,12 @@ const routes = [
         path: '/search/',
         component: Search,
         name: 'search',
-        redirect: {name:'searchMovie'},
+        redirect: { name:'searchMovie' },
         children: [
           {
             path:'searchMovie',
             component: SearchMovie,
-            name: 'searchMovie',
-          },
-          {
-            path: 'searchActor',
-            component: SearchActor,
-            name: 'searchActor'
-          },
-          {
-            path: 'searchCinema',
-            component: SearchCinema,
-            name: 'searchCinema'
+            name: 'searchMovie'
           }
         ]
       }
@@ -136,7 +119,12 @@ const routes = [
   {
     path: '/register',
     component: Register
-  },{
+  },
+  {
+    path: '/forgetPassword',
+    component: ForgetPassword
+  },
+  {
     path: '/*',
     component: Error404
   }
@@ -154,13 +142,13 @@ router.beforeEach((to, from, next) =>{
   //from 从哪个页面来
   //next 一个放行函数
 
-  if(to.path == '/login' || to.path == '/404' || to.path == '/register') return next();
-
-  //获取token
-  const token = window.sessionStorage.getItem("token")
-  if(!token){
-    Message.error('抱歉，请先登录')
-    return next('/login');
+  if (to.path === '/user' || to.path === '/bill' || to.path.indexOf('/billDetail') !== -1) {
+    //获取token
+    const token = window.sessionStorage.getItem("token")
+    if(!token){
+      Message.error('抱歉，请先登录')
+      return next('/login');
+    }
   }
   next();
 })

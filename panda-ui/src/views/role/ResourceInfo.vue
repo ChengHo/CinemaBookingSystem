@@ -21,15 +21,15 @@
         </el-col>
       </el-row>
 
-      <el-table :data="resourcelist" border stripe @selection-change="handleSelectionChange">
+      <el-table :data="resourceList" border stripe @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="id" label="资源编号" width="145"></el-table-column>
         <el-table-column prop="name" label="资源名称" width="180"></el-table-column>
         <el-table-column prop="path" label="资源路径" width="180"></el-table-column>
         <el-table-column prop="level" label="权限等级" width="180">
           <template slot-scope="scope">
-            <el-tag type="danger" v-if="scope.row.level == 1">一级</el-tag>
-            <el-tag type="warning" v-else-if="scope.row.level == 2">二级</el-tag>
+            <el-tag type="danger" v-if="scope.row.level === 1">一级</el-tag>
+            <el-tag type="warning" v-else-if="scope.row.level === 2">二级</el-tag>
             <el-tag v-else>三级</el-tag>
           </template>
         </el-table-column>
@@ -93,7 +93,7 @@
     </el-dialog>
 
     <!--修改影厅对话框-->
-    <el-dialog title="修改影厅" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+    <el-dialog title="修改资源" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
         <el-form-item label="资源编号" prop="id">
           <el-input v-model="editForm.id" disabled></el-input>
@@ -134,7 +134,7 @@ export default {
         pageNum: 1,
         pageSize: 7
       },
-      resourcelist: [],
+      resourceList: [],
       allResources: [],
       total: 0,
       addDialogVisible: false,
@@ -174,7 +174,7 @@ export default {
   methods: {
     async getResourceList(){
       const {data : res} = await axios.get('sysResource', {params: this.queryInfo})
-      this.resourcelist = res.data;
+      this.resourceList = res.data;
       this.total = res.total
       this.queryInfo.pageNum = res.pageNum
       this.queryInfo.pageSize = res.pageSize
@@ -209,7 +209,7 @@ export default {
         //隐藏添加对话框
         this.addDialogVisible = false
         //重新加载列表
-        this.getResourceList()
+        await this.getResourceList()
         this.$message.success('添加资源信息成功！')
       })
     },
@@ -259,7 +259,7 @@ export default {
 
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 
@@ -272,7 +272,7 @@ export default {
           this.$message.success('批量删除资源信息失败！')
         }
       })
-      this.getResourceList()
+      await this.getResourceList()
       this.$message.success('批量删除资源信息成功！')
     },
     //根据id删除对应的资源信息
@@ -288,7 +288,7 @@ export default {
       // 用户确认删除, resp为字符串"confirm"
       // 用户取消删除，resp为字符串"cancel"
       console.log(resp)
-      if (resp == 'cancel'){
+      if (resp === 'cancel'){
         return _this.$message.info('已取消删除')
       }
 
@@ -297,7 +297,7 @@ export default {
           _this.$message.success('删除资源信息失败！')
         }
       })
-      this.getResourceList()
+      await this.getResourceList()
       this.$message.success('删除资源信息成功！')
     }
   }

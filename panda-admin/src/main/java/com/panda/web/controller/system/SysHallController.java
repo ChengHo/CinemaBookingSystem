@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @author lxd
- * @create 2020-11-25 11:14
- */
+
 
 @RestController
 public class SysHallController extends BaseController {
@@ -34,12 +31,14 @@ public class SysHallController extends BaseController {
         return getResult(sysHallService.findAll(sysHall));
     }
 
-    @GetMapping("/sysHall/{cinemaId}/{hallId}")
-    public ResponseResult findByPrimaryKey(@PathVariable Long cinemaId, @PathVariable Long hallId){
+//    @GetMapping("/sysHall/{cinemaId}/{hallId}")
+//    public ResponseResult findByPrimaryKey(@PathVariable Long cinemaId, @PathVariable Long hallId){
+    @GetMapping("/sysHall/{hallId}")
+    public ResponseResult findById(@PathVariable Long hallId){
         SysHall sysHall = new SysHall();
-        sysHall.setCinemaId(cinemaId);
+//        sysHall.setCinemaId(cinemaId);
         sysHall.setHallId(hallId);
-        return getResult(sysHallService.findByCinemaIdAndHallId(sysHall));
+        return getResult(sysHallService.findById(sysHall));
     }
 
     @PostMapping("/sysHall")
@@ -50,26 +49,25 @@ public class SysHallController extends BaseController {
     @PutMapping("/sysHall")
     public ResponseResult update(@Validated @RequestBody SysHall sysHall){
         //查出原有影厅信息
-        SysHall orgHall = sysHallService.findByCinemaIdAndHallId(sysHall);
+//        SysHall orgHall = sysHallService.findById(sysHall);
         int rows = sysHallService.update(sysHall);
-        if(rows > 0){
-            //修改成功
-            if(sysHall.getRowNums() != orgHall.getRowNums() || sysHall.getSeatNumsRow() != orgHall.getSeatNumsRow() || sysHall.getSeatNums() != orgHall.getSeatNums()) {
-                //同步更新对应场次的座位
-                SysSessionVo sysSessionVo = new SysSessionVo();
-                sysSessionVo.setCinemaId(sysHall.getCinemaId());
-                sysSessionVo.setHallId(sysHall.getHallId());
-                //查出该影厅的所有场次
-                List<SysSession> sessions = sysSessionService.findByVo(sysSessionVo);
-                if (!CollectionUtils.isEmpty(sessions)) {
-                    //存在场次则更新座位信息
-                    for (SysSession session : sessions) {
-                        session.setSessionSeats(sysHall.getSeatState());
-                        sysSessionService.update(session);
-                    }
-                }
-            }
-        }
+//        if(rows > 0){
+//            //修改成功
+//            if(sysHall.getRowNums() != orgHall.getRowNums() || sysHall.getSeatNumsRow() != orgHall.getSeatNumsRow() || sysHall.getSeatNums() != orgHall.getSeatNums()) {
+//                //同步更新对应场次的座位
+//                SysSessionVo sysSessionVo = new SysSessionVo();
+//                sysSessionVo.setHallId(sysHall.getHallId());
+//                //查出该影厅的所有场次
+//                List<SysSession> sessions = sysSessionService.findByVo(sysSessionVo);
+//                if (!CollectionUtils.isEmpty(sessions)) {
+//                    //存在场次则更新座位信息
+//                    for (SysSession session : sessions) {
+//                        session.setSessionSeats(sysHall.getSeatState());
+//                        sysSessionService.update(session);
+//                    }
+//                }
+//            }
+//        }
         return getResult(rows);
     }
 
