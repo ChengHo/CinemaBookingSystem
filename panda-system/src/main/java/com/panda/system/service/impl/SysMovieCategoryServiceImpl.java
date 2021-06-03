@@ -1,6 +1,7 @@
 package com.panda.system.service.impl;
 
 import com.panda.system.domin.SysMovieCategory;
+import com.panda.system.domin.SysMovieToCategory;
 import com.panda.system.mapper.SysMovieCategoryMapper;
 import com.panda.system.service.SysMovieCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +17,43 @@ public class SysMovieCategoryServiceImpl implements SysMovieCategoryService {
     private SysMovieCategoryMapper sysMovieCategoryMapper;
 
     @Override
-    public List<SysMovieCategory> findAll() {
-        return sysMovieCategoryMapper.findAll();
+    public List<SysMovieCategory> findAllCategorys() {
+        return sysMovieCategoryMapper.findAllCategorys();
     }
 
     @Override
-    public SysMovieCategory findById(Long id) {
-        return sysMovieCategoryMapper.findById(id);
+    public SysMovieCategory findCategoryById(Long id) {
+        return sysMovieCategoryMapper.findCategoryById(id);
     }
 
     @Override
-    public int add(SysMovieCategory sysMovieCategory) {
-        return sysMovieCategoryMapper.add(sysMovieCategory);
+    public int addCategory(SysMovieCategory sysMovieCategory) {
+        return sysMovieCategoryMapper.addCategory(sysMovieCategory);
     }
 
     @Override
-    public int update(SysMovieCategory sysMovieCategory) {
-        return sysMovieCategoryMapper.update(sysMovieCategory);
+    public int updateCategory(SysMovieCategory sysMovieCategory) {
+        return sysMovieCategoryMapper.updateCategory(sysMovieCategory);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteCategory(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysMovieCategoryMapper.delete(id);
+            rows += sysMovieCategoryMapper.deleteCategory(id);
         }
         return rows;
     }
+
+
+    @Override
+    public int addMovieToCategory(SysMovieToCategory sysMovieToCategory) {
+        return sysMovieCategoryMapper.addMovieToCategory(sysMovieToCategory);
+    }
+
+    @Override
+    public int deleteMovieToCategory(SysMovieToCategory sysMovieToCategory) {
+        return sysMovieCategoryMapper.deleteMovieToCategory(sysMovieToCategory);
+    }
+
 }

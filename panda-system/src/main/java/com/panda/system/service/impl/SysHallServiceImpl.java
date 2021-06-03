@@ -16,30 +16,30 @@ public class SysHallServiceImpl implements SysHallService {
     private SysHallMapper sysHallMapper;
 
     @Override
-    public List<SysHall> findAll(SysHall sysHall) {
-        return sysHallMapper.findAll(sysHall);
+    public List<SysHall> findAllHalls(SysHall sysHall) {
+        return sysHallMapper.findAllHalls(sysHall);
     }
 
     @Override
-    public SysHall findById(SysHall sysHall) {
-        return sysHallMapper.findById(sysHall);
+    public SysHall findHallById(SysHall sysHall) {
+        return sysHallMapper.findHallById(sysHall);
     }
 
     @Override
-    public int add(SysHall sysHall) {
-        return sysHallMapper.add(sysHall);
+    public int addHall(SysHall sysHall) {
+        return sysHallMapper.addHall(sysHall);
     }
 
     @Override
-    public int update(SysHall sysHall) {
-        return sysHallMapper.update(sysHall);
+    public int updateHall(SysHall sysHall) {
+        return sysHallMapper.updateHall(sysHall);
     }
 
     @Override
-    public int delete(SysHall[] sysHalls) {
+    public int deleteHall(SysHall[] sysHalls) {
         int rows = 0;
         for (SysHall sysHall : sysHalls) {
-            rows += sysHallMapper.delete(sysHall);
+            rows += sysHallMapper.deleteHall(sysHall);
         }
         return rows;
     }

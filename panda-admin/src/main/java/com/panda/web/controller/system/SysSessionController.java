@@ -32,31 +32,31 @@ public class SysSessionController extends BaseController {
     }
 
     @GetMapping("/sysSession/find/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
+    public ResponseResult findSessionById(@PathVariable Long id) {
         // 取消所有超时订单并释放占座资源
         ApplicationContextUtils.getBean("cancelTimeoutBill");
-        return getResult(sysSessionService.findById(id));
+        return getResult(sysSessionService.findSessionById(id));
     }
 
 
     @GetMapping("/sysSession/isAbleEdit")
-    public ResponseResult findByMovieIdOrHallId(SysSession sysSession) {
-        return getResult(sysSessionService.findByMovieIdOrHallId(sysSession));
+    public ResponseResult findSessionByMovieIdOrHallId(SysSession sysSession) {
+        return getResult(sysSessionService.findSessionByMovieIdOrHallId(sysSession));
     }
 
     @PostMapping("/sysSession")
-    public ResponseResult add(@RequestBody SysSession sysSession) {
-        return getResult(sysSessionService.add(sysSession));
+    public ResponseResult addSession(@RequestBody SysSession sysSession) {
+        return getResult(sysSessionService.addSession(sysSession));
     }
 
     @PutMapping("/sysSession")
-    public ResponseResult update(@RequestBody SysSession sysSession) {
-        return getResult(sysSessionService.update(sysSession));
+    public ResponseResult updateSession(@RequestBody SysSession sysSession) {
+        return getResult(sysSessionService.updateSession(sysSession));
     }
 
     @DeleteMapping("/sysSession/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysSessionService.delete(ids));
+    public ResponseResult deleteSession(@PathVariable Long[] ids) {
+        return getResult(sysSessionService.deleteSession(ids));
     }
 
 }

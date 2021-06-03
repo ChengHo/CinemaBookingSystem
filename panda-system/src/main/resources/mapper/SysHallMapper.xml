@@ -5,12 +5,12 @@
 <mapper namespace="com.panda.system.mapper.SysHallMapper">
 
     <resultMap id="sysHallMap" type="SysHall">
-        <result property="cinemaId" column="cinema_id"></result>
         <result property="hallId" column="hall_id"></result>
-        <association property="sysCinema" column="cinema_id" select="com.panda.system.mapper.SysCinemaMapper.findById"></association>
+        <result property="cinemaId" column="cinema_id"></result>
+        <association property="sysCinema" column="cinema_id" select="com.panda.system.mapper.SysCinemaMapper.findCinema"></association>
     </resultMap>
 
-    <select id="findAll" resultMap="sysHallMap" parameterType="SysHall">
+    <select id="findAllHalls" resultMap="sysHallMap" parameterType="SysHall">
         select * from sys_hall
         <where>
             del_state = 0
@@ -23,11 +23,11 @@
         </where>
     </select>
 
-    <select id="findById" parameterType="SysHall" resultMap="sysHallMap">
+    <select id="findHallById" parameterType="SysHall" resultMap="sysHallMap">
         select * from sys_hall where hall_id = #{hallId}
     </select>
 
-    <update id="add" parameterType="SysHall">
+    <update id="addHall" parameterType="SysHall">
         insert into sys_hall
         (hall_name, hall_category, row_start, row_nums, seat_nums_row, seat_nums, seat_state)
         values
@@ -35,7 +35,7 @@
                 #{rowStart}, #{rowNums}, #{seatNumsRow}, #{seatNums}, #{seatState})
     </update>
 
-    <update id="update" parameterType="SysHall">
+    <update id="updateHall" parameterType="SysHall">
         update sys_hall set
         hall_name = #{hallName},
         hall_category = #{hallCategory},
@@ -47,7 +47,7 @@
         where hall_id = #{hallId}
     </update>
 
-    <update id="delete" parameterType="SysHall">
+    <update id="deleteHall" parameterType="SysHall">
         update sys_hall set del_state = 1 where hall_id  = #{hallId}
     </update>
 

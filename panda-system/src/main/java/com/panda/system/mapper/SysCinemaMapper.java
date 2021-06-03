@@ -4,11 +4,11 @@ import com.panda.system.domin.SysCinema;
 
 public interface SysCinemaMapper {
 
-    SysCinema findById(Long id);
+    SysCinema findCinema();
 
-    int update(SysCinema sysCinema);
+    int updateCinema(SysCinema sysCinema);
 
-    //前台展示单个影院信息，返回包含影院、上映中的所有电影信息
+    // 前台展示单个影院信息，返回包含影院、上映中的所有电影信息
     SysCinema findCinemaById(Long id);
 
 }

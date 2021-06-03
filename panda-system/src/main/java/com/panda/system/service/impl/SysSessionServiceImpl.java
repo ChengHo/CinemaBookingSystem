@@ -22,41 +22,41 @@ public class SysSessionServiceImpl implements SysSessionService {
     }
 
     @Override
-    public List<SysSession> findByMovieIdOrHallId(SysSession sysSession) {
-        return sysSessionMapper.findByMovieIdOrHallId(sysSession);
+    public List<SysSession> findSessionByMovieIdOrHallId(SysSession sysSession) {
+        return sysSessionMapper.findSessionByMovieIdOrHallId(sysSession);
     }
 
     @Override
-    public SysSession findById(Long id) {
-        return sysSessionMapper.findById(id);
+    public SysSession findSessionById(Long id) {
+        return sysSessionMapper.findSessionById(id);
     }
 
     @Override
-    public SysSession findOne(Long id) {
-        return sysSessionMapper.findOne(id);
+    public SysSession findOneSession(Long id) {
+        return sysSessionMapper.findOneSession(id);
     }
 
     @Override
-    public int add(SysSession sysSession) {
-        return sysSessionMapper.add(sysSession);
+    public int addSession(SysSession sysSession) {
+        return sysSessionMapper.addSession(sysSession);
     }
 
     @Override
-    public int update(SysSession sysSession) {
-        return sysSessionMapper.update(sysSession);
+    public int updateSession(SysSession sysSession) {
+        return sysSessionMapper.updateSession(sysSession);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteSession(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysSessionMapper.delete(id);
+            rows += sysSessionMapper.deleteSession(id);
         }
         return rows;
     }
 
     @Override
-    public List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId) {
-        return sysSessionMapper.findByCinemaAndMovie(cinemaId, movieId);
+    public List<SysSession> findSessionByMovieId(Long movieId) {
+        return sysSessionMapper.findSessionByMovieId(movieId);
     }
 }

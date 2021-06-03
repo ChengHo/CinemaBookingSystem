@@ -22,18 +22,18 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
 
     @Override
-    public List<SysUser> findAll(SysUser sysUser) {
-        return sysUserMapper.findAll(sysUser);
+    public List<SysUser> findAllUsers(SysUser sysUser) {
+        return sysUserMapper.findAllUsers(sysUser);
     }
 
     @Override
-    public SysUser findById(Long id) {
-        return sysUserMapper.findById(id);
+    public SysUser findUserById(Long id) {
+        return sysUserMapper.findUserById(id);
     }
 
     @Override
-    public SysUser findByName(String userName) {
-        return sysUserMapper.findByName(userName);
+    public SysUser findUserByName(String userName) {
+        return sysUserMapper.findUserByName(userName);
     }
 
     /**
@@ -43,7 +43,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return
      */
     @Override
-    public int add(SysUser sysUser) {
+    public int addUser(SysUser sysUser) {
         if (!isUserNameUnique(sysUser.getUserName(), -1L)) {
             throw new AuthenticationException("用户名重复");
         }
@@ -53,15 +53,15 @@ public class SysUserServiceImpl implements SysUserService {
 
         sysUser.setPassword(md5Hash.toHex());
         sysUser.setSalt(salt);
-        return sysUserMapper.add(sysUser);
+        return sysUserMapper.addUser(sysUser);
     }
 
     @Override
-    public int update(SysUser sysUser) {
+    public int updateUser(SysUser sysUser) {
         if (!isUserNameUnique(sysUser.getUserName(), sysUser.getUserId())) {
             throw new AuthenticationException("用户名重复");
         }
-        SysUser originUser = sysUserMapper.findById(sysUser.getUserId());
+        SysUser originUser = sysUserMapper.findUserById(sysUser.getUserId());
         if (originUser == null) {
             throw new AuthenticationException("用户不存在");
         }
@@ -75,14 +75,14 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser.setPassword(md5Hash.toHex());
             sysUser.setSalt(salt);
         }
-        return sysUserMapper.update(sysUser);
+        return sysUserMapper.updateUser(sysUser);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteUser(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysUserMapper.delete(id);
+            rows += sysUserMapper.deleteUser(id);
         }
         return rows;
     }
@@ -90,7 +90,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginUser login(SysUserVo sysUserVo) {
         //登录，先查询用户信息
-        SysUser user = sysUserMapper.findByName(sysUserVo.getUserName());
+        SysUser user = sysUserMapper.findUserByName(sysUserVo.getUserName());
         if (user == null) {
             throw new AuthenticationException("用户名不存在");
         }
@@ -118,7 +118,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean isUserNameUnique(String userName, Long userId) {
-        List<Long> userIds = sysUserMapper.findUsersByName(userName);
+        List<Long> userIds = sysUserMapper.checkUserNameUnique(userName);
         for (Long id : userIds) {
             if (id.equals(userId)) {
                 return true;

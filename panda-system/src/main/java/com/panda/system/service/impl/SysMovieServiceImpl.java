@@ -17,35 +17,35 @@ public class SysMovieServiceImpl implements SysMovieService {
     private SysMovieMapper sysMovieMapper;
 
     @Override
-    public List<SysMovie> findAll(SysMovieVo sysMovieVo) {
-        return sysMovieMapper.findAll(sysMovieVo);
+    public List<SysMovie> findAllMovies(SysMovieVo sysMovieVo) {
+        return sysMovieMapper.findAllMovies(sysMovieVo);
     }
 
     @Override
-    public SysMovie findById(Long id) {
-        return sysMovieMapper.findById(id);
+    public SysMovie findMovieById(Long id) {
+        return sysMovieMapper.findMovieById(id);
     }
 
     @Override
-    public SysMovie findOne(Long id) {
-        return sysMovieMapper.findOne(id);
+    public SysMovie findOneMovie(Long id) {
+        return sysMovieMapper.findOneMovie(id);
     }
 
     @Override
-    public int add(SysMovie sysMovie) {
-        return sysMovieMapper.add(sysMovie);
+    public int addMovie(SysMovie sysMovie) {
+        return sysMovieMapper.addMovie(sysMovie);
     }
 
     @Override
-    public int update(SysMovie sysMovie) {
-        return sysMovieMapper.update(sysMovie);
+    public int updateMovie(SysMovie sysMovie) {
+        return sysMovieMapper.updateMovie(sysMovie);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteMovie(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysMovieMapper.delete(id);
+            rows += sysMovieMapper.deleteMovie(id);
         }
         return rows;
     }

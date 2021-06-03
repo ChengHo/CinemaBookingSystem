@@ -7,21 +7,16 @@ import java.util.List;
 
 public interface SysBillMapper {
 
-    List<SysBill> findAll(SysBill sysBill);
+    List<SysBill> findAllBills(SysBill sysBill);
 
-    SysBill findById(Long id);
+    SysBill findBillById(Long id);
 
-    int add(SysBill sysBill);
+    int addBill(SysBill sysBill);
 
-    int update(SysBill sysBill);
+    int updateBill(SysBill sysBill);
 
-    int delete(Long id);
+    int deleteBill(Long id);
 
-    /**
-     * 查询所有超时订单
-     *
-     * @return
-     */
     List<SysBill> findTimeoutBill();
 
 }

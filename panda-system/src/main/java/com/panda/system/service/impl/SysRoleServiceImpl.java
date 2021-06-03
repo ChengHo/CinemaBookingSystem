@@ -17,30 +17,30 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleMapper sysRoleMapper;
 
     @Override
-    public List<SysRole> findAll() {
-        return sysRoleMapper.findAll();
+    public List<SysRole> findAllRoles() {
+        return sysRoleMapper.findAllRoles();
     }
 
     @Override
-    public SysRole findById(Long id) {
-        return sysRoleMapper.findById(id);
+    public SysRole findRoleById(Long id) {
+        return sysRoleMapper.findRoleById(id);
     }
 
     @Override
-    public int add(SysRole sysRole) {
-        return sysRoleMapper.add(sysRole);
+    public int addRole(SysRole sysRole) {
+        return sysRoleMapper.addRole(sysRole);
     }
 
     @Override
-    public int update(SysRole sysRole) {
-        return sysRoleMapper.update(sysRole);
+    public int updateRole(SysRole sysRole) {
+        return sysRoleMapper.updateRole(sysRole);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteRole(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysRoleMapper.delete(id);
+            rows += sysRoleMapper.deleteRole(id);
         }
         return rows;
     }

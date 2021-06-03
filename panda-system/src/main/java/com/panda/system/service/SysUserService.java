@@ -8,17 +8,17 @@ import java.util.List;
 
 
 public interface SysUserService {
-    List<SysUser> findAll(SysUser sysUser);
+    List<SysUser> findAllUsers(SysUser sysUser);
 
-    SysUser findById(Long id);
+    SysUser findUserById(Long id);
 
-    SysUser findByName(String userName);
+    SysUser findUserByName(String userName);
 
-    int add(SysUser sysUser);
+    int addUser(SysUser sysUser);
 
-    int update(SysUser sysUser);
+    int updateUser(SysUser sysUser);
 
-    int delete(Long[] ids);
+    int deleteUser(Long[] ids);
 
     LoginUser login(SysUserVo sysUserVo);
 

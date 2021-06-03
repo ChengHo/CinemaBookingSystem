@@ -6,13 +6,13 @@ import java.util.List;
 
 
 public interface SysHallMapper {
-    List<SysHall> findAll(SysHall sysHall);
+    List<SysHall> findAllHalls(SysHall sysHall);
 
-    SysHall findById(SysHall sysHall);
+    SysHall findHallById(SysHall sysHall);
 
-    int add(SysHall sysHall);
+    int addHall(SysHall sysHall);
 
-    int update(SysHall sysHall);
+    int updateHall(SysHall sysHall);
 
-    int delete(SysHall sysHall);
+    int deleteHall(SysHall sysHall);
 }

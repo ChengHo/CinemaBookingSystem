@@ -7,7 +7,7 @@
     <resultMap id="SysUserMap" type="SysUser">
         <id property="userId" column="user_id"></id>
         <result property="roleId" column="role_id"></result>
-        <association property="sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findById"></association>
+        <association property="sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findRoleById"></association>
     </resultMap>
 
     <resultMap id="loginUserMap" type="LoginUser">
@@ -22,13 +22,11 @@
         <result property="sysUser.birthday" column="birthday"></result>
         <result property="sysUser.autograph" column="autograph"></result>
         <result property="sysUser.roleId" column="role_id"></result>
-        <result property="cinemaId" column="cinema_id"></result>
-        <result property="cinemaName" column="cinema_name"></result>
-        <association property="sysUser.sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findById"></association>
+        <association property="sysUser.sysRole" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findRoleById"></association>
         <association property="sysUser.sysRole.children" column="role_id" select="com.panda.system.mapper.SysRoleMapper.findByRoleId"></association>
     </resultMap>
 
-    <select id="findAll" resultMap="SysUserMap" parameterType="SysUser">
+    <select id="findAllUsers" resultMap="SysUserMap" parameterType="SysUser">
         select * from sys_user
         <where>
             del_state = 0
@@ -50,15 +48,15 @@
         </where>
     </select>
 
-    <select id="findById" resultMap="SysUserMap" parameterType="long">
+    <select id="findUserById" resultMap="SysUserMap" parameterType="long">
         select * from sys_user where user_id = #{id}
     </select>
 
-    <select id="findByName" resultMap="SysUserMap" parameterType="String">
+    <select id="findUserByName" resultMap="SysUserMap" parameterType="String">
         select * from sys_user where user_name = #{userName} and del_state = 0
     </select>
 
-    <update id="add" parameterType="SysUser">
+    <update id="addUser" parameterType="SysUser">
         <!-- 将添加后的主键id传回原对象 -->
         <selectKey keyProperty="userId" keyColumn="user_id" resultType="long" order="AFTER">
             select last_insert_id();
@@ -84,7 +82,7 @@
         #{sex})
     </update>
 
-    <update id="update" parameterType="SysUser">
+    <update id="updateUser" parameterType="SysUser">
         update sys_user set
         user_name = #{userName},
         password = #{password},
@@ -99,19 +97,17 @@
         where user_id = #{userId}
     </update>
 
-    <update id="delete" parameterType="Long">
+    <update id="deleteUser" parameterType="Long">
         update sys_user set del_state = 1 where user_id = #{id}
     </update>
 
     <!-- 查询登录用户信息 -->
     <select id="findLoginUser" parameterType="SysUserVo" resultMap="loginUserMap">
-        select su.*, cinema_id, cinema_name from sys_user su
-        left join sys_cinema sc on sc.user_id = su.user_id
-        where su.user_name = #{userName} limit 0,1
+        select * from sys_user where user_name = #{userName} limit 0,1
     </select>
 
     <!-- 查询用户名出现的次数，用于校验用户名唯一性 -->
-    <select id="findUsersByName" parameterType="String" resultType="Long">
+    <select id="checkUserNameUnique" parameterType="String" resultType="Long">
         select user_id from sys_user where user_name = #{userName}
     </select>
 

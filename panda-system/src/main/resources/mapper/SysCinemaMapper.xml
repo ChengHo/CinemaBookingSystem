@@ -4,21 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.panda.system.mapper.SysCinemaMapper">
 
-    <!--column属性：如果没有别名就必须跟字段名一样，有别名就可以跟别名一样，通过别名映射到字段-->
-    <resultMap id="SysCinemaResult" type="SysCinema">
-        <id property="cinemaId" column="cinema_id"></id>
-        <result property="cinemaName" column="cinema_name"></result>
-        <result property="hallCategoryList" column="hall_category_list"></result>
-        <result property="cinemaPicture" column="cinema_picture"></result>
-        <result property="cinemaAddress" column="cinema_address"></result>
-        <result property="cinemaPhone" column="cinema_phone"></result>
-        <result property="workStartTime" column="work_start_time"></result>
-        <result property="workEndTime" column="work_end_time"></result>
-        <result property="userId" column="user_id"></result>
-        <association property="user" column="user_id" select="com.panda.system.mapper.SysUserMapper.findById"></association>
-    </resultMap>
-
-    <!-- 查询单个影院的详细信息，包含影院上映的所有电影信息 -->
+    <!-- 查询影院信息，包含影院上映的所有电影信息 -->
     <resultMap id="SysCinemaMap" type="SysCinema">
         <id property="cinemaId" column="cinema_id"></id>
         <result property="cinemaName" column="cinema_name"></result>
@@ -28,16 +14,14 @@
         <result property="cinemaPhone" column="cinema_phone"></result>
         <result property="workStartTime" column="work_start_time"></result>
         <result property="workEndTime" column="work_end_time"></result>
-        <result property="userId" column="user_id"></result>
-        <association property="user" column="user_id" select="com.panda.system.mapper.SysUserMapper.findById"></association>
-        <collection property="sysMovieList" ofType="SysMovie" column="cinema_id" select="com.panda.system.mapper.SysMovieMapper.findByCinemaId"></collection>
+        <collection property="sysMovieList" ofType="SysMovie" column="cinema_id" select="com.panda.system.mapper.SysMovieMapper.findMovieByCinemaId"></collection>
     </resultMap>
 
-    <select id="findById" parameterType="Long" resultMap="SysCinemaResult">
-        select * from sys_cinema where cinema_id = #{cinemaId}
+    <select id="findCinema" parameterType="Long" resultType="SysCinema">
+        select * from sys_cinema
     </select>
 
-    <update id="update" parameterType="SysCinema">
+    <update id="updateCinema" parameterType="SysCinema">
         update sys_cinema set
         cinema_name = #{cinemaName}, cinema_picture = #{cinemaPicture},
         cinema_address = #{cinemaAddress}, cinema_phone = #{cinemaPhone},

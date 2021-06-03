@@ -2,6 +2,7 @@ package com.panda.web.controller.system;
 
 import com.panda.common.response.ResponseResult;
 import com.panda.system.domin.SysMovieCategory;
+import com.panda.system.domin.SysMovieToCategory;
 import com.panda.system.service.impl.SysMovieCategoryServiceImpl;
 import com.panda.web.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +19,41 @@ public class SysMovieCategoryController extends BaseController {
     private SysMovieCategoryServiceImpl sysMovieCategoryService;
 
     @GetMapping("/sysMovieCategory/find")
-    public ResponseResult findAll() {
+    public ResponseResult findAllCategorys() {
         startPage();
-        List<SysMovieCategory> data = sysMovieCategoryService.findAll();
+        List<SysMovieCategory> data = sysMovieCategoryService.findAllCategorys();
         return getResult(data);
     }
 
     @GetMapping("/sysMovieCategory/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysMovieCategoryService.findById(id));
+    public ResponseResult findCategoryById(@PathVariable Long id) {
+        return getResult(sysMovieCategoryService.findCategoryById(id));
     }
 
     @PostMapping("/sysMovieCategory")
-    public ResponseResult add(@Validated @RequestBody SysMovieCategory sysMovieCategory) {
-        return getResult(sysMovieCategoryService.add(sysMovieCategory));
+    public ResponseResult addCategory(@Validated @RequestBody SysMovieCategory sysMovieCategory) {
+        return getResult(sysMovieCategoryService.addCategory(sysMovieCategory));
     }
 
 
     @PutMapping("/sysMovieCategory")
-    public ResponseResult update(@Validated @RequestBody SysMovieCategory sysMovieCategory) {
-        return getResult(sysMovieCategoryService.update(sysMovieCategory));
+    public ResponseResult updateCategory(@Validated @RequestBody SysMovieCategory sysMovieCategory) {
+        return getResult(sysMovieCategoryService.updateCategory(sysMovieCategory));
     }
 
     @DeleteMapping("/sysMovieCategory/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysMovieCategoryService.delete(ids));
+    public ResponseResult deleteCategory(@PathVariable Long[] ids) {
+        return getResult(sysMovieCategoryService.deleteCategory(ids));
+    }
+
+    @PostMapping("/sysMovieToCategory/{movieId}/{movieCategoryId}")
+    public ResponseResult addMovieToCategory(@PathVariable Long movieId, @PathVariable Long movieCategoryId) {
+        return getResult(sysMovieCategoryService.addMovieToCategory(new SysMovieToCategory(movieId, movieCategoryId)));
+    }
+
+    @DeleteMapping("/sysMovieToCategory/{movieId}/{movieCategoryId}")
+    public ResponseResult deleteMovieToCategory(@PathVariable Long movieId, @PathVariable Long movieCategoryId) {
+        return getResult(sysMovieCategoryService.deleteMovieToCategory(new SysMovieToCategory(movieId, movieCategoryId)));
     }
 
 }

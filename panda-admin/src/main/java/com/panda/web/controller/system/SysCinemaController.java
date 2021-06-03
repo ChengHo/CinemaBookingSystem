@@ -23,14 +23,14 @@ public class SysCinemaController extends BaseController {
     @Autowired
     private SysSessionServiceImpl sysSessionService;
 
-    @GetMapping("/sysCinema/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysCinemaService.findById(id));
+    @GetMapping("/sysCinema")
+    public ResponseResult findCinema() {
+        return getResult(sysCinemaService.findCinema());
     }
 
     @PutMapping("/sysCinema/update")
-    public ResponseResult update(@Validated @RequestBody SysCinema sysCinema) {
-        return getResult(sysCinemaService.update(sysCinema));
+    public ResponseResult updateCinema(@Validated @RequestBody SysCinema sysCinema) {
+        return getResult(sysCinemaService.updateCinema(sysCinema));
     }
 
     @GetMapping(value = {"/sysCinema/find/{cinemaId}/{movieId}", "/sysCinema/find/{cinemaId}"})
@@ -41,7 +41,7 @@ public class SysCinemaController extends BaseController {
         }
         List<SysSession> sessions = null;
         if (movieId != null && movieId != 0) {
-            sessions = sysSessionService.findByCinemaAndMovie(cinemaId, movieId);
+            sessions = sysSessionService.findSessionByMovieId(movieId);
         }
 
         HashMap<String, Object> response = new HashMap<>();

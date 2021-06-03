@@ -31,24 +31,23 @@ public class SysBillController extends BaseController {
     private SysMovieServiceImpl sysMovieService;
 
     @GetMapping("/sysBill")
-    public ResponseResult findAll(SysBill sysBill) {
+    public ResponseResult findAllBills(SysBill sysBill) {
         startPage();
         // 取消所有超时订单并释放占座资源
         ApplicationContextUtils.getBean("cancelTimeoutBill");
-        List<SysBill> data = sysBillService.findAll(sysBill);
+        List<SysBill> data = sysBillService.findAllBills(sysBill);
         return getResult(data);
     }
 
     @GetMapping("/sysBill/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysBillService.findById(id));
+    public ResponseResult findBillById(@PathVariable Long id) {
+        return getResult(sysBillService.findBillById(id));
     }
 
     @PostMapping("/sysBill")
-    public ResponseResult add(@Validated @RequestBody SysBillVo sysBillVo) {
-        System.out.println(sysBillVo);
+    public ResponseResult addBill(@Validated @RequestBody SysBillVo sysBillVo) {
         // 获取当前场次信息
-        SysSession curSession = sysSessionService.findOne(sysBillVo.getSysBill().getSessionId());
+        SysSession curSession = sysSessionService.findOneSession(sysBillVo.getSysBill().getSessionId());
         if (curSession == null) {
             throw new DataNotFoundException("添加订单的场次没找到");
         }
@@ -58,9 +57,9 @@ public class SysBillController extends BaseController {
         int addSallNums = sysBillVo.getSysBill().getSeats().split(",").length;
         curSession.setSallNums(curSession.getSallNums() + addSallNums);
         // 更新场次座位信息
-        sysSessionService.update(curSession);
+        sysSessionService.updateSession(curSession);
 
-        Object obj = sysBillService.add(sysBillVo.getSysBill());
+        Object obj = sysBillService.addBill(sysBillVo.getSysBill());
         if (obj instanceof Integer) {
             return getResult((Integer) obj);
         }
@@ -68,16 +67,16 @@ public class SysBillController extends BaseController {
     }
 
     @PutMapping("/sysBill")
-    public ResponseResult update(@RequestBody SysBill sysBill) {
-        int rows = sysBillService.update(sysBill);
+    public ResponseResult pay(@RequestBody SysBill sysBill) {
+        int rows = sysBillService.updateBill(sysBill);
         if (rows > 0 && sysBill.getPayState()) {
             //更新场次的座位状态
-            SysSession curSession = sysSessionService.findOne(sysBill.getSessionId());
+            SysSession curSession = sysSessionService.findOneSession(sysBill.getSessionId());
             if (curSession == null) {
                 throw new DataNotFoundException("支付订单的场次没找到");
             }
             //更新电影票房
-            SysMovie curMovie = sysMovieService.findOne(curSession.getMovieId());
+            SysMovie curMovie = sysMovieService.findOneMovie(curSession.getMovieId());
             if (curMovie == null) {
                 throw new DataNotFoundException("支付订单的电影没找到");
             }
@@ -85,7 +84,7 @@ public class SysBillController extends BaseController {
             int seatNum = sysBill.getSeats().split(",").length;
             double price = curSession.getSessionPrice();
             curMovie.setMovieBoxOffice(curMovie.getMovieBoxOffice() + seatNum * price);
-            sysMovieService.update(curMovie);
+            sysMovieService.updateMovie(curMovie);
         }
         return getResult(rows);
     }
@@ -93,10 +92,10 @@ public class SysBillController extends BaseController {
     @PutMapping("/sysBill/cancel")
     public ResponseResult cancel(@RequestBody SysBillVo sysBillVo) {
         // 订单取消，更新订单状态
-        int rows = sysBillService.update(sysBillVo.getSysBill());
+        int rows = sysBillService.updateBill(sysBillVo.getSysBill());
         if (rows > 0 && sysBillVo.getSysBill().getCancelState()) {
             // 订单取消座位不再占用，更新场次的座位状态
-            SysSession curSession = sysSessionService.findOne(sysBillVo.getSysBill().getSessionId());
+            SysSession curSession = sysSessionService.findOneSession(sysBillVo.getSysBill().getSessionId());
             // 取消的订单座位数
             int cancelSallNums = sysBillVo.getSysBill().getSeats().split(",").length;
             curSession.setSallNums(curSession.getSallNums() - cancelSallNums);
@@ -104,14 +103,14 @@ public class SysBillController extends BaseController {
                 throw new DataNotFoundException("添加订单的场次没找到");
             }
             curSession.setSessionSeats(sysBillVo.getSessionSeats());
-            sysSessionService.update(curSession);
+            sysSessionService.updateSession(curSession);
         }
         return getResult(rows);
     }
 
     @DeleteMapping("/sysBill/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysBillService.delete(ids));
+    public ResponseResult deleteBill(@PathVariable Long[] ids) {
+        return getResult(sysBillService.deleteBill(ids));
     }
 
 }

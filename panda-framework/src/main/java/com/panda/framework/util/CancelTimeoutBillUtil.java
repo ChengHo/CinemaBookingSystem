@@ -36,9 +36,9 @@ public class CancelTimeoutBillUtil {
             // 更新订单取消状态
             timeoutBill.setCancelState(true);
             // 更新订单信息
-            sysBillService.update(timeoutBill);
+            sysBillService.updateBill(timeoutBill);
 
-            SysSession curSession = sysSessionService.findOne(timeoutBill.getSessionId());
+            SysSession curSession = timeoutBill.getSysSession();
             if (curSession == null) {
                 throw new DataNotFoundException("场次不存在");
             }
@@ -64,7 +64,7 @@ public class CancelTimeoutBillUtil {
             // 取消场次座位占座
             String newSessionSeats = cancelTimeoutBillSessionSeats(curSession.getSessionSeats(), selectedSeatsMap);
             curSession.setSessionSeats(newSessionSeats);
-            sysSessionService.update(curSession);
+            sysSessionService.updateSession(curSession);
         });
     }
 

@@ -38,11 +38,6 @@ public class SysCinema implements Serializable {
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "HH:mm")
     private String workEndTime;
 
-    @NotNull(message = "负责人id不能为空")
-    private Long userId;
-
-    private SysUser user;
-
     //当前影院上映的所有电影，规则：上映的电影指包括今天在内，未来5天有安排目标影片的场次
     private List<SysMovie> sysMovieList;
 

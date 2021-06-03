@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface SysMovieService {
 
-    List<SysMovie> findAll(SysMovieVo sysMovieVo);
+    List<SysMovie> findAllMovies(SysMovieVo sysMovieVo);
 
-    SysMovie findById(Long id);
+    SysMovie findMovieById(Long id);
 
-    SysMovie findOne(Long id);
+    SysMovie findOneMovie(Long id);
 
-    int add(SysMovie sysMovie);
+    int addMovie(SysMovie sysMovie);
 
-    int update(SysMovie sysMovie);
+    int updateMovie(SysMovie sysMovie);
 
-    int delete(Long[] ids);
+    int deleteMovie(Long[] ids);
 
     //获取单个影院上映的所有电影信息
 //    List<SysMovie> findByCinemaId(Long id);

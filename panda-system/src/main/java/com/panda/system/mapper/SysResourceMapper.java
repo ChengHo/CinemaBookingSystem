@@ -12,7 +12,7 @@ public interface SysResourceMapper {
      *
      * @return
      */
-    List<SysResource> findAll();
+    List<SysResource> findAllResources();
 
     /**
      * 查出所有菜单并包含其直接children
@@ -22,26 +22,18 @@ public interface SysResourceMapper {
     List<SysResource> findWithChildren();
 
     /**
-     * 根据父资源权限id查询权限
-     *
-     * @param id
-     * @return
-     */
-    List<SysResource> findByParentId(Long id);
-
-    /**
      * 查询所有按父子关系的权限
      *
      * @return
      */
     List<SysResource> findAllWithAllChildren();
 
-    SysResource findById(Long id);
+    SysResource findResourceById(Long id);
 
-    int add(SysResource sysResource);
+    int addResource(SysResource sysResource);
 
-    int update(SysResource sysResource);
+    int updateResource(SysResource sysResource);
 
-    int delete(Long id);
+    int deleteResource(Long id);
 
 }

@@ -8,17 +8,22 @@ import java.util.List;
 
 
 public interface SysUserMapper {
-    List<SysUser> findAll(SysUser sysUser);
+    List<SysUser> findAllUsers(SysUser sysUser);
 
-    SysUser findById(Long id);
+    SysUser findUserById(Long id);
 
-    SysUser findByName(String userName);
+    /**
+     * jwt校验
+     * @param userName
+     * @return
+     */
+    SysUser findUserByName(String userName);
 
-    int add(SysUser sysUser);
+    int addUser(SysUser sysUser);
 
-    int update(SysUser sysUser);
+    int updateUser(SysUser sysUser);
 
-    int delete(Long id);
+    int deleteUser(Long id);
 
     LoginUser findLoginUser(SysUserVo sysUserVo);
 
@@ -28,5 +33,5 @@ public interface SysUserMapper {
      * @param userName
      * @return
      */
-    List<Long> findUsersByName(String userName);
+    List<Long> checkUserNameUnique(String userName);
 }

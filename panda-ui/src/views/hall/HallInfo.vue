@@ -260,7 +260,7 @@ export default {
     },
     async getHallCategoryList(){
       const _this = this
-      await axios.get('sysCinema/1').then(resp => {
+      await axios.get('sysCinema').then(resp => {
         _this.cinemaInfo = resp.data.data
       })
       _this.hallCategoryList = []

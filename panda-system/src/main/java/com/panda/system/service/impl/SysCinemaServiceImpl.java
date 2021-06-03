@@ -14,13 +14,13 @@ public class SysCinemaServiceImpl implements SysCinemaService {
     private SysCinemaMapper sysCinemaMapper;
 
     @Override
-    public SysCinema findById(Long id) {
-        return sysCinemaMapper.findById(id);
+    public SysCinema findCinema() {
+        return sysCinemaMapper.findCinema();
     }
 
     @Override
-    public int update(SysCinema sysCinema) {
-        return sysCinemaMapper.update(sysCinema);
+    public int updateCinema(SysCinema sysCinema) {
+        return sysCinemaMapper.updateCinema(sysCinema);
     }
 
     @Override

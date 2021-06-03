@@ -1,18 +1,25 @@
 package com.panda.system.service;
 
 import com.panda.system.domin.SysMovieCategory;
+import com.panda.system.domin.SysMovieToCategory;
 
 import java.util.List;
 
 
 public interface SysMovieCategoryService {
-    List<SysMovieCategory> findAll();
+    List<SysMovieCategory> findAllCategorys();
 
-    SysMovieCategory findById(Long id);
+    SysMovieCategory findCategoryById(Long id);
 
-    int add(SysMovieCategory sysMovieCategory);
+    int addCategory(SysMovieCategory sysMovieCategory);
 
-    int update(SysMovieCategory sysMovieCategory);
+    int updateCategory(SysMovieCategory sysMovieCategory);
 
-    int delete(Long[] ids);
+    int deleteCategory(Long[] ids);
+
+    int addMovieToCategory(SysMovieToCategory sysMovieToCategory);
+
+    int deleteMovieToCategory(SysMovieToCategory sysMovieToCategory);
+
+
 }

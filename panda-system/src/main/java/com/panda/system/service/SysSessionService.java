@@ -10,18 +10,18 @@ public interface SysSessionService {
 
     List<SysSession> findByVo(SysSessionVo sysSessionVo);
 
-    List<SysSession> findByMovieIdOrHallId(SysSession sysSession);
+    List<SysSession> findSessionByMovieIdOrHallId(SysSession sysSession);
 
-    SysSession findById(Long id);
+    SysSession findSessionById(Long id);
 
-    SysSession findOne(Long id);
+    SysSession findOneSession(Long id);
 
-    int add(SysSession sysSession);
+    int addSession(SysSession sysSession);
 
-    int update(SysSession sysSession);
+    int updateSession(SysSession sysSession);
 
-    int delete(Long[] id);
+    int deleteSession(Long[] id);
 
-    List<SysSession> findByCinemaAndMovie(Long cinemaId, Long movieId);
+    List<SysSession> findSessionByMovieId(Long movieId);
 
 }

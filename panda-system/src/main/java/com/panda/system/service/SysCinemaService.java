@@ -5,9 +5,9 @@ import com.panda.system.domin.SysCinema;
 
 public interface SysCinemaService {
 
-    SysCinema findById(Long id);
+    SysCinema findCinema();
 
-    int update(SysCinema sysCinema);
+    int updateCinema(SysCinema sysCinema);
 
     SysCinema findCinemaById(Long id);
 

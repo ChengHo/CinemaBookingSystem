@@ -6,10 +6,10 @@
 
     <resultMap id="SysMovieResult" type="SysMovie">
         <id property="movieId" column="movie_id"></id>
-        <collection property="movieCategoryList" column="movie_id" select="com.panda.system.mapper.SysMovieCategoryMapper.findByMovieId"></collection>
+        <collection property="movieCategoryList" column="movie_id" select="com.panda.system.mapper.SysMovieCategoryMapper.findOneMovieCategorys"></collection>
     </resultMap>
 
-    <select id="findAll" resultMap="SysMovieResult" parameterType="SysMovieVo">
+    <select id="findAllMovies" resultMap="SysMovieResult" parameterType="SysMovieVo">
         select sm.* from sys_movie sm
         <if test="movieCategoryId != null and movieCategoryId > 0">
             join sys_movie_to_category smtc on sm.movie_id = smtc.movie_id
@@ -34,20 +34,16 @@
         </where>
     </select>
 
-    <select id="findById" resultMap="SysMovieResult" parameterType="long">
+    <select id="findMovieById" resultMap="SysMovieResult" parameterType="long">
         select * from sys_movie where movie_id = #{id}
     </select>
 
     <!--根据id查询单个电影信息，不需要相关的额外信息-->
-    <select id="findOne" resultType="SysMovie" parameterType="long">
+    <select id="findOneMovie" resultType="SysMovie" parameterType="long">
         select * from sys_movie where movie_id = #{id}
     </select>
 
-    <update id="add" parameterType="SysMovie">
-        <!-- 将添加后的主键id传回原对象 -->
-        <selectKey keyProperty="movieId" keyColumn="movie_id" resultType="long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
+    <update id="addMovie" parameterType="SysMovie">
         insert into sys_movie(
             <if test=" movieName != null and movieName != ''">movie_name,</if>
             <if test=" movieLength != null and movieLength != 0">movie_length,</if>
@@ -55,7 +51,6 @@
             <if test=" movieArea != null and movieArea != ''">movie_area,</if>
             <if test=" movieIntroduction != null and movieIntroduction != ''">movie_introduction,</if>
             <if test=" releaseDate != null">release_date,</if>
-            <if test=" movieBoxOffice != null">movie_box_offcie,</if>
             <if test=" moviePictures != null and moviePictures != ''">movie_pictures</if>
         ) values(
             <if test=" movieName != null and movieName != ''">#{movieName},</if>
@@ -64,12 +59,11 @@
             <if test=" movieArea != null and movieArea != ''">#{movieArea},</if>
             <if test=" movieIntroduction != null and movieIntroduction != ''">#{movieIntroduction},</if>
             <if test=" releaseDate != null">#{releaseDate},</if>
-            <if test=" movieBoxOffice != null">#{movieBoxOffice},</if>
             <if test=" moviePictures != null and moviePictures != ''">#{moviePictures}</if>
         )
     </update>
 
-    <update id="update" parameterType="SysMovie">
+    <update id="updateMovie" parameterType="SysMovie">
         update sys_movie
         set
         <if test=" movieName != null and movieName != ''">movie_name = #{movieName},</if>
@@ -83,12 +77,12 @@
         where movie_id = #{movieId}
     </update>
 
-    <update id="delete" parameterType="Long">
+    <update id="deleteMovie" parameterType="Long">
         update sys_movie set del_state = 1 where movie_id = #{movieId}
     </update>
 
     <!--查询指定影院的所有上映电影，包含主演名字、影片类别-->
-    <select id="findByCinemaId" parameterType="Long" resultMap="SysMovieResult">
+    <select id="findMovieByCinemaId" parameterType="Long" resultMap="SysMovieResult">
         select distinct sm.* from sys_movie sm
         join sys_session ss on sm.movie_id = ss.movie_id
         where ss.session_date &gt;= CURDATE() and ss.session_date &lt; ADDDATE(curdate(),5)

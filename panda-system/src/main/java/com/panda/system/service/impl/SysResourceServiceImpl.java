@@ -18,8 +18,8 @@ public class SysResourceServiceImpl implements SysResourceService {
     private SysResourceMapper sysResourceMapper;
 
     @Override
-    public List<SysResource> findAll() {
-        return sysResourceMapper.findAll();
+    public List<SysResource> findAllResources() {
+        return sysResourceMapper.findAllResources();
     }
 
     @Override
@@ -33,42 +33,42 @@ public class SysResourceServiceImpl implements SysResourceService {
     }
 
     @Override
-    public SysResource findById(Long id) {
-        return sysResourceMapper.findById(id);
+    public SysResource findResourceById(Long id) {
+        return sysResourceMapper.findResourceById(id);
     }
 
     @Override
-    public int add(SysResource sysResource) {
+    public int addResource(SysResource sysResource) {
         if (sysResource.getParentId() == 0) {
             sysResource.setLevel(1);
         } else {
-            SysResource parent = this.findById(sysResource.getParentId());
+            SysResource parent = this.findResourceById(sysResource.getParentId());
             if (parent != null) {
                 sysResource.setLevel(parent.getLevel() + 1);
             }
         }
-        return sysResourceMapper.add(sysResource);
+        return sysResourceMapper.addResource(sysResource);
     }
 
     @Override
-    public int update(SysResource sysResource) {
+    public int updateResource(SysResource sysResource) {
         if (sysResource.getParentId() == 0) {
             sysResource.setLevel(1);
         } else {
-            SysResource parent = this.findById(sysResource.getParentId());
+            SysResource parent = this.findResourceById(sysResource.getParentId());
             if (parent != null) {
                 sysResource.setLevel(parent.getLevel() + 1);
             }
         }
         log.debug(sysResource.toString());
-        return sysResourceMapper.update(sysResource);
+        return sysResourceMapper.updateResource(sysResource);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteResource(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysResourceMapper.delete(id);
+            rows += sysResourceMapper.deleteResource(id);
         }
         return rows;
     }

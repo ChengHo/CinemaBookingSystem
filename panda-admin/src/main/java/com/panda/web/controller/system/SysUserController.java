@@ -17,15 +17,15 @@ public class SysUserController extends BaseController {
     private SysUserServiceImpl sysUserService;
 
     @GetMapping("/sysUser")
-    public ResponseResult findAll(SysUser sysUser) {
+    public ResponseResult findAllUsers(SysUser sysUser) {
         startPage();
-        List<SysUser> data = sysUserService.findAll(sysUser);
+        List<SysUser> data = sysUserService.findAllUsers(sysUser);
         return getResult(data);
     }
 
     @GetMapping("/sysUser/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysUserService.findById(id));
+    public ResponseResult findUserById(@PathVariable Long id) {
+        return getResult(sysUserService.findUserById(id));
     }
 
     /**
@@ -34,18 +34,18 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PostMapping("/sysUser")
-    public ResponseResult add(@Validated @RequestBody SysUser sysUser) {
-        return getResult(sysUserService.add(sysUser));
+    public ResponseResult addUser(@Validated @RequestBody SysUser sysUser) {
+        return getResult(sysUserService.addUser(sysUser));
     }
 
     @PutMapping("/sysUser")
-    public ResponseResult update(@Validated @RequestBody SysUser sysUser) {
-        return getResult(sysUserService.update(sysUser));
+    public ResponseResult updateUser(@Validated @RequestBody SysUser sysUser) {
+        return getResult(sysUserService.updateUser(sysUser));
     }
 
     @DeleteMapping("/sysUser/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysUserService.delete(ids));
+    public ResponseResult deleteUser(@PathVariable Long[] ids) {
+        return getResult(sysUserService.deleteUser(ids));
     }
 
     /**
@@ -73,7 +73,7 @@ public class SysUserController extends BaseController {
         registerUserInfo.setPassword(sysUser.getPassword());
         registerUserInfo.setSex(sysUser.getSex());
         registerUserInfo.setPhoneNumber(sysUser.getPhoneNumber());
-        return getResult(sysUserService.add(registerUserInfo));
+        return getResult(sysUserService.addUser(registerUserInfo));
     }
 
 }

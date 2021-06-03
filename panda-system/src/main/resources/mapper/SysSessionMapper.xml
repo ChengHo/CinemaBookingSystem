@@ -16,8 +16,8 @@
         <result property="sessionSeats" column="session_seats"></result>
         <result property="sessionTips" column="session_tips"></result>
         <result property="seatNums" column="seat_nums"></result>
-        <association property="sysHall" column="hallId=hall_id" select="com.panda.system.mapper.SysHallMapper.findById"></association>
-        <association property="sysMovie" column="movie_id" select="com.panda.system.mapper.SysMovieMapper.findById"></association>
+        <association property="sysHall" column="hallId=hall_id" select="com.panda.system.mapper.SysHallMapper.findHallById"></association>
+        <association property="sysMovie" column="movie_id" select="com.panda.system.mapper.SysMovieMapper.findMovieById"></association>
     </resultMap>
 
     <resultMap id="SysSessionMap" type="SysSession">
@@ -59,7 +59,7 @@
         </where>
     </select>
 
-    <select id="findByMovieIdOrHallId" parameterType="SysSession" resultMap="SysSessionMap">
+    <select id="findSessionByMovieIdOrHallId" parameterType="SysSession" resultMap="SysSessionMap">
         select * from sys_session
         <where>
             del_state = 0 and deadline &gt; SYSDATE()
@@ -68,19 +68,15 @@
         </where>
     </select>
 
-    <select id="findById" parameterType="long" resultMap="SysSessionResult">
+    <select id="findSessionById" parameterType="long" resultMap="SysSessionResult">
         select * from sys_session where session_id = #{id}
     </select>
 
-    <select id="findOne" parameterType="long" resultType="SysSession">
+    <select id="findOneSession" parameterType="long" resultType="SysSession">
         select * from sys_session where session_id = #{id}
     </select>
 
-    <update id="add" parameterType="SysSession">
-        <!-- 将添加后的主键id传回原对象 -->
-        <selectKey keyProperty="sessionId" keyColumn="session_id" resultType="long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
+    <update id="addSession" parameterType="SysSession">
         insert into sys_session(
             hall_id, language_version, movie_id, play_time, end_time, deadline, session_date, session_price,
             <if test="sessionTips != null and sessionTips != ''">session_tips, </if>
@@ -92,7 +88,7 @@
         )
     </update>
 
-    <update id="update" parameterType="SysSession">
+    <update id="updateSession" parameterType="SysSession">
         update sys_session
         set
         <if test="hallId != null and hallId != 0">hall_id = #{hallId},</if>
@@ -109,19 +105,11 @@
         where session_id = #{sessionId}
     </update>
 
-    <update id="delete" parameterType="long">
+    <update id="deleteSession" parameterType="long">
         update sys_session set del_state = 1 where session_id = #{sessionId}
     </update>
-    
-<!--    <select id="findByCinemaAndMovie" resultMap="SysSessionMap">-->
-<!--        select ss.*, sh.* from sys_movie sm-->
-<!--        join sys_session ss on sm.movie_id = ss.movie_id-->
-<!--        join sys_hall sh on ss.hall_id = sh.hall_id and ss.cinema_id = sh.cinema_id-->
-<!--        where ss.cinema_id = #{cinemaId} and sm.movie_id = #{movieId} and ss.session_date &gt;= CURDATE() and ss.session_date &lt; ADDDATE(curdate(),5) and session_state = 1-->
-<!--        order by session_date-->
-<!--    </select>-->
 
-    <select id="findByCinemaAndMovie" resultMap="SysSessionMap">
+    <select id="findSessionByMovieId" resultMap="SysSessionMap">
         select ss.*, sh.* from sys_movie sm
         join sys_session ss on sm.movie_id = ss.movie_id
         join sys_hall sh on ss.hall_id = sh.hall_id

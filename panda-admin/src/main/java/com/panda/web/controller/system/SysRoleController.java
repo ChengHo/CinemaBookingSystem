@@ -17,30 +17,30 @@ public class SysRoleController extends BaseController {
     SysRoleServiceImpl sysRoleService;
 
     @GetMapping("/sysRole")
-    public ResponseResult findAll() {
+    public ResponseResult findAllRoles() {
         startPage();
-        List<SysRole> data = sysRoleService.findAll();
+        List<SysRole> data = sysRoleService.findAllRoles();
         return getResult(data);
     }
 
     @GetMapping("/sysRole/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysRoleService.findById(id));
+    public ResponseResult findRoleById(@PathVariable Long id) {
+        return getResult(sysRoleService.findRoleById(id));
     }
 
     @PostMapping("/sysRole")
-    public ResponseResult add(@Validated @RequestBody SysRole sysRole) {
-        return getResult(sysRoleService.add(sysRole));
+    public ResponseResult addRole(@Validated @RequestBody SysRole sysRole) {
+        return getResult(sysRoleService.addRole(sysRole));
     }
 
     @PutMapping("/sysRole")
-    public ResponseResult update(@Validated @RequestBody SysRole sysRole) {
-        return getResult(sysRoleService.update(sysRole));
+    public ResponseResult updateRole(@Validated @RequestBody SysRole sysRole) {
+        return getResult(sysRoleService.updateRole(sysRole));
     }
 
     @DeleteMapping("/sysRole/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysRoleService.delete(ids));
+    public ResponseResult deleteRole(@PathVariable Long[] ids) {
+        return getResult(sysRoleService.deleteRole(ids));
     }
 
     /**

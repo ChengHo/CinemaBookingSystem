@@ -5,7 +5,6 @@ import { Message }from 'element-ui'
 import Login from "../views/Login";
 import Welcome from "../views/Welcome";
 import Register from "../views/Register";
-import ForgetPassword from "../views/ForgetPassword";
 import Error404 from "../views/Error404";
 
 import Home from "../views/home/Home";
@@ -119,10 +118,6 @@ const routes = [
   {
     path: '/register',
     component: Register
-  },
-  {
-    path: '/forgetPassword',
-    component: ForgetPassword
   },
   {
     path: '/*',

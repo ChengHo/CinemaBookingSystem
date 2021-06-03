@@ -17,9 +17,9 @@ public class SysResourceController extends BaseController {
     SysResourceServiceImpl sysResourceService;
 
     @GetMapping("/sysResource")
-    public ResponseResult findAll() {
+    public ResponseResult findAllResources() {
         startPage();
-        List<SysResource> data = sysResourceService.findAll();
+        List<SysResource> data = sysResourceService.findAllResources();
         return getResult(data);
     }
 
@@ -29,8 +29,8 @@ public class SysResourceController extends BaseController {
     }
 
     @GetMapping("/sysResource/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysResourceService.findById(id));
+    public ResponseResult findResourceById(@PathVariable Long id) {
+        return getResult(sysResourceService.findResourceById(id));
     }
 
     @GetMapping("/sysResource/tree")
@@ -39,18 +39,18 @@ public class SysResourceController extends BaseController {
     }
 
     @PostMapping("/sysResource")
-    public ResponseResult add(@Validated @RequestBody SysResource sysResource) {
-        return getResult(sysResourceService.add(sysResource));
+    public ResponseResult addResource(@Validated @RequestBody SysResource sysResource) {
+        return getResult(sysResourceService.addResource(sysResource));
     }
 
     @PutMapping("/sysResource")
-    public ResponseResult update(@Validated @RequestBody SysResource sysResource) {
-        return getResult(sysResourceService.update(sysResource));
+    public ResponseResult updateResource(@Validated @RequestBody SysResource sysResource) {
+        return getResult(sysResourceService.updateResource(sysResource));
     }
 
     @DeleteMapping("/sysResource/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysResourceService.delete(ids));
+    public ResponseResult deleteResource(@PathVariable Long[] ids) {
+        return getResult(sysResourceService.deleteResource(ids));
     }
 
 }

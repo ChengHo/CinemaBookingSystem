@@ -85,6 +85,7 @@ export default {
     async getMenuList(){
       const loginUser = JSON.parse(window.sessionStorage.getItem("loginUser"))
       this.menuList = loginUser.sysUser.sysRole.children
+      this.$router.push('/cinema')
     },
     // 菜单展开与闭合：点击事件
     toggleCollapse() {

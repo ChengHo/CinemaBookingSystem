@@ -16,31 +16,31 @@ public class SysBillServiceImpl implements SysBillService {
     private SysBillMapper sysBillMapper;
 
     @Override
-    public List<SysBill> findAll(SysBill sysBill) {
-        return sysBillMapper.findAll(sysBill);
+    public List<SysBill> findAllBills(SysBill sysBill) {
+        return sysBillMapper.findAllBills(sysBill);
     }
 
     @Override
-    public SysBill findById(Long id) {
-        return sysBillMapper.findById(id);
+    public SysBill findBillById(Long id) {
+        return sysBillMapper.findBillById(id);
     }
 
     @Override
-    public Object add(SysBill sysBill) {
-        int rows = sysBillMapper.add(sysBill);
+    public Object addBill(SysBill sysBill) {
+        int rows = sysBillMapper.addBill(sysBill);
         return rows > 0 ? sysBill : rows;
     }
 
     @Override
-    public int update(SysBill sysBill) {
-        return sysBillMapper.update(sysBill);
+    public int updateBill(SysBill sysBill) {
+        return sysBillMapper.updateBill(sysBill);
     }
 
     @Override
-    public int delete(Long[] ids) {
+    public int deleteBill(Long[] ids) {
         int rows = 0;
         for (Long id : ids) {
-            rows += sysBillMapper.delete(id);
+            rows += sysBillMapper.deleteBill(id);
         }
         return rows;
     }

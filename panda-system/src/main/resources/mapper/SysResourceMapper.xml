@@ -56,7 +56,7 @@
         </collection>
     </resultMap>
 
-    <select id="findAll" resultMap="findAllMap">
+    <select id="findAllResources" resultMap="findAllMap">
         select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.parent_id cparent_id
         from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id
     </select>
@@ -64,10 +64,6 @@
     <select id="findWithChildren" resultMap="findWithChildrenMap">
         select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.level clevel, sr1.path cpath, sr1.parent_id cparent_id
         from sys_resource sr join sys_resource sr1 on sr.resource_id = sr1.parent_id where sr.level = 1
-    </select>
-
-    <select id="findByParentId" resultType="SysResource">
-        select * from sys_resource where parent_id = #{id}
     </select>
 
     <select id="findAllWithAllChildren" resultMap="allChildrenMap">
@@ -78,12 +74,20 @@
         where sr.level = 1
     </select>
 
-    <select id="findById" resultMap="findAllMap" parameterType="long">
+<!--    <select id="findAllWithAllChildren" resultMap="allChildrenMap">-->
+<!--        select sr.*, sr1.resource_id sid, sr1.resource_name sname, sr1.path spath, sr1.level slevel, sr1.parent_id sparent_id from sys_resource_copy sr-->
+<!--        left join sys_resource_copy sr1 on sr1.parent_id = sr.resource_id-->
+<!--        where sr.level = 1;-->
+<!--    </select>-->
+
+
+
+    <select id="findResourceById" resultMap="findAllMap" parameterType="long">
         select sr.*, sr1.resource_id cid, sr1.resource_name cname, sr1.path cpath, sr1.level clevel, sr1.parent_id cparent_id
         from sys_resource sr left join sys_resource sr1 on sr.parent_id = sr1.resource_id where sr.resource_id = #{id}
     </select>
 
-    <update id="add" parameterType="SysResource">
+    <update id="addResource" parameterType="SysResource">
         insert into sys_resource(
         <if test="id != null and id != 0">resource_id, </if>
         resource_name, path, level, parent_id)
@@ -92,11 +96,11 @@
         #{name}, #{path}, #{level}, #{parentId})
     </update>
 
-    <update id="update" parameterType="SysResource">
+    <update id="updateResource" parameterType="SysResource">
         update sys_resource set resource_name = #{name}, path = #{path}, level = #{level}, parent_id = #{parentId} where resource_id = #{id}
     </update>
 
-    <update id="delete" parameterType="Long">
+    <update id="deleteResource" parameterType="Long">
         delete from sys_resource where resource_id = #{id}
     </update>
 </mapper>

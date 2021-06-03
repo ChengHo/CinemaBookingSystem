@@ -56,7 +56,7 @@ public class CustomerRealm extends AuthorizingRealm {
             log.error("token无效(空''或者null都不行!)");
             throw new AuthenticationException("token无效");
         }
-        SysUser user = sysUserService.findByName(username);
+        SysUser user = sysUserService.findUserByName(username);
         if (user == null) {
             log.error("用户不存在)");
             throw new AuthenticationException("用户不存在");

@@ -9,25 +9,6 @@
         <result property="roleName" column="role_name"></result>
         <result property="roleDesc" column="role_desc"></result>
         <collection property="children" column="role_id" ofType="SysResource" select="com.panda.system.mapper.SysRoleMapper.findByRoleId">
-<!--            <id property="id" column="resource_id"></id>-->
-<!--            <result property="name" column="resource_name"></result>-->
-<!--            <result property="path" column="path"></result>-->
-<!--            <result property="level" column="level"></result>-->
-<!--            <result property="parentId" column="parent_id"></result>-->
-<!--            <collection property="children" column="resource_id" ofType="SysResource">-->
-<!--                <id property="id" column="sid"></id>-->
-<!--                <result property="name" column="sname"></result>-->
-<!--                <result property="path" column="spath"></result>-->
-<!--                <result property="level" column="slevel"></result>-->
-<!--                <result property="parentId" column="sparent_id"></result>-->
-<!--                <collection property="children" column="resource_id" ofType="SysResource">-->
-<!--                    <id property="id" column="gsid"></id>-->
-<!--                    <result property="name" column="gsname"></result>-->
-<!--                    <result property="path" column="gspath"></result>-->
-<!--                    <result property="level" column="gslevel"></result>-->
-<!--                    <result property="parentId" column="gsparent_id"></result>-->
-<!--                </collection>-->
-<!--            </collection>-->
         </collection>
     </resultMap>
 
@@ -53,7 +34,7 @@
         </collection>
     </resultMap>
 
-    <select id="findAll" resultMap="SysRoleMap">
+    <select id="findAllRoles" resultMap="SysRoleMap">
         select * from sys_role sysr
     </select>
 
@@ -68,19 +49,19 @@
                     where sr.level = 1) resources on srr.resource_id = resources.gsid where sysr.role_id = #{id}
     </select>
 
-    <select id="findById" resultType="SysRole" parameterType="long">
+    <select id="findRoleById" resultType="SysRole" parameterType="long">
         select * from sys_role where role_id = #{id}
     </select>
 
-    <update id="add" parameterType="SysRole">
+    <update id="addRole" parameterType="SysRole">
         insert into sys_role(role_name, role_desc) values(#{roleName}, #{roleDesc})
     </update>
 
-    <update id="update" parameterType="SysRole">
+    <update id="updateRole" parameterType="SysRole">
         update sys_role set role_name = #{roleName}, role_desc = #{roleDesc} where role_id = #{roleId}
     </update>
 
-    <update id="delete" parameterType="Long">
+    <update id="deleteRole" parameterType="Long">
         delete from sys_role where role_id = #{id}
     </update>
 
@@ -99,4 +80,5 @@
     <select id="findAllRights" resultType="Long" parameterType="Long">
         select resource_id id from sys_role_resource where role_id = #{roleId}
     </select>
+
 </mapper>

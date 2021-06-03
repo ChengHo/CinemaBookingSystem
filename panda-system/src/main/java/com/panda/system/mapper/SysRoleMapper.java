@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface SysRoleMapper {
 
-    List<SysRole> findAll();
+    List<SysRole> findAllRoles();
 
-    SysRole findById(Long id);
+    SysRole findRoleById(Long id);
 
-    int add(SysRole sysRole);
+    int addRole(SysRole sysRole);
 
-    int update(SysRole sysRole);
+    int updateRole(SysRole sysRole);
 
-    int delete(Long id);
+    int deleteRole(Long id);
 
     //给当前角色分配权限
     int addRight(Long roleId, Long resourceId);

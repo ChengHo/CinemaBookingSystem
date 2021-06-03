@@ -6,17 +6,17 @@ import java.util.List;
 
 
 public interface SysResourceService {
-    List<SysResource> findAll();
+    List<SysResource> findAllResources();
 
     List<SysResource> findWithChildren();
 
     List<SysResource> findAllWithAllChildren();
 
-    SysResource findById(Long id);
+    SysResource findResourceById(Long id);
 
-    int add(SysResource sysResource);
+    int addResource(SysResource sysResource);
 
-    int update(SysResource sysResource);
+    int updateResource(SysResource sysResource);
 
-    int delete(Long[] ids);
+    int deleteResource(Long[] ids);
 }

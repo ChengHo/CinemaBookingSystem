@@ -18,36 +18,18 @@
         </el-form-item>
         <!-- 按扭区域 -->
         <el-form-item class="btns">
-<!--          <el-button size="medium" :round="true" type="primary" @click="useVerify">点击登录</el-button>-->
           <el-button size="medium" :round="true" type="primary" @click="login">点击登录</el-button>
           <el-button size="medium" :round="true" type="warning" @click="registerAccount">注册帐号</el-button>
-        </el-form-item>
-        <el-form-item >
-          <a @click="forgetPassword" style="float: right; color: red" >忘记密码？</a>
         </el-form-item>
       </el-form>
     </div>
 
-    <div>
-      <!-- 拼图验证码 -->
-      <Verify
-          @success="success"
-          :mode="'pop'"
-          :captchaType="'blockPuzzle'"
-          :imgSize="{ width: '330px', height: '155px' }"
-          ref="verify" >
-      </Verify>
-    </div>
   </div>
 </template>
 
 <script>
-import Verify from "./../components/verifition/Verify";
 export default {
   name: "Login",
-  components: {
-    Verify
-  },
   data() {
     return {
       // 登录表单数据对象
@@ -80,9 +62,6 @@ export default {
     success(params) {
       this.login()
     },
-    useVerify(){
-      this.$refs.verify.show()
-    },
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if(!valid) return;
@@ -106,9 +85,6 @@ export default {
     },
     registerAccount() {
       this.$router.push('/register')
-    },
-    forgetPassword() {
-      this.$router.push('/forgetPassword')
     }
   }
 }
@@ -123,8 +99,7 @@ export default {
 
 .login_box{
   width: 450px;
-  /*height: 300px;*/
-  height: 340px;
+  height: 300px;
   background-color: #fff;
   border-radius: 3px;
   position: absolute;

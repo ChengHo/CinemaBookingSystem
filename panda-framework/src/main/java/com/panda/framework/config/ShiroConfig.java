@@ -36,8 +36,6 @@ public class ShiroConfig {
         map.put("/sysUser/login", "anon");
         // 放行图片查询
         map.put("/images/**", "anon");
-        // 放行验证码请求
-        map.put("/captcha/**", "anon");
         // 请求这个资源需要认证与授权
         map.put("/sysCinema/update", "jwt");
         // 放行影院查询请求

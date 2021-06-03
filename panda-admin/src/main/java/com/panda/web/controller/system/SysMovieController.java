@@ -22,30 +22,30 @@ public class SysMovieController extends BaseController {
     private SysMovieServiceImpl sysMovieService;
 
     @GetMapping("/sysMovie/find")
-    public ResponseResult findAll(SysMovieVo sysMovieVo) {
+    public ResponseResult findAllMovies(SysMovieVo sysMovieVo) {
         startPage();
-        List<SysMovie> data = sysMovieService.findAll(sysMovieVo);
+        List<SysMovie> data = sysMovieService.findAllMovies(sysMovieVo);
         return getResult(data);
     }
 
     @GetMapping("/sysMovie/find/{id}")
-    public ResponseResult findById(@PathVariable Long id) {
-        return getResult(sysMovieService.findById(id));
+    public ResponseResult findMovieById(@PathVariable Long id) {
+        return getResult(sysMovieService.findMovieById(id));
     }
 
     @PostMapping("/sysMovie")
-    public ResponseResult add(@Validated @RequestBody SysMovie sysMovie) {
-        return getResult(sysMovieService.add(sysMovie));
+    public ResponseResult addMovie(@Validated @RequestBody SysMovie sysMovie) {
+        return getResult(sysMovieService.addMovie(sysMovie));
     }
 
     @PutMapping("/sysMovie")
-    public ResponseResult update(@Validated @RequestBody SysMovie sysMovie) {
-        return getResult(sysMovieService.update(sysMovie));
+    public ResponseResult updateMovie(@Validated @RequestBody SysMovie sysMovie) {
+        return getResult(sysMovieService.updateMovie(sysMovie));
     }
 
     @DeleteMapping("/sysMovie/{ids}")
-    public ResponseResult delete(@PathVariable Long[] ids) {
-        return getResult(sysMovieService.delete(ids));
+    public ResponseResult deleteMovie(@PathVariable Long[] ids) {
+        return getResult(sysMovieService.deleteMovie(ids));
     }
 
     @GetMapping("/sysMovie/find/rankingList/{listId}")

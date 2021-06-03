@@ -781,7 +781,10 @@ export default {
       const _this = this
       await axios.post('sysMovieToCategory/'+this.movieId+'/'+this.selectedMovieCategory).then(resp=>{
         console.log(resp)
-
+        if (resp.data.code !==200) return this.$alert('添加电影类别失败', '添加电影类别异常通知', {
+          confirmButtonText: '我知道了'
+        })
+        this.$message.success("添加电影类别成功")
       })
       axios.get('sysMovie/find/'+this.movieId).then(response=>{
         _this.editCategoryForm = response.data.data.movieCategoryList

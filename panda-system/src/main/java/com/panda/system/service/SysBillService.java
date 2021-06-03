@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface SysBillService {
 
-    List<SysBill> findAll(SysBill sysBill);
+    List<SysBill> findAllBills(SysBill sysBill);
 
-    SysBill findById(Long id);
+    SysBill findBillById(Long id);
 
-    Object add(SysBill sysBill);
+    Object addBill(SysBill sysBill);
 
-    int update(SysBill sysBill);
+    int updateBill(SysBill sysBill);
 
-    int delete(Long[] ids);
+    int deleteBill(Long[] ids);
 
     List<SysBill> findTimeoutBill();
 

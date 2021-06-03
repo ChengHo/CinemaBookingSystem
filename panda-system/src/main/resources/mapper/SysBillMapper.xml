@@ -8,11 +8,11 @@
         <id property="billId" column="bill_id"></id>
         <result property="userId" column="user_id"></result>
         <result property="sessionId" column="session_id"></result>
-        <association property="sysSession" column="session_id" select="com.panda.system.mapper.SysSessionMapper.findById"></association>
-        <association property="sysUser" column="user_id" select="com.panda.system.mapper.SysUserMapper.findById"></association>
+        <association property="sysSession" column="session_id" select="com.panda.system.mapper.SysSessionMapper.findSessionById"></association>
+        <association property="sysUser" column="user_id" select="com.panda.system.mapper.SysUserMapper.findUserById"></association>
     </resultMap>
 
-    <select id="findAll" parameterType="SysBill" resultMap="BillMap">
+    <select id="findAllBills" parameterType="SysBill" resultMap="BillMap">
         select * from sys_bill
         <where>
             <if test="payState != null"> and pay_state = #{payState} </if>
@@ -29,7 +29,7 @@
         order by bill_id desc
     </select>
 
-    <select id="findById" parameterType="long" resultMap="BillMap">
+    <select id="findBillById" parameterType="long" resultMap="BillMap">
         select * from sys_bill where bill_id = #{id}
     </select>
 
@@ -37,11 +37,7 @@
         select * from sys_bill where sysdate() >= deadline and cancel_state = 0 and pay_state = 0
     </select>
 
-    <update id="add" parameterType="SysBill">
-        <!-- 将添加后的主键id传回原对象 -->
-        <selectKey keyProperty="billId" keyColumn="bill_id" resultType="long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
+    <update id="addBill" parameterType="SysBill">
         insert into sys_bill (
             <if test="payState != null">pay_state, </if>
             user_id, session_id, seats, create_time, deadline
@@ -54,7 +50,7 @@
         )
     </update>
 
-    <update id="update" parameterType="SysBill">
+    <update id="updateBill" parameterType="SysBill">
         update sys_bill set
         <if test="payState != null">pay_state = #{payState}, </if>
         <if test="cancelState != null">cancel_state = #{cancelState}, </if>
@@ -65,7 +61,7 @@
         where bill_id = #{billId}
     </update>
 
-    <update id="delete" parameterType="long">
+    <update id="deleteBill" parameterType="long">
         delete from sys_bill where bill_id = #{id}
     </update>
 
