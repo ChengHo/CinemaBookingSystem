@@ -93,17 +93,11 @@
 			<artifactId>java-jwt</artifactId>
 		</dependency>
 
-		<!-- anji验证码 -->
-		<dependency>
-			<groupId>com.github.anji-plus</groupId>
-			<artifactId>captcha-spring-boot-starter</artifactId>
-		</dependency>
-
-		<!-- anji验证码使用json -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 		</dependency>
+
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>

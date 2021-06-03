@@ -17,7 +17,7 @@
           <el-button type="primary" @click="addDialogVisible = true">添加类别</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="danger" @click="multipleDelete" v-has>批量删除类别</el-button>
+          <el-button type="danger" @click="multipleDelete">批量删除类别</el-button>
         </el-col>
       </el-row>
 

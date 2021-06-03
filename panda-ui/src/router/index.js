@@ -36,15 +36,15 @@ const routes = [
     redirect: '/welcome',
     children: [
       { path: '/welcome', component: Welcome },
-      { path: '/cinema', component: CinemaInfo, meta: { btnPermission: 'admin' }},
-      { path: '/movie', component: MovieInfo, meta: { btnPermission: 'admin' }},
-      { path: '/movieCategory', component: MovieCategory, meta: { btnPermission: 'admin' }},
-      { path: '/hall', component: HallInfo, meta: { btnPermission: 'admin' }},
-      { path: '/session', component: SessionInfo, meta: { btnPermission: 'admin' }},
-      { path: '/user', component: UserInfo, meta: { btnPermission: 'admin' }},
-      { path: '/bill', component: BillInfo, meta: { btnPermission: 'admin' }},
-      { path: '/role', component: RoleInfo, meta: { btnPermission: 'admin' }},
-      { path: '/resource', component: ResourceInfo, meta: { btnPermission: 'admin' }}
+      { path: '/cinema', component: CinemaInfo},
+      { path: '/movie', component: MovieInfo},
+      { path: '/movieCategory', component: MovieCategory},
+      { path: '/hall', component: HallInfo},
+      { path: '/session', component: SessionInfo},
+      { path: '/user', component: UserInfo},
+      { path: '/bill', component: BillInfo},
+      { path: '/role', component: RoleInfo},
+      { path: '/resource', component: ResourceInfo}
     ]
   },
   {

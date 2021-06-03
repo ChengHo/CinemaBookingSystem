@@ -37,9 +37,7 @@
 		<commons.io.version>2.5</commons.io.version>
 		<shiro.version>1.5.3</shiro.version>
 		<java-jwt.version>3.4.0</java-jwt.version>
-		<captcha.verions>1.2.4</captcha.verions>
 		<fastjson.version>1.2.74</fastjson.version>
-<!--		<quartz.version>2.3.2</quartz.version>-->
 	</properties>
 
 	<!-- 只统一管理版本，实际依赖在各个模块自身中实现 -->
@@ -91,13 +89,6 @@
 				<groupId>com.auth0</groupId>
 				<artifactId>java-jwt</artifactId>
 				<version>${java-jwt.version}</version>
-			</dependency>
-
-			<!-- anjiplus验证码 -->
-			<dependency>
-				<groupId>com.github.anji-plus</groupId>
-				<artifactId>captcha-spring-boot-starter</artifactId>
-				<version>1.2.4</version>
 			</dependency>
 
 			<dependency>

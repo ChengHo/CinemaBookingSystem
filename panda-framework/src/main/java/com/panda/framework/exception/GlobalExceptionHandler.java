@@ -22,7 +22,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    //定义Logger，方便控制台显示错误信息
+    // Logger控制台显示错误信息
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
