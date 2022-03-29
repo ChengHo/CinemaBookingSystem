@@ -16,3 +16,19 @@
 分页插件：pageHelper
 
 
+vue安装对应的版本:
+
+nodejs 14.xx
+
+npm 6.xx
+
+vue 2.x
+
+C:\Users\dell>node -v
+v14.17.6
+
+C:\Users\dell>npm -v
+6.14.15
+
+C:\Users\dell>vue -V
+2.9.6
