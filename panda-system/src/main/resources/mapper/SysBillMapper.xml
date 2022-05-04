@@ -38,6 +38,10 @@
     </select>
 
     <update id="addBill" parameterType="SysBill">
+        <!-- 将添加后的主键id传回原对象 -->
+        <selectKey keyProperty="billId" keyColumn="bill_id" resultType="long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
         insert into sys_bill (
             <if test="payState != null">pay_state, </if>
             user_id, session_id, seats, create_time, deadline
